@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Lygl.UI.UserManager.ResetPwdView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+        xmlns:csla="http://schemas.lhotka.net/4.1.0/xaml" xmlns:local="clr-namespace:Lygl.UI.UserManager" 
+        xmlns:Lygl_UI_Properties="clr-namespace:Lygl.UI.Properties" 
+        mc:Ignorable="d"        
+     Background="Transparent" d:DesignHeight="307" d:DesignWidth="423">
+   
+    <Border CornerRadius="10"
+        BorderBrush="Gray"
+        BorderThickness="3"
+        
+        Margin="24"
+        Padding="4" Background="Orange"  >
+        <Border.Effect>
+            <DropShadowEffect Color="Gray" Opacity=".50" ShadowDepth="16" />
+        </Border.Effect>	
+        <Grid >
+            <Grid.ColumnDefinitions>
+            	<ColumnDefinition Width="85" />
+            	<ColumnDefinition Width="240" />
+                <ColumnDefinition Width="10*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+            	<RowDefinition />
+            	<RowDefinition />
+            	<RowDefinition />
+            	<RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label FontSize="20" Margin="11,0,119,40" FontWeight="Normal" Content="设定新密码" Grid.Column="1" Grid.RowSpan="2" />
+            <Label x:Name="OrgLabel" Grid.Row="1" Content="原密码：" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" />
+            <PasswordBox x:Name="OrgPassword" DataContext="{Binding UpdateSourceTrigger=PropertyChanged}" Margin="2,4,2,0" cal:Message.Attach="[PasswordChanged]=[PasswordOrgChanged($source,$eventArgs)]" ToolTip="输入密码" Grid.Column="1" Grid.Row="1" />
+
+            <Label Grid.Row="2" Content="密码：" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" />
+            <PasswordBox Grid.Column="1" Grid.Row="2" ToolTip="输入密码"  cal:Message.Attach="[PasswordChanged]=[PasswordNew1Changed($source,$eventArgs)]" DataContext="{Binding UpdateSourceTrigger=PropertyChanged}" Margin="2" />
+            <!--<TextBox Grid.Column="1" Grid.Row="2" ToolTip="输入密码" x:Name="txtPassword"  DataContext="{Binding UpdateSourceTrigger=PropertyChanged}" />-->
+
+            
+            <Label Content="密码：" Margin="0,0,0,-1" Grid.Row="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" />
+            <PasswordBox DataContext="{Binding UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="1" Margin="2" cal:Message.Attach="[PasswordChanged]=[PasswordNew2Changed($source,$eventArgs)]" ToolTip="输入密码" Grid.Column="1" Grid.Row="3" />
+            <Button  cal:Message.Attach="[Click]=[ResetPwd()]" AutomationProperties.AutomationId="login" IsDefault="True" Content="确定" Width="78" Grid.Column="1" Margin="35,6,127,6" Grid.Row="4">
+                <Button.Effect>
+                    <DropShadowEffect Color="Gray" Opacity=".50" ShadowDepth="8" />
+                </Button.Effect>
+            </Button>
+            <Button x:Name="btnCancel" Margin="137,6,25,6"  Width="78" IsCancel="True" Content="取消" Grid.Row="4" Grid.Column="1">
+                <Button.Effect>
+                    <DropShadowEffect Color="Gray" Opacity=".50" ShadowDepth="8" />
+                </Button.Effect>
+            </Button>
+                   </Grid>
+    </Border>
+</UserControl>

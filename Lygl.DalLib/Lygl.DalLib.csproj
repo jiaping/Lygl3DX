@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{54B2CBAA-A067-45C6-8D20-9EEB664E765C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lygl.DalLib</RootNamespace>
+    <AssemblyName>Lygl.DalLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>85cabbc4</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=4.5.601.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CSLA-Core.4.5.601\lib\net45\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Browse\AreaRO.cs" />
+    <Compile Include="Browse\AreaRO.Designer.cs">
+      <DependentUpon>AreaRO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Browse\AreaROL.cs" />
+    <Compile Include="Browse\AreaROL.Designer.cs">
+      <DependentUpon>AreaROL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Browse\MxRO.cs" />
+    <Compile Include="Browse\MxRO.Designer.cs">
+      <DependentUpon>MxRO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Browse\MxROL.cs" />
+    <Compile Include="Browse\MxROL.Designer.cs">
+      <DependentUpon>MxROL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Browse\PathRO.cs" />
+    <Compile Include="Browse\PathRO.Designer.cs">
+      <DependentUpon>PathRO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Browse\PathROL.cs" />
+    <Compile Include="Browse\PathROL.Designer.cs">
+      <DependentUpon>PathROL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\businessDd.cs" />
+    <Compile Include="Business\businessDd.Designer.cs" />
+    <Compile Include="Business\BusinessDdList.cs" />
+    <Compile Include="Business\BusinessDdList.Designer.cs">
+      <DependentUpon>BusinessDdList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\BusinessGlf.cs" />
+    <Compile Include="Business\BusinessGlf.Designer.cs">
+      <DependentUpon>BusinessGlf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\BusinessGlfList.cs" />
+    <Compile Include="Business\BusinessGlfList.Designer.cs">
+      <DependentUpon>BusinessGlfList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\BusinessGm.cs" />
+    <Compile Include="Business\BusinessGm.Designer.cs">
+      <DependentUpon>BusinessGm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\BusinessLb.cs" />
+    <Compile Include="Business\BusinessLb.Designer.cs">
+      <DependentUpon>BusinessLb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\BusinessQtsf.cs" />
+    <Compile Include="Business\BusinessQtsf.Designer.cs">
+      <DependentUpon>BusinessQtsf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\BusinessQtsfList.cs" />
+    <Compile Include="Business\BusinessQtsfList.Designer.cs">
+      <DependentUpon>BusinessQtsfList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\BusinessYd.cs" />
+    <Compile Include="Business\BusinessYd.Designer.cs">
+      <DependentUpon>BusinessYd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\BwSz.cs" />
+    <Compile Include="Business\BwSz.Designer.cs">
+      <DependentUpon>BwSz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\BwSzList.cs" />
+    <Compile Include="Business\BwSzList.Designer.cs">
+      <DependentUpon>BwSzList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\IBusinessHasPayFlag.cs" />
+    <Compile Include="Business\LbItem.cs" />
+    <Compile Include="Business\LbItem.Designer.cs">
+      <DependentUpon>LbItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\LbItemList.cs" />
+    <Compile Include="Business\LbItemList.Designer.cs">
+      <DependentUpon>LbItemList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\QtsfItem.cs" />
+    <Compile Include="Business\QtsfItem.Designer.cs">
+      <DependentUpon>QtsfItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Business\QtsfItemList.cs" />
+    <Compile Include="Business\QtsfItemList.Designer.cs">
+      <DependentUpon>QtsfItemList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\CommonListBase.cs" />
+    <Compile Include="Core\IMx.cs" />
+    <Compile Include="CustomRule\CalcTotal.cs" />
+    <Compile Include="DBCommand\UpdateAllMxStatusCommand.cs" />
+    <Compile Include="Edit\AreaEdit.cs" />
+    <Compile Include="Edit\AreaEdit.Designer.cs">
+      <DependentUpon>AreaEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\ContactEdit.cs" />
+    <Compile Include="Edit\ContactEdit.Designer.cs">
+      <DependentUpon>ContactEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\ContactEditList.cs" />
+    <Compile Include="Edit\ContactEditList.Designer.cs">
+      <DependentUpon>ContactEditList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\MxEdit.cs" />
+    <Compile Include="Edit\MxEdit.Designer.cs">
+      <DependentUpon>MxEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\MxSzEdit.cs" />
+    <Compile Include="Edit\MxSzEdit.Designer.cs">
+      <DependentUpon>MxSzEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\MxSzEditList.cs" />
+    <Compile Include="Edit\MxSzEditList.Designer.cs">
+      <DependentUpon>MxSzEditList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\PathEdit.cs" />
+    <Compile Include="Edit\PathEdit.Designer.cs">
+      <DependentUpon>PathEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\Invoice.Designer.cs" />
+    <Compile Include="Invoice\InvoiceItemEdit.cs" />
+    <Compile Include="Invoice\InvoiceItemEdit.Designer.cs">
+      <DependentUpon>InvoiceItemEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceItemEditList.cs" />
+    <Compile Include="Invoice\InvoiceItemEditList.Designer.cs">
+      <DependentUpon>InvoiceItemEditList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceItemRO.cs" />
+    <Compile Include="Invoice\InvoiceItemRO.Designer.cs">
+      <DependentUpon>InvoiceItemRO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceList.cs" />
+    <Compile Include="Invoice\InvoiceList.Designer.cs">
+      <DependentUpon>InvoiceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\BusinessTypeNVL.cs" />
+    <Compile Include="NVL\BusinessTypeNVL.Designer.cs">
+      <DependentUpon>BusinessTypeNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\LbBxNVL.cs" />
+    <Compile Include="NVL\LbBxNVL.Designer.cs">
+      <DependentUpon>LbBxNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\MxStatusNVL.cs" />
+    <Compile Include="NVL\MxStatusNVL.Designer.cs">
+      <DependentUpon>MxStatusNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\MxStyleNVL.cs" />
+    <Compile Include="NVL\MxStyleNVL.Designer.cs">
+      <DependentUpon>MxStyleNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\MxTypeNVL.cs" />
+    <Compile Include="NVL\MxTypeNVL.Designer.cs">
+      <DependentUpon>MxTypeNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\MxXsNVL.cs" />
+    <Compile Include="NVL\MxXsNVL.Designer.cs">
+      <DependentUpon>MxXsNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\ProductLb.cs" />
+    <Compile Include="NVL\ProductLb.Designer.cs">
+      <DependentUpon>ProductLb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\ProductLbColl.cs" />
+    <Compile Include="NVL\ProductLbColl.Designer.cs">
+      <DependentUpon>ProductLbColl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\productQtsf.cs" />
+    <Compile Include="NVL\productQtsf.Designer.cs">
+      <DependentUpon>productQtsf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\ProductQtsfColl.cs" />
+    <Compile Include="NVL\ProductQtsfColl.Designer.cs">
+      <DependentUpon>ProductQtsfColl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\SexNVL.cs" />
+    <Compile Include="NVL\SexNVL.Designer.cs">
+      <DependentUpon>SexNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\UserNameNVL.cs" />
+    <Compile Include="NVL\UserNameNVL.Designer.cs">
+      <DependentUpon>UserNameNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\UserNVL.cs" />
+    <Compile Include="NVL\UserNVL.Designer.cs">
+      <DependentUpon>UserNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NVL\YszgxNVL.cs" />
+    <Compile Include="NVL\YszgxNVL.Designer.cs">
+      <DependentUpon>YszgxNVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seek\LogRO.cs" />
+    <Compile Include="Seek\LogRO.Designer.cs">
+      <DependentUpon>LogRO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Seek\LogROL.cs" />
+    <Compile Include="Seek\LogROL.Designer.cs">
+      <DependentUpon>LogROL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistic\CriteriaGetByUserIDStartEndDate.cs" />
+    <Compile Include="Statistic\SeekGlfDq.cs" />
+    <Compile Include="Statistic\SeekGlfList.cs" />
+    <Compile Include="Statistic\StatisticBusinessList.cs" />
+    <Compile Include="Statistic\StatisticLy.cs" />
+    <Compile Include="Statistic\StatisticSrList.cs" />
+    <Compile Include="UserManager\CustomIdentity.cs" />
+    <Compile Include="UserManager\CustomPrincipal.cs" />
+    <Compile Include="UserManager\Role.cs" />
+    <Compile Include="UserManager\Role.Designer.cs">
+      <DependentUpon>Role.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\RoleList.cs" />
+    <Compile Include="UserManager\RoleList.Designer.cs">
+      <DependentUpon>RoleList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\RolePermission.cs" />
+    <Compile Include="UserManager\RolePermission.Designer.cs">
+      <DependentUpon>RolePermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\RolePermissionList.cs" />
+    <Compile Include="UserManager\RolePermissionList.Designer.cs">
+      <DependentUpon>RolePermissionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\RoleUser.cs" />
+    <Compile Include="UserManager\RoleUser.Designer.cs">
+      <DependentUpon>RoleUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\RoleUserList.cs" />
+    <Compile Include="UserManager\RoleUserList.Designer.cs">
+      <DependentUpon>RoleUserList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\User.cs" />
+    <Compile Include="UserManager\User.Designer.cs">
+      <DependentUpon>User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\User4SetPwd.cs" />
+    <Compile Include="UserManager\User4SetPwd.Designer.cs">
+      <DependentUpon>User4SetPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\UserList.cs" />
+    <Compile Include="UserManager\UserList.Designer.cs">
+      <DependentUpon>UserList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\UserRole.cs" />
+    <Compile Include="UserManager\UserRole.Designer.cs">
+      <DependentUpon>UserRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserManager\UserRoleList.cs" />
+    <Compile Include="UserManager\UserRoleList.Designer.cs">
+      <DependentUpon>UserRoleList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Util\CommonFactory.cs" />
+    <Compile Include="Util\DatabaseLyglDB.cs" />
+    <Compile Include="Util\DataPortalHookArgs.cs" />
+    <Compile Include="Util\SecurityHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Browse\UpdateAllMxStatus.sql" />
+    <Content Include="Statistic\GetContactEditListByPhoneNum.sql" />
+    <Content Include="Statistic\GetStatisticBusinessList.sql" />
+    <Content Include="Statistic\GetStatisticSrList.sql" />
+    <Content Include="Statistic\shortct.txt" />
+    <Content Include="Statistic\StatisticAll.sql" />
+    <Content Include="Statistic\UpdateGlf-根据安葬添加管理费.sql" />
+    <Content Include="Statistic\管理费到期查询GetGlfListByDate.sql" />
+    <Content Include="Statistic\管理费到期查询GetSeekGlfList.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。启用“NuGet 程序包还原”可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

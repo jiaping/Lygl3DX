@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Lygl.UI.Seek.SeekGlfView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform">
+    <StackPanel MinWidth="454" MinHeight="256" MaxHeight="600">
+        <ContentControl Content="{StaticResource TitleAndToolbar}" DockPanel.Dock="Top" />
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <!--[SelectionChanged]=[DGMain_SelectionChanged($eventArgs)];-->
+                <DataGrid x:Name="dgMain" cal:Message.Attach="[MouseDoubleClick]=[DGMain_MouseDoubleClick($eventArgs)]" AutoGenerateColumns="false" EnableRowVirtualization="True" IsReadOnly="True" ItemsSource="{Binding dgMain, Mode=TwoWay}" Margin="10,10,6,9" RowDetailsVisibilityMode="VisibleWhenSelected" VerticalScrollBarVisibility="Auto" MaxHeight="460" HorizontalContentAlignment="Stretch" MaxWidth="500">
+                </DataGrid>
+            </Grid>
+
+            <Button cal:Message.Attach="Seek()" Content="查询" Margin="0,6,17,11" HorizontalAlignment="Right" Width="75" />
+            <DatePicker x:Name="SeekStartDate" Height="25" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="115" Margin="56,6,0,0" />
+            <DatePicker x:Name="SeekEndDate" Height="25" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="115" Margin="0,5,120,0" />
+        </Grid>
+        
+    </StackPanel>
+</UserControl>

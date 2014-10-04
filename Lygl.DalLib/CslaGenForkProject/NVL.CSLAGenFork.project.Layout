@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<CslaGeneratorUnitLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectListFilterText />
+  <ProjectListFilterType>&lt;All&gt;</ProjectListFilterType>
+  <ProjectListSortMode>None</ProjectListSortMode>
+  <ProjectListSelectedObjects>
+    <string>MxTypeNVL</string>
+  </ProjectListSelectedObjects>
+  <ObjectCollapsedCategories />
+  <ObjectPropertySort>Categorized</ObjectPropertySort>
+  <ObjectSelectedGridItem>Interfaces</ObjectSelectedGridItem>
+  <SchemaExpandedTrees />
+  <SchemaSelectedTree />
+  <SchemaExpandedNodes />
+  <SchemaSelectedNode />
+  <SchemaSelectedSprocSubNode />
+  <ActiveDocument>ProjectProperties</ActiveDocument>
+  <RelationsBuilderTab>AllObjectsTab</RelationsBuilderTab>
+  <RelationsBuilderSelectedObject />
+  <RelationsBuilderCollapsedCategories />
+  <RelationsBuilderPropertySort>Categorized</RelationsBuilderPropertySort>
+  <RelationsBuilderSelectedGridItem />
+  <ProjectPropertiesMainTab>GenerationTab</ProjectPropertiesMainTab>
+  <ProjectPropertiesSubTab>GenerationFilesTab</ProjectPropertiesSubTab>
+  <LayoutFileVersion>1.0</LayoutFileVersion>
+</CslaGeneratorUnitLayout>

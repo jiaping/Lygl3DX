@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="Lygl.UI.UserManager.UserManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:Lygl_Lib_Security="clr-namespace:Lygl.DalLib.UserManager;assembly=Lygl.DalLib"  
+             mc:Ignorable="d" 
+             d:DesignHeight="408" d:DesignWidth="541">
+    <!--xmlns:my="clr-namespace:Lygl.DalLib.UserManager.OrgUserTree;assembly=Lygl.DalLib"-->
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
+        <DataTemplate x:Key="RoleListTemplate">
+            <TextBlock  Text="{Binding Name}"></TextBlock>
+        </DataTemplate>
+        <!--<DataTemplate x:Key="UserRoleListTemplate">
+            <TextBlock  Text="{Binding Name}"></TextBlock>
+        </DataTemplate>-->
+    </UserControl.Resources>
+    <StackPanel>
+        <!--<ToolBarTray Height="26" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Width="200" DockPanel.Dock="Top">
+            <ToolBar x:Name="toolBar">
+                <ToolBar.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Path=Label}" cal:Message.Attach="[Click]=[Execute]" IsEnabled="{Binding Path=CanExecute}" ToolTip="{Binding Path=ToolTip}"></Button>
+                    </DataTemplate>
+                </ToolBar.ItemTemplate>
+            </ToolBar>
+        </ToolBarTray>-->
+        <ContentControl Content="{StaticResource TitleAndToolbar}" DockPanel.Dock="Top" />
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="156*" />
+                <ColumnDefinition Width="385*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>                
+                <RowDefinition Height="0.883*"/>
+            </Grid.RowDefinitions>
+            <!--<ListBox x:Name="Model" cal:Message.Attach="[Event SelectionChanged]=[Action SelectionChanged($this.SelectedItem)]" Grid.Row="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"  ItemTemplate="{DynamicResource DataTemplate1}" Grid.ColumnSpan="2" Margin="60,52,325,-52">
+        	<ListBox.Resources>
+        		<DataTemplate x:Key="DataTemplate1">
+                    <TextBlock Text="{Binding Name}" />
+        		</DataTemplate>
+        	</ListBox.Resources>
+        	
+        </ListBox>-->
+            <Grid IsEnabled="{Binding IsEdit}" Grid.Column="1" Margin="0,4,8,4" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.6*" MinHeight="160" />
+                    <RowDefinition Height="0.4*" MinHeight="80" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="Model" DataContext="{Binding Model}"  Grid.Row="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.236*"/>
+                        <ColumnDefinition Width="0.764*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="Code" Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="3,2,10,2" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="Name_Copy" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Margin="3,2,10,2" VerticalContentAlignment="Center" />
+                    <Label Content="用户代码" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    <Label Content="用户姓名" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    <TextBox Name="textBox1" Text="{Binding MaxLoginCount, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" Margin="3,2,10,2" VerticalContentAlignment="Center" />
+                    <Label Content="使用次数" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                   
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="163*" />
+                        <ColumnDefinition Width="40*" />
+                        <ColumnDefinition Width="174*" />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.ColumnSpan="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Header="可添加角色">
+                        <ListBox x:Name="CanAddedRoleList" ItemTemplate="{DynamicResource RoleListTemplate}" cal:Message.Attach="[SelectionChanged]=[CanAddedRoleListSelectionChanged($eventArgs)]" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" />
+                    </GroupBox>
+                    <GroupBox Grid.ColumnSpan="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Header="当前拥有角色">
+                        <ListBox x:Name="CurrentUserRoleList" ItemTemplate="{DynamicResource RoleListTemplate}" cal:Message.Attach="[SelectionChanged]=[CurrentRoleListSelectionChanged($eventArgs)]" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" />
+                    </GroupBox>
+                    <Button x:Name="AddSelectedRole" Content="&lt;-" Grid.Column="1" HorizontalAlignment="Left" Margin="0,26,0,0" VerticalAlignment="Top" ToolTip="添加角色" Height="36" Width="40" />
+                    <Button x:Name="RemoveSelectedRole" Grid.Column="1" HorizontalAlignment="Left" Margin="0,87,0,0" VerticalAlignment="Top" ToolTip="移除角色" Height="36" Width="40" Content="-&gt;" />
+                    
+                </Grid>
+            </Grid>
+            <!--<my:OrgTreeControl DataContext="{Binding TV}" Grid.Row="1" />-->
+            <Grid IsEnabled="{Binding IsListEnable}" Margin="3" Grid.Row="1">
+                <ContentControl Content="{Binding CommonList}" ></ContentControl>
+            </Grid>
+        </Grid>
+    </StackPanel>
+</UserControl>

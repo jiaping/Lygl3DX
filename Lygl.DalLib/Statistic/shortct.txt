@@ -1,0 +1,122 @@
+﻿Ctrl+m+Crtr+o折叠所有大纲
+Ctrl+M+Crtr+P: 停止大纲显示
+Ctrl+K+Crtr+C: 注释选定内容
+Ctrl+K+Crtr+U: 取消选定注释内容
+Ctrl+J : 列出成员 智能感知Shift+Alt+Enter: 切换全屏编辑
+Ctrl+B,T / Ctrl+K,K: 切换书签开关
+Ctrl+B,N / Ctrl+K,N: 移动到下一书签 
+Ctrl+B,P: 移动到上一书签 
+Ctrl+B,C: 清除全部标签
+Ctrl+I: 渐进式搜索 
+Ctrl+Shift+I: 反向渐进式搜索 
+Ctrl+F: 查找 
+Ctrl+Shift+F: 在文件中查找 
+F3: 查找下一个 
+Shift+F3: 查找上一个 
+Ctrl+H: 替换 
+Ctrl+Shift+H: 在文件中替换 
+Alt+F12: 查找符号(列出所有查找结果)
+Ctrl+Shift+V: 剪贴板循环
+Ctrl+左右箭头键: 一次可以移动一个单词 
+Ctrl+上下箭头键: 滚动代码屏幕，但不移动光标位置。
+Ctrl+Shift+L: 删除当前行
+Ctrl+M,M: 隐藏或展开当前嵌套的折叠状态
+Ctrl+M,L: 将所有过程设置为相同的隐藏或展开状态
+
+Ctrl+E,S: 查看空白 
+Ctrl+E,W: 自动换行 
+Ctrl+G: 转到指定行
+Shift+Alt+箭头键: 选择矩形文本 
+Alt+鼠标左按钮: 选择矩形文本
+Ctrl+Shift+U: 全部变为大写 
+Ctrl+U: 全部变为小写代码快捷键
+Ctrl+Shift+空格键 / Ctrl+K,P: 参数信息
+Ctrl+K,I: 快速信息Ctrl+E,U / Ctrl+K,U: 取消选定注释内容
+Ctrl+K,M: 生成方法存根
+Ctrl+K,X: 插入代码段 
+Ctrl+K,S: 插入外侧代码
+F12: 转到所调用过程或变量的定义窗口快捷键Ctrl+W,W: 浏览器窗口
+Ctrl+W,S: 解决方案管理器
+Ctrl+W,C: 类视图
+Ctrl+W,E: 错误列表
+Ctrl+W,O: 输出视图
+trl+W,P: 属性窗口
+Ctrl+W,T: 任务列表 
+Ctrl+W,X: 工具箱
+Ctrl+W,B: 书签窗口
+Ctrl+W,U: 文档大纲
+Ctrl+D,B: 断点窗口
+Ctrl+D,I: 即时窗口
+Ctrl+Tab: 活动窗体切换
+Ctrl+Shift+N: 新建项目
+Ctrl+Shift+O: 打开项目
+Ctrl+Shift+S: 全部保存
+Shift+Alt+C: 新建类
+Ctrl+Shift+A: 新建项
+Shift+Alt+Enter: 切换全屏编辑
+Ctrl+B,T / Ctrl+K,K: 切换书签开关
+Ctrl+B,N / Ctrl+K,N: 移动到下一书签 
+Ctrl+B,P: 移动到上一书签
+Ctrl+B,C: 清除全部标签
+Ctrl+I: 渐进式搜索 
+Ctrl+Shift+I: 反向渐进式搜索
+Ctrl+F: 查找 
+Ctrl+Shift+F: 在文件中查找 
+F3: 查找下一个 
+Shift+F3: 查找上一个
+Ctrl+H: 替换
+Ctrl+Shift+H: 在文件中替换
+Alt+F12: 查找符号(列出所有查找结果)
+Ctrl+Shift+V: 剪贴板循环
+Ctrl+左右箭头键: 一次可以移动一个单词
+Ctrl+上下箭头键: 滚动代码屏幕，但不移动光标位置。
+Ctrl+Shift+L: 删除当前行
+Ctrl+M,M: 隐藏或展开当前嵌套的折叠状态
+Ctrl+M,L: 将所有过程设置为相同的隐藏或展开状态 
+Ctrl+M,P: 停止大纲显示
+Ctrl+E,S: 查看空白
+Ctrl+E,W: 自动换行
+Ctrl+G: 转到指定行 
+Shift+Alt+箭头键: 选择矩形文本
+Alt+鼠标左按钮: 选择矩形文本
+Ctrl+Shift+U: 全部变为大写 
+Ctrl+U: 全部变为小写
+
+其它相关：
+      转自：http://www.cnblogs.com/pumaboyd/archive/2008/06/13/1210797.html
+
+首先有两个地方需要注意：
+1：工具->自定义->"在屏幕提示中显示快捷键" 需要勾选上，方便记忆快捷键。默认设置就是这样的。
+2：工具->导入导出设置。这里是整个VSStudio的环境的默认设置，我下面设计的都是在"C#环境"下的快捷键，如果你发现你所使用的快捷键和我所列举的出入很大，请更改正确的环境。
+
+基本情况了解了，故事是这样开始的：
+某一周日的早晨起床，突然发现鼠标不见了。可能是隔壁家的猫给抓去了。一时情急，没办法，也只能用键盘来启动VSStudio啦。开始->程序 在一个个查找，要是程序太多，嘿嘿，眼睛都找花啦。还在用这么落后的方式启动IDE吗，用快捷键啊。还是默认的，不用设置。如果要设置也就不英雄嘛。如何以最快的方式启动IDE呢？开始->运行->输入“devenv”。就可以直接调用VSStudio了。不错吧，再给你列几个常用的。
+
+
+命令行快速启动
+"Inetmgr" IIS管理器，不用到管理里去找了，很快就可以显示IIS管理了
+"sqlwb"    快速启动SQL2005企业管理器
+"isqlw" 这是SQL2000的我也提供一下吧，这个可以起到SQL2000的查询分析器。
+"devenv" 启动相应版本的VS Studio
+
+
+Ctrl提示透明窗口
+这是一个比较有意思的键。VS2005下，当你在调试代码的时候，有时候提示信息会遮挡代码，这个时候你按CTRL可以将提示透明。VS2008这个透明效果，在更多的地方可见了，你不妨自己亲自动手看看。
+
+
+
+
+F12、Ctrl+减号、CTRL + SHIFT + 减号 (视频查看)
+这三个键在查看代码的时候，特别有用。通过F12你可以快速的找到一个函数的定义，通过Ctrl+减号你可以快速的返回到函数的调用处。
+ 
+
+Ctrl+Tab、Ctrl+F6、Ctrl+Alt + 向下箭头 （视频查看）
+活动文件的3种切换方式,比你用鼠标点击方便一些噢。
+
+ 
+
+Ctrl+K,M 生成方法存根 （视频查看）
+
+这个快捷键在你写结构性代码的时候可是非常有用的噢。你可以先写好一批代码的定义，而不用关心具体的实现。同时又可以让编译器编译通过。
+
+       写累了。为了截取这些视频也倒腾了半天，提供一个整理好的打印版VS2008快捷键方便大家下载。我就不一一介绍这些快捷键。

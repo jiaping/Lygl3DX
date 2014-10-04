@@ -1,0 +1,13 @@
+﻿1.ImportingConstructorAttribute 类	
+指定当构造特性化部件时应使用特定的构造函数。
+<AttributeUsageAttribute(AttributeTargets.Constructor, AllowMultiple := False,  _
+    Inherited := False)> _
+Public Class ImportingConstructorAttribute _
+    Inherits Attribute
+默认情况下，仅使用一个无参数构造函数来构造特性化部分。使用 ImportingConstructorAttribute 指示应改用特定的构造函数。 
+
+
+注意点：
+1.应用ScreenWithModelBase作为Model基类时，构造函数中要初始化Model属性
+
+

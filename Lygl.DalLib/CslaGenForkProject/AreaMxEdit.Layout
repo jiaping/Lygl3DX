@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<CslaGeneratorUnitLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ProjectListFilterText />
+  <ProjectListFilterType>&lt;All&gt;</ProjectListFilterType>
+  <ProjectListSortMode>None</ProjectListSortMode>
+  <ProjectListSelectedObjects>
+    <string>PathEdit</string>
+  </ProjectListSelectedObjects>
+  <ObjectCollapsedCategories />
+  <ObjectPropertySort>Categorized</ObjectPropertySort>
+  <ObjectSelectedGridItem>Support Update Properties</ObjectSelectedGridItem>
+  <SchemaExpandedTrees>
+    <string>Tables</string>
+    <string>Stored Procedures</string>
+  </SchemaExpandedTrees>
+  <SchemaSelectedTree>Stored Procedures</SchemaSelectedTree>
+  <SchemaExpandedNodes />
+  <SchemaSelectedNode>dbo.AddArea</SchemaSelectedNode>
+  <SchemaSelectedSprocSubNode />
+  <ActiveDocument>ProjectProperties</ActiveDocument>
+  <RelationsBuilderTab>AllObjectsTab</RelationsBuilderTab>
+  <RelationsBuilderSelectedObject />
+  <RelationsBuilderCollapsedCategories />
+  <RelationsBuilderPropertySort>Categorized</RelationsBuilderPropertySort>
+  <RelationsBuilderSelectedGridItem />
+  <ProjectPropertiesMainTab>StoredProcsTab</ProjectPropertiesMainTab>
+  <ProjectPropertiesSubTab />
+  <LayoutFileVersion>1.0</LayoutFileVersion>
+</CslaGeneratorUnitLayout>

@@ -1,0 +1,2280 @@
+<?xml version="1.0"?>
+<CslaGeneratorUnit xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Params>
+    <DefaultNamespace>Lygl.Lib</DefaultNamespace>
+    <DefaultFolder />
+    <SmartDateDefault>true</SmartDateDefault>
+    <AutoCriteria>true</AutoCriteria>
+    <AutoTimestampCriteria>false</AutoTimestampCriteria>
+    <DatesDefaultStringWithTypeConversion>true</DatesDefaultStringWithTypeConversion>
+    <CreateTimestampPropertyMode>NoProperty</CreateTimestampPropertyMode>
+    <ReadOnlyObjectsCopyAuditing>false</ReadOnlyObjectsCopyAuditing>
+    <ReadOnlyObjectsCopyTimestamp>false</ReadOnlyObjectsCopyTimestamp>
+    <CreateReadOnlyObjectsPropertyMode>AutoProperty</CreateReadOnlyObjectsPropertyMode>
+    <DefaultDataBase>LyglDB</DefaultDataBase>
+    <DefaultTransactionType>TransactionScope</DefaultTransactionType>
+    <DefaultPersistenceType>SqlConnectionManager</DefaultPersistenceType>
+    <DefaultDatabaseContextObject />
+    <ORBChildPropertySuffix>s</ORBChildPropertySuffix>
+    <ORBCollectionSuffix>Coll</ORBCollectionSuffix>
+    <ORBSingleSPSuffix>Relation</ORBSingleSPSuffix>
+    <ORBItemsUseSingleSP>true</ORBItemsUseSingleSP>
+    <SpAddPrefix>Add</SpAddPrefix>
+    <SpDeletePrefix>Delete</SpDeletePrefix>
+    <SpUpdatePrefix>Update</SpUpdatePrefix>
+    <SpGetPrefix>Get</SpGetPrefix>
+    <SpGeneralPrefix />
+    <SpAddSuffix />
+    <SpDeleteSuffix />
+    <SpUpdateSuffix />
+    <SpGetSuffix />
+    <SpGeneralSuffix />
+    <RegenSpNameOnObjectRename>true</RegenSpNameOnObjectRename>
+    <SpBoolSoftDeleteColumn>IsActive</SpBoolSoftDeleteColumn>
+    <SpIntSoftDeleteColumn />
+    <SpIgnoreFilterWhenSoftDeleteIsParam>true</SpIgnoreFilterWhenSoftDeleteIsParam>
+    <SpRemoveChildBeforeParent>true</SpRemoveChildBeforeParent>
+    <IDGuidDefaultValue>Guid.NewGuid()</IDGuidDefaultValue>
+    <IDInt16DefaultValue>_lastID</IDInt16DefaultValue>
+    <IDInt32DefaultValue>_lastID</IDInt32DefaultValue>
+    <IDInt64DefaultValue>_lastID</IDInt64DefaultValue>
+    <FieldNamePrefix>_</FieldNamePrefix>
+    <DelegateNamePrefix>d_</DelegateNamePrefix>
+    <CreationDateColumn>CreateDate</CreationDateColumn>
+    <CreationUserColumn>CreateUserID</CreationUserColumn>
+    <ChangedDateColumn>ChangeDate</ChangedDateColumn>
+    <ChangedUserColumn>ChangeUserID</ChangedUserColumn>
+    <LogDateAndTime>true</LogDateAndTime>
+    <GetUserMethod>Security.UserInformation.UserID</GetUserMethod>
+  </Params>
+  <GenerationParams>
+    <AckSilverlightPublicPropertyInfo>false</AckSilverlightPublicPropertyInfo>
+    <SaveBeforeGenerate>true</SaveBeforeGenerate>
+    <TargetFramework>CSLA40</TargetFramework>
+    <WriteTodo>true</WriteTodo>
+    <BackupOldSource>false</BackupOldSource>
+    <RetryOnFileBusy>true</RetryOnFileBusy>
+    <SeparateNamespaces>false</SeparateNamespaces>
+    <SeparateBaseClasses>false</SeparateBaseClasses>
+    <ActiveObjects>false</ActiveObjects>
+    <UseDotDesignerFileNameConvention>true</UseDotDesignerFileNameConvention>
+    <OutputLanguage>CSharp</OutputLanguage>
+    <UpdateOnlyDirtyChildren>true</UpdateOnlyDirtyChildren>
+    <NullableSupport>true</NullableSupport>
+    <PropertyMode>Default</PropertyMode>
+    <GenerateAuthorization>FullSupport</GenerateAuthorization>
+    <HeaderVerbosity>None</HeaderVerbosity>
+    <UseBypassPropertyChecks>false</UseBypassPropertyChecks>
+    <UseSingleCriteria>false</UseSingleCriteria>
+    <UsePublicPropertyInfo>true</UsePublicPropertyInfo>
+    <UseChildFactory>false</UseChildFactory>
+    <ForceReadOnlyProperties>true</ForceReadOnlyProperties>
+    <BaseFilenameSuffix>.Designer</BaseFilenameSuffix>
+    <ExtendedFilenameSuffix />
+    <ClassCommentFilenameSuffix />
+    <SeparateClassComment>false</SeparateClassComment>
+    <BaseNamespace>Lygl.DalLib</BaseNamespace>
+    <UtilitiesNamespace>Lygl.DalLib.Util</UtilitiesNamespace>
+    <UtilitiesFolder>Util</UtilitiesFolder>
+    <DalInterfaceNamespace>DataAccess</DalInterfaceNamespace>
+    <DalObjectNamespace>DataAccess.Sql</DalObjectNamespace>
+    <GenerateSprocs>true</GenerateSprocs>
+    <OneSpFilePerObject>true</OneSpFilePerObject>
+    <GenerateInlineQueries>false</GenerateInlineQueries>
+    <GenerateQueriesWithSchema>true</GenerateQueriesWithSchema>
+    <GenerateDatabaseClass>true</GenerateDatabaseClass>
+    <DalName />
+    <UsesCslaAuthorizationProvider>true</UsesCslaAuthorizationProvider>
+    <GenerateWinForms>false</GenerateWinForms>
+    <GenerateWPF>true</GenerateWPF>
+    <GenerateSilverlight4>false</GenerateSilverlight4>
+    <SilverlightUsingServices>false</SilverlightUsingServices>
+    <DatabaseConnection>LyglDB</DatabaseConnection>
+    <GenerateDTO>false</GenerateDTO>
+    <GenerateDalInterface>false</GenerateDalInterface>
+    <GenerateDalObject>false</GenerateDalObject>
+    <GenerateSynchronous>true</GenerateSynchronous>
+    <GenerateAsynchronous>false</GenerateAsynchronous>
+  </GenerationParams>
+  <CslaObjects>
+    <CslaObjectInfo>
+      <ComponentName />
+      <Generate>true</Generate>
+      <GenerateFactoryMethods>true</GenerateFactoryMethods>
+      <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
+      <GenerateDataPortalInsert>true</GenerateDataPortalInsert>
+      <GenerateDataPortalUpdate>true</GenerateDataPortalUpdate>
+      <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
+      <GenerateSprocs>true</GenerateSprocs>
+      <DataSetLoadingScheme>false</DataSetLoadingScheme>
+      <UseCustomLoading>false</UseCustomLoading>
+      <CheckRulesOnFetch>true</CheckRulesOnFetch>
+      <SupportUpdateProperties>false</SupportUpdateProperties>
+      <ObjectType>EditableRoot</ObjectType>
+      <UnitOfWorkType>Creator</UnitOfWorkType>
+      <ObjectName>PathEdit</ObjectName>
+      <ObjectNamespace>Lygl.DalLib.Edit</ObjectNamespace>
+      <ClassVisibility>Public</ClassVisibility>
+      <ClassSummary />
+      <ClassRemarks />
+      <Namespaces />
+      <Attributes />
+      <Implements />
+      <InheritedType>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedType>
+      <InheritedTypeWinForms>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedTypeWinForms>
+      <UseUnitOfWorkType />
+      <ConstructorVisibility>Default</ConstructorVisibility>
+      <Folder>Edit</Folder>
+      <FileName>PathEdit</FileName>
+      <OutputLanguage>CSharp</OutputLanguage>
+      <UnitOfWorkProperties />
+      <ChildCollectionProperties />
+      <ChildProperties />
+      <InheritedChildCollectionProperties />
+      <InheritedChildProperties />
+      <ConvertValueProperties />
+      <UpdateValueProperties />
+      <InheritedValueProperties />
+      <ValueProperties>
+        <ValueProperty>
+          <ParameterName>PathID</ParameterName>
+          <Name>PathID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>PathID</ColumnName>
+            <IsPrimaryKey>true</IsPrimaryKey>
+            <ObjectName>Path</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>UserProvidedPK</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Path ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue>Guid.NewGuid()</DefaultValue>
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Name</ParameterName>
+          <Name>Name</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>varchar</NativeType>
+            <Size>20</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Name</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Path</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Name</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>GeometryText</ParameterName>
+          <Name>GeometryText</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>varchar</NativeType>
+            <Size>-1</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>GeometryText</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Path</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Geometry Text</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+      </ValueProperties>
+      <CriteriaObjects>
+        <Criteria>
+          <Name>CriteriaNew</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties />
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+        <Criteria>
+          <Name>Criteria</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>PathID</ParameterName>
+              <Name>PathID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>PathID</ColumnName>
+                <IsPrimaryKey>true</IsPrimaryKey>
+                <ObjectName>Path</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetPathEdit</ProcedureName>
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>DeletePathEdit</ProcedureName>
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+      </CriteriaObjects>
+      <ParentType />
+      <ParentProperties />
+      <ParentInsertOnly>true</ParentInsertOnly>
+      <LazyLoad>false</LazyLoad>
+      <ItemType />
+      <ContainsItem>true</ContainsItem>
+      <UniqueItems>false</UniqueItems>
+      <FindMethodsParameters />
+      <UpdaterType />
+      <AllowNew>true</AllowNew>
+      <AllowEdit>true</AllowEdit>
+      <AllowRemove>true</AllowRemove>
+      <AddParentReference>false</AddParentReference>
+      <SimpleCacheOptions>None</SimpleCacheOptions>
+      <InvalidateCache />
+      <ValueColumn />
+      <NameColumn />
+      <CacheResults>true</CacheResults>
+      <DbName>LyglDB</DbName>
+      <PersistenceType>SqlConnectionManager</PersistenceType>
+      <DbContextObject />
+      <CommandTimeout />
+      <TransactionType>ADO</TransactionType>
+      <InsertUpdateRunLocal>false</InsertUpdateRunLocal>
+      <InsertProcedureName>AddPathEdit</InsertProcedureName>
+      <SelectProcedureName />
+      <UpdateProcedureName>UpdatePathEdit</UpdateProcedureName>
+      <DeleteProcedureName />
+      <DeleteUseTimestamp>false</DeleteUseTimestamp>
+      <RemoveItem>true</RemoveItem>
+      <HashcodeProperty />
+      <EqualsProperty />
+      <ToStringProperty />
+      <BusinessRules />
+      <AuthzProvider>IsInRole</AuthzProvider>
+      <NewRoles />
+      <GetRoles />
+      <UpdateRoles />
+      <DeleteRoles />
+      <NewAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </NewAuthzRuleType>
+      <GetAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </GetAuthzRuleType>
+      <UpdateAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </UpdateAuthzRuleType>
+      <DeleteAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </DeleteAuthzRuleType>
+      <PublishToChannel />
+      <SubscribeToChannel />
+    </CslaObjectInfo>
+    <CslaObjectInfo>
+      <ComponentName />
+      <Generate>true</Generate>
+      <GenerateFactoryMethods>true</GenerateFactoryMethods>
+      <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
+      <GenerateDataPortalInsert>true</GenerateDataPortalInsert>
+      <GenerateDataPortalUpdate>true</GenerateDataPortalUpdate>
+      <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
+      <GenerateSprocs>true</GenerateSprocs>
+      <DataSetLoadingScheme>false</DataSetLoadingScheme>
+      <UseCustomLoading>false</UseCustomLoading>
+      <CheckRulesOnFetch>true</CheckRulesOnFetch>
+      <SupportUpdateProperties>false</SupportUpdateProperties>
+      <ObjectType>EditableRoot</ObjectType>
+      <UnitOfWorkType>Creator</UnitOfWorkType>
+      <ObjectName>AreaEdit</ObjectName>
+      <ObjectNamespace>Lygl.DalLib.Edit</ObjectNamespace>
+      <ClassVisibility>Public</ClassVisibility>
+      <ClassSummary />
+      <ClassRemarks />
+      <Namespaces />
+      <Attributes />
+      <Implements />
+      <InheritedType>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedType>
+      <InheritedTypeWinForms>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedTypeWinForms>
+      <UseUnitOfWorkType />
+      <ConstructorVisibility>Default</ConstructorVisibility>
+      <Folder>Edit</Folder>
+      <FileName>AreaEdit</FileName>
+      <OutputLanguage>CSharp</OutputLanguage>
+      <UnitOfWorkProperties />
+      <ChildCollectionProperties />
+      <ChildProperties />
+      <InheritedChildCollectionProperties />
+      <InheritedChildProperties />
+      <ConvertValueProperties />
+      <UpdateValueProperties />
+      <InheritedValueProperties />
+      <ValueProperties>
+        <ValueProperty>
+          <ParameterName>AreaID</ParameterName>
+          <Name>AreaID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>AreaID</ColumnName>
+            <IsPrimaryKey>true</IsPrimaryKey>
+            <ObjectName>Area</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>UserProvidedPK</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Area ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue>Guid.NewGuid()</DefaultValue>
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Name</ParameterName>
+          <Name>Name</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>varchar</NativeType>
+            <Size>20</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Name</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Area</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Name</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>GeometryText</ParameterName>
+          <Name>GeometryText</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>varchar</NativeType>
+            <Size>-1</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>GeometryText</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Area</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Geometry Text</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Angle</ParameterName>
+          <Name>Angle</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Angle</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Area</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Angle</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+      </ValueProperties>
+      <CriteriaObjects>
+        <Criteria>
+          <Name>CriteriaNew</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties />
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+        <Criteria>
+          <Name>Criteria</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>AreaID</ParameterName>
+              <Name>AreaID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>AreaID</ColumnName>
+                <IsPrimaryKey>true</IsPrimaryKey>
+                <ObjectName>Area</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetAreaEdit</ProcedureName>
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>DeleteAreaEdit</ProcedureName>
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+      </CriteriaObjects>
+      <ParentType />
+      <ParentProperties />
+      <ParentInsertOnly>true</ParentInsertOnly>
+      <LazyLoad>false</LazyLoad>
+      <ItemType />
+      <ContainsItem>true</ContainsItem>
+      <UniqueItems>false</UniqueItems>
+      <FindMethodsParameters />
+      <UpdaterType />
+      <AllowNew>true</AllowNew>
+      <AllowEdit>true</AllowEdit>
+      <AllowRemove>true</AllowRemove>
+      <AddParentReference>false</AddParentReference>
+      <SimpleCacheOptions>None</SimpleCacheOptions>
+      <InvalidateCache />
+      <ValueColumn />
+      <NameColumn />
+      <CacheResults>true</CacheResults>
+      <DbName>LyglDB</DbName>
+      <PersistenceType>SqlConnectionManager</PersistenceType>
+      <DbContextObject />
+      <CommandTimeout />
+      <TransactionType>TransactionScope</TransactionType>
+      <InsertUpdateRunLocal>false</InsertUpdateRunLocal>
+      <InsertProcedureName>AddAreaEdit</InsertProcedureName>
+      <SelectProcedureName />
+      <UpdateProcedureName>UpdateAreaEdit</UpdateProcedureName>
+      <DeleteProcedureName />
+      <DeleteUseTimestamp>false</DeleteUseTimestamp>
+      <RemoveItem>true</RemoveItem>
+      <HashcodeProperty />
+      <EqualsProperty />
+      <ToStringProperty />
+      <BusinessRules />
+      <AuthzProvider>IsInRole</AuthzProvider>
+      <NewRoles />
+      <GetRoles />
+      <UpdateRoles />
+      <DeleteRoles />
+      <NewAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </NewAuthzRuleType>
+      <GetAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </GetAuthzRuleType>
+      <UpdateAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </UpdateAuthzRuleType>
+      <DeleteAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </DeleteAuthzRuleType>
+      <PublishToChannel />
+      <SubscribeToChannel />
+    </CslaObjectInfo>
+    <CslaObjectInfo>
+      <ComponentName />
+      <Generate>true</Generate>
+      <GenerateFactoryMethods>true</GenerateFactoryMethods>
+      <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
+      <GenerateDataPortalInsert>true</GenerateDataPortalInsert>
+      <GenerateDataPortalUpdate>true</GenerateDataPortalUpdate>
+      <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
+      <GenerateSprocs>true</GenerateSprocs>
+      <DataSetLoadingScheme>false</DataSetLoadingScheme>
+      <UseCustomLoading>false</UseCustomLoading>
+      <CheckRulesOnFetch>true</CheckRulesOnFetch>
+      <SupportUpdateProperties>false</SupportUpdateProperties>
+      <ObjectType>EditableRoot</ObjectType>
+      <UnitOfWorkType>Creator</UnitOfWorkType>
+      <ObjectName>MxEdit</ObjectName>
+      <ObjectNamespace>Lygl.DalLib.Edit</ObjectNamespace>
+      <ClassVisibility>Public</ClassVisibility>
+      <ClassSummary />
+      <ClassRemarks />
+      <Namespaces>
+        <string>Lygl.DalLib.NVL</string>
+      </Namespaces>
+      <Attributes />
+      <Implements />
+      <InheritedType>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedType>
+      <InheritedTypeWinForms>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedTypeWinForms>
+      <UseUnitOfWorkType />
+      <ConstructorVisibility>Default</ConstructorVisibility>
+      <Folder>Edit</Folder>
+      <FileName>MxEdit</FileName>
+      <OutputLanguage>CSharp</OutputLanguage>
+      <UnitOfWorkProperties />
+      <ChildCollectionProperties />
+      <ChildProperties />
+      <InheritedChildCollectionProperties />
+      <InheritedChildProperties />
+      <ConvertValueProperties>
+        <ConvertValueProperty>
+          <ParameterName />
+          <Name>MxType</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx Type</FriendlyName>
+          <DeclarationMode>AutoProperty</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+          <BaseName>MxTypeID</BaseName>
+          <SourcePropertyName>MxTypeID</SourcePropertyName>
+          <NVLConverter>MxTypeNVL.GetMxTypeNVL</NVLConverter>
+        </ConvertValueProperty>
+        <ConvertValueProperty>
+          <ParameterName />
+          <Name>MxStatus</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx Status</FriendlyName>
+          <DeclarationMode>AutoProperty</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+          <BaseName>MxStatusID</BaseName>
+          <SourcePropertyName>MxStatusID</SourcePropertyName>
+          <NVLConverter>MxStatusNVL.GetMxStatusNVL</NVLConverter>
+        </ConvertValueProperty>
+        <ConvertValueProperty>
+          <ParameterName />
+          <Name>MxStyle</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx Style</FriendlyName>
+          <DeclarationMode>AutoProperty</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+          <BaseName />
+          <SourcePropertyName>MxStyleID</SourcePropertyName>
+          <NVLConverter>MxStyleNVL.GetMxStyleNVL</NVLConverter>
+        </ConvertValueProperty>
+      </ConvertValueProperties>
+      <UpdateValueProperties />
+      <InheritedValueProperties />
+      <ValueProperties>
+        <ValueProperty>
+          <ParameterName>MxID</ParameterName>
+          <Name>MxID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>MxID</ColumnName>
+            <IsPrimaryKey>true</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>UserProvidedPK</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue>Guid.NewGuid()</DefaultValue>
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>AreaID</ParameterName>
+          <Name>AreaID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>AreaID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Area ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Price</ParameterName>
+          <Name>Price</Name>
+          <PropertyType>Decimal</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Decimal</DataType>
+            <NativeType>money</NativeType>
+            <Size>19</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Price</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Price</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Rmsj</ParameterName>
+          <Name>Rmsj</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>DateTime</DataType>
+            <NativeType>datetime</NativeType>
+            <Size>3</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Rmsj</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Rmsj</FriendlyName>
+          <DeclarationMode>ManagedWithTypeConversion</DeclarationMode>
+          <BackingFieldType>SmartDate</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>ManageFeeEndTime</ParameterName>
+          <Name>ManageFeeEndTime</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>DateTime</DataType>
+            <NativeType>datetime</NativeType>
+            <Size>3</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>ManageFeeEndTime</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Manage Fee End Time</FriendlyName>
+          <DeclarationMode>ManagedWithTypeConversion</DeclarationMode>
+          <BackingFieldType>SmartDate</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>KbrName</ParameterName>
+          <Name>KbrName</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>StringFixedLength</DataType>
+            <NativeType>nchar</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>KbrName</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Kbr Name</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Bwjf</ParameterName>
+          <Name>Bwjf</Name>
+          <PropertyType>Boolean</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Boolean</DataType>
+            <NativeType>bit</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Bwjf</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Bwjf</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Mz</ParameterName>
+          <Name>Mz</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>StringFixedLength</DataType>
+            <NativeType>nchar</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Mz</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mz</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>CreateDate</ParameterName>
+          <Name>CreateDate</Name>
+          <PropertyType>SmartDate</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>DateTime</DataType>
+            <NativeType>datetime</NativeType>
+            <Size>3</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>CreateDate</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>CreateOnly</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Create Date</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue>DateTime.Now</DefaultValue>
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>SzName</ParameterName>
+          <Name>SzName</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>nvarchar</NativeType>
+            <Size>20</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>SzName</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Sz Name</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>MxName</ParameterName>
+          <Name>MxName</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>varchar</NativeType>
+            <Size>50</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>MxName</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx Name</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>MxTypeID</ParameterName>
+          <Name>MxTypeID</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>MxTypeID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx Type ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>MxStatusID</ParameterName>
+          <Name>MxStatusID</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>MxStatusID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx Status ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>MxStyleID</ParameterName>
+          <Name>MxStyleID</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>MxStyleID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx Style ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Pos</ParameterName>
+          <Name>Pos</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>varchar</NativeType>
+            <Size>-1</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Pos</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Pos</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Angle</ParameterName>
+          <Name>Angle</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Angle</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Mx</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Angle</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+      </ValueProperties>
+      <CriteriaObjects>
+        <Criteria>
+          <Name>CriteriaNew</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties />
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+        <Criteria>
+          <Name>Criteria</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>MxID</ParameterName>
+              <Name>MxID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>MxID</ColumnName>
+                <IsPrimaryKey>true</IsPrimaryKey>
+                <ObjectName>Mx</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetMxEdit</ProcedureName>
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>DeleteMxEdit</ProcedureName>
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+      </CriteriaObjects>
+      <ParentType />
+      <ParentProperties />
+      <ParentInsertOnly>true</ParentInsertOnly>
+      <LazyLoad>false</LazyLoad>
+      <ItemType />
+      <ContainsItem>true</ContainsItem>
+      <UniqueItems>false</UniqueItems>
+      <FindMethodsParameters />
+      <UpdaterType />
+      <AllowNew>true</AllowNew>
+      <AllowEdit>true</AllowEdit>
+      <AllowRemove>true</AllowRemove>
+      <AddParentReference>false</AddParentReference>
+      <SimpleCacheOptions>None</SimpleCacheOptions>
+      <InvalidateCache />
+      <ValueColumn />
+      <NameColumn />
+      <CacheResults>true</CacheResults>
+      <DbName>LyglDB</DbName>
+      <PersistenceType>SqlConnectionManager</PersistenceType>
+      <DbContextObject />
+      <CommandTimeout />
+      <TransactionType>ADO</TransactionType>
+      <InsertUpdateRunLocal>false</InsertUpdateRunLocal>
+      <InsertProcedureName>AddMxEdit</InsertProcedureName>
+      <SelectProcedureName />
+      <UpdateProcedureName>UpdateMxEdit</UpdateProcedureName>
+      <DeleteProcedureName />
+      <DeleteUseTimestamp>false</DeleteUseTimestamp>
+      <RemoveItem>true</RemoveItem>
+      <HashcodeProperty />
+      <EqualsProperty />
+      <ToStringProperty />
+      <BusinessRules />
+      <AuthzProvider>IsInRole</AuthzProvider>
+      <NewRoles />
+      <GetRoles />
+      <UpdateRoles />
+      <DeleteRoles />
+      <NewAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </NewAuthzRuleType>
+      <GetAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </GetAuthzRuleType>
+      <UpdateAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </UpdateAuthzRuleType>
+      <DeleteAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </DeleteAuthzRuleType>
+      <PublishToChannel />
+      <SubscribeToChannel />
+    </CslaObjectInfo>
+  </CslaObjects>
+  <AssociativeEntities />
+  <ConnectionString>Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\develop\Lygl3DX\Db\lygl.mdf;integrated security=SSPI;</ConnectionString>
+  <ProjectName>AreaMxedit.CSLAGenFork.project</ProjectName>
+  <TargetDirectory>D:\develop\Lygl3DX\Lygl.DalLib\bin\Release</TargetDirectory>
+  <FileVersion>4.0.3</FileVersion>
+</CslaGeneratorUnit>

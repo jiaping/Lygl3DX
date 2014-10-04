@@ -1,0 +1,19 @@
+# Alias OBJ Model File
+# Exported from SketchUp, (c) 2000-2006 Google, Inc.
+# File units = meters
+
+mtllib rect.mtl
+
+g Mesh1 Model
+
+usemtl Tile_Travertine_2inch
+v 1 0 -1
+vt -3.62467 2.62467
+vn 0 1 -0
+v 0 0 -1
+vt -1 2.62467
+v 0 0 -0
+vt -1 0
+f 1/1/1 2/2/1 3/3/1
+
+

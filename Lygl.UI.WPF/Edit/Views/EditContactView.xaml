@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="Lygl.UI.Edit.Views.EditContactView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="559"  >
+    <DockPanel >
+        <ContentControl Content="{StaticResource TitleAndToolbar}" DockPanel.Dock="Top" />
+        <Grid   DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="174*" />
+                <ColumnDefinition Width="385*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="279*" />
+                <RowDefinition Height="0*" />
+            </Grid.RowDefinitions>
+            <Grid IsEnabled="{Binding IsListEnable}">
+                <ContentControl Content="{Binding CommonList}"></ContentControl>
+            </Grid>
+            <Grid IsEnabled="{Binding Path=IsEdit}" Grid.Column="1">
+            <Grid HorizontalAlignment="Stretch" Name="Grid1" DataContext="{Binding Path=Model}"  DockPanel.Dock="Top"  Margin="0"  VerticalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="2" MinWidth="260">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*" />
+                    <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="0.2*" />
+                    </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                <RowDefinition Height="36" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="30*" />
+                    </Grid.RowDefinitions>
+                <Label Content="姓名" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox"  VerticalAlignment="Stretch" IsEnabled="True" Grid.Column="1" />
+            <Label Content="单位" HorizontalAlignment="Stretch" Margin="3,3,4,3" Grid.Row="3" d:LayoutOverrides="Height" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                <TextBox Text="{Binding Dw, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="1" Name="posTextBox" IsEnabled="True" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Stretch" Grid.Column="1" />
+                <Label Content="地址" HorizontalAlignment="Stretch" Margin="6,6,0,0" Grid.Row="4" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                <TextBox HorizontalAlignment="Stretch" IsEnabled="True" Margin="2,6,3,0" Text="{Binding Address, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Stretch" />
+                <Label Content="与逝者关系" HorizontalAlignment="Stretch" Margin="6,0,-1,6" d:LayoutOverrides="Height" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Grid.Row="6" />
+                    <ComboBox DisplayMemberPath="Value" ItemsSource="{Binding DataContext.YszgxList, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type UserControl}}}" SelectedValue="{Binding Yszgx, Mode=TwoWay}" SelectedValuePath="Value" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="1"  Margin="1" />
+                    <Label Content="电话" HorizontalAlignment="Stretch" Margin="6,0,0,6" d:LayoutOverrides="Height" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Grid.Row="1" />
+                <TextBox Text="{Binding Phone, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="2,0,3,6" x:Name="posTextBox_Copy" IsEnabled="True" Grid.Column="1" VerticalAlignment="Stretch" MinWidth="110" Grid.Row="1" />
+                <Label Content="手机" Margin="6,0,0,6" d:LayoutOverrides="Width" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Grid.Row="2" />
+                <TextBox HorizontalAlignment="Stretch" IsEnabled="True" Margin="2,0,3,6" Text="{Binding Mobile, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" VerticalAlignment="Stretch" MinWidth="110" Grid.Row="2" />
+                <Label Content="身份证号" HorizontalAlignment="Stretch" Grid.Column="0" Margin="3" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Grid.Row="5" />
+                <TextBox HorizontalAlignment="Stretch" IsEnabled="True" Margin="3" Text="{Binding SfzID, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="1" VerticalAlignment="Stretch" Grid.Row="5" />
+                <!--<dxg:LookUpEdit ItemsSource="{Binding Path=DataContext.MxTypeList,RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}" EditValue="{Binding MxType, Mode=TwoWay}"   DisplayMember="Value" ValueMember="Value" Grid.Column="3" Grid.Row="15" HorizontalAlignment="Left" Margin="3,9,0,0" VerticalAlignment="Top" Width="150" AutoPopulateColumns="False">
+                    <dxg:LookUpEdit.PopupContentTemplate>
+                        <ControlTemplate>
+                            <dxg:GridControl Name="PART_GridControl">
+                                <dxg:GridControl.Columns>
+                                    <dxg:GridColumn FieldName="Key" Header="类型编号"/>
+                                    <dxg:GridColumn FieldName="Value" Header="名称"/>
+                                </dxg:GridControl.Columns>
+                                <dxg:GridControl.View>
+                                    <dxg:TableView AutoWidth="True"/>
+                                </dxg:GridControl.View>
+                            </dxg:GridControl>
+                        </ControlTemplate>
+                    </dxg:LookUpEdit.PopupContentTemplate>
+                </dxg:LookUpEdit>-->
+            </Grid>
+            </Grid>
+            </Grid>
+        
+
+    </DockPanel>
+</UserControl>

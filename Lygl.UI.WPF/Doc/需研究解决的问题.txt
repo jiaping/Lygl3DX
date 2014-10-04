@@ -1,0 +1,7 @@
+﻿1、TextBox的输入和验证问题，特别是输入小数时，会产生重复，最好能在获得焦点时自动全选
+
+2.vs designer exception http://earthli.com/news/view_article.php?id=2487
+
+3.GAC http://www.cnblogs.com/chenlulouis/archive/2010/06/30/1768176.html
+
+

@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Lygl.UI.Edit.Views.BwSzListItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="559"   MaxWidth="300">
+    <DockPanel >
+        <!--<ToolBarTray Height="26" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Width="200" DockPanel.Dock="Top">
+            <ToolBar x:Name="toolBar">
+                <ToolBar.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Path=Label}" cal:Message.Attach="[Click]=[Execute]" IsEnabled="{Binding Path=CanExecute}" ToolTip="{Binding Path=ToolTip}"></Button>
+                    </DataTemplate>
+                </ToolBar.ItemTemplate>
+            </ToolBar>
+        </ToolBarTray>-->
+        <Grid  IsEnabled="{Binding Path=IsEdit}" DockPanel.Dock="Top" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="279*" />
+                <RowDefinition Height="0*" />
+            </Grid.RowDefinitions>
+            <Grid DataContext="{Binding Path=Model}" DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="5" MinWidth="160" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*" />
+                    <ColumnDefinition Width="0.7*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36" />
+                    <RowDefinition Height="36" />
+                    <RowDefinition Height="36" />
+                    <RowDefinition Height="204*" />
+                </Grid.RowDefinitions>
+                <Label Content="称呼" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" Margin="1" VerticalAlignment="Stretch" VerticalContentAlignment="Center" />
+                <TextBox Grid.Column="1" Grid.ColumnSpan="1" IsEnabled="True" Margin="1" Panel.ZIndex="1" Text="{Binding Path=Ch, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <Label Content="生：" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" Margin="1" VerticalAlignment="Stretch" VerticalContentAlignment="Center" />
+                <Label Content="故：" HorizontalContentAlignment="Right" Margin="0,0,2,1" VerticalContentAlignment="Center" Grid.Row="2" />
+                  <TextBox Grid.RowSpan="1" IsEnabled="True" Panel.ZIndex="1" Text="{Binding Path=Sheng, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged}" Margin="1" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" />
+                <TextBox IsEnabled="True" Margin="1" Panel.ZIndex="1" Text="{Binding Path=Gu, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" VerticalContentAlignment="Center" />
+            </Grid>
+        </Grid>
+        
+
+    </DockPanel>
+</UserControl>

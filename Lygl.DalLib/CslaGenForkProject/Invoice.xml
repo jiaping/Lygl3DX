@@ -1,0 +1,3542 @@
+<?xml version="1.0"?>
+<CslaGeneratorUnit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Params>
+    <DefaultNamespace>Lygl.DalLib</DefaultNamespace>
+    <DefaultFolder />
+    <SmartDateDefault>true</SmartDateDefault>
+    <AutoCriteria>true</AutoCriteria>
+    <AutoTimestampCriteria>false</AutoTimestampCriteria>
+    <DatesDefaultStringWithTypeConversion>true</DatesDefaultStringWithTypeConversion>
+    <CreateTimestampPropertyMode>NoProperty</CreateTimestampPropertyMode>
+    <ReadOnlyObjectsCopyAuditing>false</ReadOnlyObjectsCopyAuditing>
+    <ReadOnlyObjectsCopyTimestamp>false</ReadOnlyObjectsCopyTimestamp>
+    <CreateReadOnlyObjectsPropertyMode>AutoProperty</CreateReadOnlyObjectsPropertyMode>
+    <DefaultDataBase>LyglDB</DefaultDataBase>
+    <DefaultTransactionType>TransactionScope</DefaultTransactionType>
+    <DefaultPersistenceType>SqlConnectionManager</DefaultPersistenceType>
+    <DefaultDatabaseContextObject />
+    <ORBChildPropertySuffix>s</ORBChildPropertySuffix>
+    <ORBCollectionSuffix>Coll</ORBCollectionSuffix>
+    <ORBSingleSPSuffix>Relation</ORBSingleSPSuffix>
+    <ORBItemsUseSingleSP>true</ORBItemsUseSingleSP>
+    <SpAddPrefix>Add</SpAddPrefix>
+    <SpDeletePrefix>Delete</SpDeletePrefix>
+    <SpUpdatePrefix>Update</SpUpdatePrefix>
+    <SpGetPrefix>Get</SpGetPrefix>
+    <SpGeneralPrefix />
+    <SpAddSuffix />
+    <SpDeleteSuffix />
+    <SpUpdateSuffix />
+    <SpGetSuffix />
+    <SpGeneralSuffix />
+    <RegenSpNameOnObjectRename>true</RegenSpNameOnObjectRename>
+    <SpBoolSoftDeleteColumn>IsActive</SpBoolSoftDeleteColumn>
+    <SpIntSoftDeleteColumn />
+    <SpIgnoreFilterWhenSoftDeleteIsParam>true</SpIgnoreFilterWhenSoftDeleteIsParam>
+    <SpRemoveChildBeforeParent>true</SpRemoveChildBeforeParent>
+    <IDGuidDefaultValue>Guid.NewGuid()</IDGuidDefaultValue>
+    <IDInt16DefaultValue>_lastID</IDInt16DefaultValue>
+    <IDInt32DefaultValue>_lastID</IDInt32DefaultValue>
+    <IDInt64DefaultValue>_lastID</IDInt64DefaultValue>
+    <FieldNamePrefix>_</FieldNamePrefix>
+    <DelegateNamePrefix>d_</DelegateNamePrefix>
+    <CreationDateColumn>CreateDate</CreationDateColumn>
+    <CreationUserColumn>CreateUserID</CreationUserColumn>
+    <ChangedDateColumn>ChangeDate</ChangedDateColumn>
+    <ChangedUserColumn>ChangeUserID</ChangedUserColumn>
+    <LogDateAndTime>true</LogDateAndTime>
+    <GetUserMethod>Security.UserInformation.UserID</GetUserMethod>
+  </Params>
+  <GenerationParams>
+    <AckSilverlightPublicPropertyInfo>false</AckSilverlightPublicPropertyInfo>
+    <SaveBeforeGenerate>true</SaveBeforeGenerate>
+    <TargetFramework>CSLA40</TargetFramework>
+    <WriteTodo>true</WriteTodo>
+    <BackupOldSource>false</BackupOldSource>
+    <RetryOnFileBusy>true</RetryOnFileBusy>
+    <SeparateNamespaces>false</SeparateNamespaces>
+    <SeparateBaseClasses>false</SeparateBaseClasses>
+    <ActiveObjects>false</ActiveObjects>
+    <UseDotDesignerFileNameConvention>true</UseDotDesignerFileNameConvention>
+    <OutputLanguage>CSharp</OutputLanguage>
+    <UpdateOnlyDirtyChildren>true</UpdateOnlyDirtyChildren>
+    <NullableSupport>true</NullableSupport>
+    <PropertyMode>Default</PropertyMode>
+    <GenerateAuthorization>FullSupport</GenerateAuthorization>
+    <HeaderVerbosity>None</HeaderVerbosity>
+    <UseBypassPropertyChecks>false</UseBypassPropertyChecks>
+    <UseSingleCriteria>false</UseSingleCriteria>
+    <UsePublicPropertyInfo>true</UsePublicPropertyInfo>
+    <UseChildFactory>false</UseChildFactory>
+    <ForceReadOnlyProperties>true</ForceReadOnlyProperties>
+    <BaseFilenameSuffix>.Designer</BaseFilenameSuffix>
+    <ExtendedFilenameSuffix />
+    <ClassCommentFilenameSuffix />
+    <SeparateClassComment>false</SeparateClassComment>
+    <BaseNamespace>Lygl.DalLib</BaseNamespace>
+    <UtilitiesNamespace>Lygl.DalLib.Util</UtilitiesNamespace>
+    <UtilitiesFolder>Util</UtilitiesFolder>
+    <DalInterfaceNamespace>DataAccess</DalInterfaceNamespace>
+    <DalObjectNamespace>DataAccess.Sql</DalObjectNamespace>
+    <GenerateSprocs>true</GenerateSprocs>
+    <OneSpFilePerObject>true</OneSpFilePerObject>
+    <GenerateInlineQueries>false</GenerateInlineQueries>
+    <GenerateQueriesWithSchema>true</GenerateQueriesWithSchema>
+    <GenerateDatabaseClass>true</GenerateDatabaseClass>
+    <DalName />
+    <UsesCslaAuthorizationProvider>true</UsesCslaAuthorizationProvider>
+    <GenerateWinForms>false</GenerateWinForms>
+    <GenerateWPF>true</GenerateWPF>
+    <GenerateSilverlight4>false</GenerateSilverlight4>
+    <SilverlightUsingServices>false</SilverlightUsingServices>
+    <DatabaseConnection>LyglDB</DatabaseConnection>
+    <GenerateDTO>false</GenerateDTO>
+    <GenerateDalInterface>false</GenerateDalInterface>
+    <GenerateDalObject>false</GenerateDalObject>
+    <GenerateSynchronous>true</GenerateSynchronous>
+    <GenerateAsynchronous>false</GenerateAsynchronous>
+  </GenerationParams>
+  <CslaObjects>
+    <CslaObjectInfo>
+      <ComponentName />
+      <Generate>true</Generate>
+      <GenerateFactoryMethods>true</GenerateFactoryMethods>
+      <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
+      <GenerateDataPortalInsert>false</GenerateDataPortalInsert>
+      <GenerateDataPortalUpdate>false</GenerateDataPortalUpdate>
+      <GenerateDataPortalDelete>false</GenerateDataPortalDelete>
+      <GenerateSprocs>true</GenerateSprocs>
+      <DataSetLoadingScheme>false</DataSetLoadingScheme>
+      <UseCustomLoading>false</UseCustomLoading>
+      <CheckRulesOnFetch>true</CheckRulesOnFetch>
+      <SupportUpdateProperties>false</SupportUpdateProperties>
+      <ObjectType>ReadOnlyObject</ObjectType>
+      <UnitOfWorkType>Creator</UnitOfWorkType>
+      <ObjectName>InvoiceItemRO</ObjectName>
+      <ObjectNamespace>Lygl.DalLib.Invoice</ObjectNamespace>
+      <ClassVisibility>Public</ClassVisibility>
+      <ClassSummary>Only used in BusinessObject get fee info</ClassSummary>
+      <ClassRemarks>Only used in BusinessObject get fee info</ClassRemarks>
+      <Namespaces />
+      <Attributes />
+      <Implements />
+      <InheritedType>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedType>
+      <InheritedTypeWinForms>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedTypeWinForms>
+      <UseUnitOfWorkType />
+      <ConstructorVisibility>Default</ConstructorVisibility>
+      <Folder>Invoice</Folder>
+      <FileName>InvoiceItemRO</FileName>
+      <OutputLanguage>CSharp</OutputLanguage>
+      <UnitOfWorkProperties />
+      <ChildCollectionProperties />
+      <ChildProperties />
+      <InheritedChildCollectionProperties />
+      <InheritedChildProperties />
+      <ConvertValueProperties />
+      <UpdateValueProperties />
+      <InheritedValueProperties />
+      <ValueProperties>
+        <ValueProperty>
+          <ParameterName>InvoiceItemID</ParameterName>
+          <Name>InvoiceItemID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceItemID</ColumnName>
+            <IsPrimaryKey>true</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>UserProvidedPK</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice Item ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue>Guid.NewGuid()</DefaultValue>
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>InvoiceID</ParameterName>
+          <Name>InvoiceID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Price</ParameterName>
+          <Name>Price</Name>
+          <PropertyType>Decimal</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Decimal</DataType>
+            <NativeType>money</NativeType>
+            <Size>19</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Price</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Price</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Quantity</ParameterName>
+          <Name>Quantity</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Quantity</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Quantity</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>BusinessID</ParameterName>
+          <Name>BusinessID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>BusinessID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Business ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>BusinessName</ParameterName>
+          <Name>BusinessName</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>nvarchar</NativeType>
+            <Size>20</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>BusinessName</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Business Name</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>PayFlag</ParameterName>
+          <Name>PayFlag</Name>
+          <PropertyType>Boolean</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Boolean</DataType>
+            <NativeType>bit</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>PayFlag</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Pay Flag</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>MxID</ParameterName>
+          <Name>MxID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>MxID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>ItemTypeID</ParameterName>
+          <Name>ItemTypeID</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>ItemTypeID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Item Type ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+      </ValueProperties>
+      <CriteriaObjects>
+        <Criteria>
+          <Name>CriteriaGet</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>InvoiceItemID</ParameterName>
+              <Name>InvoiceItemID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>InvoiceItemID</ColumnName>
+                <IsPrimaryKey>true</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetInvoiceItemRO</ProcedureName>
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+        <Criteria>
+          <Name>CriteriaGetbyMxIDBusinessID</Name>
+          <CriteriaClassMode>CriteriaBase</CriteriaClassMode>
+          <NestedClass>false</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>MxID</ParameterName>
+              <Name>MxID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>true</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>MxID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+            <Property>
+              <ParameterName>BusinessID</ParameterName>
+              <Name>BusinessID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>true</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>BusinessID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetInvoiceItemROByMxIDBusinessID</ProcedureName>
+            <FactorySuffix>ByMxIDBusinessID</FactorySuffix>
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+      </CriteriaObjects>
+      <ParentType />
+      <ParentProperties />
+      <ParentInsertOnly>true</ParentInsertOnly>
+      <LazyLoad>false</LazyLoad>
+      <ItemType />
+      <ContainsItem>true</ContainsItem>
+      <UniqueItems>false</UniqueItems>
+      <FindMethodsParameters />
+      <UpdaterType />
+      <AllowNew>false</AllowNew>
+      <AllowEdit>false</AllowEdit>
+      <AllowRemove>false</AllowRemove>
+      <AddParentReference>false</AddParentReference>
+      <SimpleCacheOptions>None</SimpleCacheOptions>
+      <InvalidateCache />
+      <ValueColumn />
+      <NameColumn />
+      <CacheResults>true</CacheResults>
+      <DbName>LyglDB</DbName>
+      <PersistenceType>SqlConnectionManager</PersistenceType>
+      <DbContextObject />
+      <CommandTimeout />
+      <TransactionType>ADO</TransactionType>
+      <InsertUpdateRunLocal>false</InsertUpdateRunLocal>
+      <InsertProcedureName />
+      <SelectProcedureName />
+      <UpdateProcedureName />
+      <DeleteProcedureName />
+      <DeleteUseTimestamp>false</DeleteUseTimestamp>
+      <RemoveItem>true</RemoveItem>
+      <HashcodeProperty />
+      <EqualsProperty />
+      <ToStringProperty />
+      <BusinessRules />
+      <AuthzProvider>IsInRole</AuthzProvider>
+      <NewRoles />
+      <GetRoles />
+      <UpdateRoles />
+      <DeleteRoles />
+      <NewAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </NewAuthzRuleType>
+      <GetAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </GetAuthzRuleType>
+      <UpdateAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </UpdateAuthzRuleType>
+      <DeleteAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </DeleteAuthzRuleType>
+      <PublishToChannel />
+      <SubscribeToChannel />
+    </CslaObjectInfo>
+    <CslaObjectInfo>
+      <ComponentName />
+      <Generate>true</Generate>
+      <GenerateFactoryMethods>true</GenerateFactoryMethods>
+      <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
+      <GenerateDataPortalInsert>true</GenerateDataPortalInsert>
+      <GenerateDataPortalUpdate>true</GenerateDataPortalUpdate>
+      <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
+      <GenerateSprocs>true</GenerateSprocs>
+      <DataSetLoadingScheme>false</DataSetLoadingScheme>
+      <UseCustomLoading>false</UseCustomLoading>
+      <CheckRulesOnFetch>true</CheckRulesOnFetch>
+      <SupportUpdateProperties>false</SupportUpdateProperties>
+      <ObjectType>EditableRootCollection</ObjectType>
+      <UnitOfWorkType>Creator</UnitOfWorkType>
+      <ObjectName>InvoiceList</ObjectName>
+      <ObjectNamespace>Lygl.DalLib.Invoice</ObjectNamespace>
+      <ClassVisibility>Public</ClassVisibility>
+      <ClassSummary />
+      <ClassRemarks />
+      <Namespaces />
+      <Attributes />
+      <Implements />
+      <InheritedType>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedType>
+      <InheritedTypeWinForms>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedTypeWinForms>
+      <UseUnitOfWorkType />
+      <ConstructorVisibility>Default</ConstructorVisibility>
+      <Folder>Invoice</Folder>
+      <FileName>InvoiceList</FileName>
+      <OutputLanguage>CSharp</OutputLanguage>
+      <UnitOfWorkProperties />
+      <ChildCollectionProperties />
+      <ChildProperties />
+      <InheritedChildCollectionProperties />
+      <InheritedChildProperties />
+      <ConvertValueProperties />
+      <UpdateValueProperties />
+      <InheritedValueProperties />
+      <ValueProperties />
+      <CriteriaObjects>
+        <Criteria>
+          <Name>Criteria</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>MxID</ParameterName>
+              <Name>MxID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>MxID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>Invoice</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetInvoiceListByMxID</ProcedureName>
+            <FactorySuffix>ByMxID</FactorySuffix>
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+      </CriteriaObjects>
+      <ParentType />
+      <ParentProperties />
+      <ParentInsertOnly>false</ParentInsertOnly>
+      <LazyLoad>false</LazyLoad>
+      <ItemType>Invoice</ItemType>
+      <ContainsItem>true</ContainsItem>
+      <UniqueItems>false</UniqueItems>
+      <FindMethodsParameters>
+        <Property xsi:type="ValueProperty">
+          <ParameterName>Drawee</ParameterName>
+          <Name>Drawee</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>nvarchar</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Drawee</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Drawee</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </Property>
+        <Property xsi:type="ValueProperty">
+          <ParameterName>InvoiceID</ParameterName>
+          <Name>InvoiceID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceID</ColumnName>
+            <IsPrimaryKey>true</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>UserProvidedPK</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue>Guid.NewGuid()</DefaultValue>
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </Property>
+      </FindMethodsParameters>
+      <UpdaterType />
+      <AllowNew>true</AllowNew>
+      <AllowEdit>true</AllowEdit>
+      <AllowRemove>true</AllowRemove>
+      <AddParentReference>false</AddParentReference>
+      <SimpleCacheOptions>None</SimpleCacheOptions>
+      <InvalidateCache />
+      <ValueColumn />
+      <NameColumn />
+      <CacheResults>true</CacheResults>
+      <DbName>LyglDB</DbName>
+      <PersistenceType>SqlConnectionManager</PersistenceType>
+      <DbContextObject />
+      <CommandTimeout />
+      <TransactionType>ADO</TransactionType>
+      <InsertUpdateRunLocal>false</InsertUpdateRunLocal>
+      <InsertProcedureName>AddInvoiceList</InsertProcedureName>
+      <SelectProcedureName />
+      <UpdateProcedureName>UpdateInvoiceList</UpdateProcedureName>
+      <DeleteProcedureName />
+      <DeleteUseTimestamp>false</DeleteUseTimestamp>
+      <RemoveItem>true</RemoveItem>
+      <HashcodeProperty />
+      <EqualsProperty />
+      <ToStringProperty />
+      <BusinessRules />
+      <AuthzProvider>IsInRole</AuthzProvider>
+      <NewRoles />
+      <GetRoles />
+      <UpdateRoles />
+      <DeleteRoles />
+      <NewAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </NewAuthzRuleType>
+      <GetAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </GetAuthzRuleType>
+      <UpdateAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </UpdateAuthzRuleType>
+      <DeleteAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </DeleteAuthzRuleType>
+      <PublishToChannel />
+      <SubscribeToChannel />
+    </CslaObjectInfo>
+    <CslaObjectInfo>
+      <ComponentName />
+      <Generate>true</Generate>
+      <GenerateFactoryMethods>true</GenerateFactoryMethods>
+      <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
+      <GenerateDataPortalInsert>true</GenerateDataPortalInsert>
+      <GenerateDataPortalUpdate>true</GenerateDataPortalUpdate>
+      <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
+      <GenerateSprocs>true</GenerateSprocs>
+      <DataSetLoadingScheme>false</DataSetLoadingScheme>
+      <UseCustomLoading>false</UseCustomLoading>
+      <CheckRulesOnFetch>true</CheckRulesOnFetch>
+      <SupportUpdateProperties>false</SupportUpdateProperties>
+      <ObjectType>EditableChild</ObjectType>
+      <UnitOfWorkType>Creator</UnitOfWorkType>
+      <ObjectName>Invoice</ObjectName>
+      <ObjectNamespace>Lygl.DalLib.Invoice</ObjectNamespace>
+      <ClassVisibility>Public</ClassVisibility>
+      <ClassSummary />
+      <ClassRemarks />
+      <Namespaces>
+        <string>Lygl.DalLib.NVL</string>
+      </Namespaces>
+      <Attributes />
+      <Implements />
+      <InheritedType>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedType>
+      <InheritedTypeWinForms>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedTypeWinForms>
+      <UseUnitOfWorkType />
+      <ConstructorVisibility>Default</ConstructorVisibility>
+      <Folder>Invoice</Folder>
+      <FileName>Invoice</FileName>
+      <OutputLanguage>CSharp</OutputLanguage>
+      <UnitOfWorkProperties />
+      <ChildCollectionProperties />
+      <ChildProperties />
+      <InheritedChildCollectionProperties />
+      <InheritedChildProperties />
+      <ConvertValueProperties>
+        <ConvertValueProperty>
+          <ParameterName />
+          <Name>OperatorCode</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Operator Code</FriendlyName>
+          <DeclarationMode>AutoProperty</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+          <BaseName />
+          <SourcePropertyName>OperatorID</SourcePropertyName>
+          <NVLConverter>UserNVL.GetUserNVL</NVLConverter>
+        </ConvertValueProperty>
+      </ConvertValueProperties>
+      <UpdateValueProperties />
+      <InheritedValueProperties />
+      <ValueProperties>
+        <ValueProperty>
+          <ParameterName>InvoiceID</ParameterName>
+          <Name>InvoiceID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceID</ColumnName>
+            <IsPrimaryKey>true</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>UserProvidedPK</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue>Guid.NewGuid()</DefaultValue>
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>InvoiceAccount</ParameterName>
+          <Name>InvoiceAccount</Name>
+          <PropertyType>Decimal</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Decimal</DataType>
+            <NativeType>money</NativeType>
+            <Size>19</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceAccount</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice Account</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>MxID</ParameterName>
+          <Name>MxID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>MxID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>InvoiceTime</ParameterName>
+          <Name>InvoiceTime</Name>
+          <PropertyType>SmartDate</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>DateTime</DataType>
+            <NativeType>datetime</NativeType>
+            <Size>3</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceTime</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice Time</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Drawee</ParameterName>
+          <Name>Drawee</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>nvarchar</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Drawee</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Drawee</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>InvoiceNumber</ParameterName>
+          <Name>InvoiceNumber</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>nvarchar</NativeType>
+            <Size>22</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceNumber</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice Number</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>OperatorID</ParameterName>
+          <Name>OperatorID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>OperatorID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Operator ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>IsPrinted</ParameterName>
+          <Name>IsPrinted</Name>
+          <PropertyType>Boolean</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Boolean</DataType>
+            <NativeType>bit</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>IsPrinted</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>Invoice</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Is Printed</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+      </ValueProperties>
+      <CriteriaObjects>
+        <Criteria>
+          <Name>CriteriaNew</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties />
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+        <Criteria>
+          <Name>CriteriaDelete</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>InvoiceID</ParameterName>
+              <Name>InvoiceID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>InvoiceID</ColumnName>
+                <IsPrimaryKey>true</IsPrimaryKey>
+                <ObjectName>Invoice</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>DeleteInvoice</ProcedureName>
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+      </CriteriaObjects>
+      <ParentType>InvoiceList</ParentType>
+      <ParentProperties />
+      <ParentInsertOnly>true</ParentInsertOnly>
+      <LazyLoad>false</LazyLoad>
+      <ItemType />
+      <ContainsItem>true</ContainsItem>
+      <UniqueItems>false</UniqueItems>
+      <FindMethodsParameters />
+      <UpdaterType />
+      <AllowNew>true</AllowNew>
+      <AllowEdit>true</AllowEdit>
+      <AllowRemove>true</AllowRemove>
+      <AddParentReference>false</AddParentReference>
+      <SimpleCacheOptions>None</SimpleCacheOptions>
+      <InvalidateCache />
+      <ValueColumn />
+      <NameColumn />
+      <CacheResults>true</CacheResults>
+      <DbName>LyglDB</DbName>
+      <PersistenceType>SqlConnectionManager</PersistenceType>
+      <DbContextObject />
+      <CommandTimeout />
+      <TransactionType>ADO</TransactionType>
+      <InsertUpdateRunLocal>false</InsertUpdateRunLocal>
+      <InsertProcedureName>AddInvoice</InsertProcedureName>
+      <SelectProcedureName />
+      <UpdateProcedureName>UpdateInvoice</UpdateProcedureName>
+      <DeleteProcedureName>DeleteInvoice</DeleteProcedureName>
+      <DeleteUseTimestamp>false</DeleteUseTimestamp>
+      <RemoveItem>true</RemoveItem>
+      <HashcodeProperty />
+      <EqualsProperty />
+      <ToStringProperty />
+      <BusinessRules />
+      <AuthzProvider>IsInRole</AuthzProvider>
+      <NewRoles />
+      <GetRoles />
+      <UpdateRoles />
+      <DeleteRoles />
+      <NewAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </NewAuthzRuleType>
+      <GetAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </GetAuthzRuleType>
+      <UpdateAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </UpdateAuthzRuleType>
+      <DeleteAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </DeleteAuthzRuleType>
+      <PublishToChannel />
+      <SubscribeToChannel />
+    </CslaObjectInfo>
+    <CslaObjectInfo>
+      <ComponentName />
+      <Generate>true</Generate>
+      <GenerateFactoryMethods>true</GenerateFactoryMethods>
+      <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
+      <GenerateDataPortalInsert>true</GenerateDataPortalInsert>
+      <GenerateDataPortalUpdate>true</GenerateDataPortalUpdate>
+      <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
+      <GenerateSprocs>true</GenerateSprocs>
+      <DataSetLoadingScheme>false</DataSetLoadingScheme>
+      <UseCustomLoading>false</UseCustomLoading>
+      <CheckRulesOnFetch>true</CheckRulesOnFetch>
+      <SupportUpdateProperties>false</SupportUpdateProperties>
+      <ObjectType>EditableRootCollection</ObjectType>
+      <UnitOfWorkType>Creator</UnitOfWorkType>
+      <ObjectName>InvoiceItemEditList</ObjectName>
+      <ObjectNamespace>Lygl.DalLib.Invoice</ObjectNamespace>
+      <ClassVisibility>Public</ClassVisibility>
+      <ClassSummary />
+      <ClassRemarks />
+      <Namespaces />
+      <Attributes />
+      <Implements />
+      <InheritedType>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedType>
+      <InheritedTypeWinForms>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedTypeWinForms>
+      <UseUnitOfWorkType />
+      <ConstructorVisibility>Default</ConstructorVisibility>
+      <Folder>Invoice</Folder>
+      <FileName>InvoiceItemEditList</FileName>
+      <OutputLanguage>CSharp</OutputLanguage>
+      <UnitOfWorkProperties />
+      <ChildCollectionProperties />
+      <ChildProperties />
+      <InheritedChildCollectionProperties />
+      <InheritedChildProperties />
+      <ConvertValueProperties />
+      <UpdateValueProperties />
+      <InheritedValueProperties />
+      <ValueProperties>
+        <ValueProperty>
+          <ParameterName>MxID</ParameterName>
+          <Name>MxID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>MxID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+      </ValueProperties>
+      <CriteriaObjects>
+        <Criteria>
+          <Name>Criteria</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>MxID</ParameterName>
+              <Name>MxID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>MxID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetInvoiceItemEditList</ProcedureName>
+            <FactorySuffix>ByMxID</FactorySuffix>
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+        <Criteria>
+          <Name>CriteriaGetByMxInvoicetypeBusinessID</Name>
+          <CriteriaClassMode>CriteriaBase</CriteriaClassMode>
+          <NestedClass>false</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>MxID</ParameterName>
+              <Name>MxID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>MxID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+            <Property>
+              <ParameterName>ItemTypeID</ParameterName>
+              <Name>ItemTypeID</Name>
+              <PropertyType>Int32</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Int32</DataType>
+                <NativeType>int</NativeType>
+                <Size>10</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>ItemTypeID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+            <Property>
+              <ParameterName>BusinessID</ParameterName>
+              <Name>BusinessID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>BusinessID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetInvoiceItemEditListByMxInvoiceTypeBusinessID</ProcedureName>
+            <FactorySuffix>ByMxInvoiceTypeBusinessID</FactorySuffix>
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+        <Criteria>
+          <Name>CriteriaGetNotPay</Name>
+          <CriteriaClassMode>CriteriaBase</CriteriaClassMode>
+          <NestedClass>false</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>MxID</ParameterName>
+              <Name>MxID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>true</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>MxID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+            <Property>
+              <ParameterName>PayFlag</ParameterName>
+              <Name>PayFlag</Name>
+              <PropertyType>Boolean</PropertyType>
+              <ReadOnly>true</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Boolean</DataType>
+                <NativeType>bit</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>PayFlag</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetInvoiceItemEditListbyPayFlag</ProcedureName>
+            <FactorySuffix>byPayFlag</FactorySuffix>
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+        <Criteria>
+          <Name>CriteriaGetByInvoiceID</Name>
+          <CriteriaClassMode>CriteriaBase</CriteriaClassMode>
+          <NestedClass>false</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>InvoiceID</ParameterName>
+              <Name>InvoiceID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>true</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>InvoiceID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+            <Property>
+              <ParameterName>MxID</ParameterName>
+              <Name>MxID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>true</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>MxID</ColumnName>
+                <IsPrimaryKey>false</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>GetInvoiceItemEditListByMxInvoice</ProcedureName>
+            <FactorySuffix>ByMxInvoice</FactorySuffix>
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+      </CriteriaObjects>
+      <ParentType />
+      <ParentProperties />
+      <ParentInsertOnly>false</ParentInsertOnly>
+      <LazyLoad>false</LazyLoad>
+      <ItemType>InvoiceItemEdit</ItemType>
+      <ContainsItem>true</ContainsItem>
+      <UniqueItems>false</UniqueItems>
+      <FindMethodsParameters>
+        <Property xsi:type="ValueProperty">
+          <ParameterName>BusinessID</ParameterName>
+          <Name>BusinessID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>BusinessID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Business ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </Property>
+        <Property xsi:type="ValueProperty">
+          <ParameterName>InvoiceID</ParameterName>
+          <Name>InvoiceID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>true</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </Property>
+        <Property xsi:type="ValueProperty">
+          <ParameterName>ItemTypeID</ParameterName>
+          <Name>ItemTypeID</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>ItemTypeID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Item Type ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </Property>
+        <Property xsi:type="ValueProperty">
+          <ParameterName>PayFlag</ParameterName>
+          <Name>PayFlag</Name>
+          <PropertyType>Boolean</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Boolean</DataType>
+            <NativeType>bit</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>PayFlag</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Pay Flag</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </Property>
+      </FindMethodsParameters>
+      <UpdaterType />
+      <AllowNew>true</AllowNew>
+      <AllowEdit>true</AllowEdit>
+      <AllowRemove>true</AllowRemove>
+      <AddParentReference>false</AddParentReference>
+      <SimpleCacheOptions>None</SimpleCacheOptions>
+      <InvalidateCache />
+      <ValueColumn />
+      <NameColumn />
+      <CacheResults>true</CacheResults>
+      <DbName>LyglDB</DbName>
+      <PersistenceType>SqlConnectionManager</PersistenceType>
+      <DbContextObject />
+      <CommandTimeout />
+      <TransactionType>ADO</TransactionType>
+      <InsertUpdateRunLocal>false</InsertUpdateRunLocal>
+      <InsertProcedureName>AddInvoiceItemEditList</InsertProcedureName>
+      <SelectProcedureName />
+      <UpdateProcedureName>UpdateInvoiceItemEditList</UpdateProcedureName>
+      <DeleteProcedureName />
+      <DeleteUseTimestamp>false</DeleteUseTimestamp>
+      <RemoveItem>true</RemoveItem>
+      <HashcodeProperty />
+      <EqualsProperty />
+      <ToStringProperty />
+      <BusinessRules />
+      <AuthzProvider>IsInRole</AuthzProvider>
+      <NewRoles />
+      <GetRoles />
+      <UpdateRoles />
+      <DeleteRoles />
+      <NewAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </NewAuthzRuleType>
+      <GetAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </GetAuthzRuleType>
+      <UpdateAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </UpdateAuthzRuleType>
+      <DeleteAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </DeleteAuthzRuleType>
+      <PublishToChannel />
+      <SubscribeToChannel />
+    </CslaObjectInfo>
+    <CslaObjectInfo>
+      <ComponentName />
+      <Generate>true</Generate>
+      <GenerateFactoryMethods>true</GenerateFactoryMethods>
+      <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
+      <GenerateDataPortalInsert>true</GenerateDataPortalInsert>
+      <GenerateDataPortalUpdate>true</GenerateDataPortalUpdate>
+      <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
+      <GenerateSprocs>true</GenerateSprocs>
+      <DataSetLoadingScheme>false</DataSetLoadingScheme>
+      <UseCustomLoading>false</UseCustomLoading>
+      <CheckRulesOnFetch>true</CheckRulesOnFetch>
+      <SupportUpdateProperties>false</SupportUpdateProperties>
+      <ObjectType>EditableChild</ObjectType>
+      <UnitOfWorkType>Creator</UnitOfWorkType>
+      <ObjectName>InvoiceItemEdit</ObjectName>
+      <ObjectNamespace>Lygl.DalLib.Invoice</ObjectNamespace>
+      <ClassVisibility>Public</ClassVisibility>
+      <ClassSummary />
+      <ClassRemarks />
+      <Namespaces />
+      <Attributes />
+      <Implements />
+      <InheritedType>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedType>
+      <InheritedTypeWinForms>
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+      </InheritedTypeWinForms>
+      <UseUnitOfWorkType />
+      <ConstructorVisibility>Default</ConstructorVisibility>
+      <Folder>Invoice</Folder>
+      <FileName>InvoiceItemEdit</FileName>
+      <OutputLanguage>CSharp</OutputLanguage>
+      <UnitOfWorkProperties />
+      <ChildCollectionProperties />
+      <ChildProperties />
+      <InheritedChildCollectionProperties />
+      <InheritedChildProperties />
+      <ConvertValueProperties />
+      <UpdateValueProperties />
+      <InheritedValueProperties />
+      <ValueProperties>
+        <ValueProperty>
+          <ParameterName>InvoiceItemID</ParameterName>
+          <Name>InvoiceItemID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceItemID</ColumnName>
+            <IsPrimaryKey>true</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>UserProvidedPK</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice Item ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue>Guid.NewGuid()</DefaultValue>
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>InvoiceID</ParameterName>
+          <Name>InvoiceID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>InvoiceID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Invoice ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Price</ParameterName>
+          <Name>Price</Name>
+          <PropertyType>Decimal</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Decimal</DataType>
+            <NativeType>money</NativeType>
+            <Size>19</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Price</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Price</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>Quantity</ParameterName>
+          <Name>Quantity</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>Quantity</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Quantity</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>ItemTypeID</ParameterName>
+          <Name>ItemTypeID</Name>
+          <PropertyType>Int32</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Int32</DataType>
+            <NativeType>int</NativeType>
+            <Size>10</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>ItemTypeID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Item Type ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>BusinessID</ParameterName>
+          <Name>BusinessID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>BusinessID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Business ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>PayFlag</ParameterName>
+          <Name>PayFlag</Name>
+          <PropertyType>Boolean</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Boolean</DataType>
+            <NativeType>bit</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>PayFlag</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Pay Flag</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>MxID</ParameterName>
+          <Name>MxID</Name>
+          <PropertyType>Guid</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>Guid</DataType>
+            <NativeType>uniqueidentifier</NativeType>
+            <Size>0</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>MxID</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Mx ID</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+        <ValueProperty>
+          <ParameterName>BusinessName</ParameterName>
+          <Name>BusinessName</Name>
+          <PropertyType>String</PropertyType>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <Summary />
+          <Remarks />
+          <DbBindColumn>
+            <ColumnOriginType>Table</ColumnOriginType>
+            <DataType>String</DataType>
+            <NativeType>nvarchar</NativeType>
+            <Size>20</Size>
+            <SpResultIndex>0</SpResultIndex>
+            <ColumnName>BusinessName</ColumnName>
+            <IsPrimaryKey>false</IsPrimaryKey>
+            <ObjectName>InvoiceItem</ObjectName>
+            <CatalogName>Lygl</CatalogName>
+            <SchemaName>dbo</SchemaName>
+            <IsNullable>false</IsNullable>
+            <IsIdentity>false</IsIdentity>
+          </DbBindColumn>
+          <DataAccess>ReadWrite</DataAccess>
+          <PrimaryKey>Default</PrimaryKey>
+          <FKConstraint />
+          <FriendlyName>Business Name</FriendlyName>
+          <DeclarationMode>Managed</DeclarationMode>
+          <BackingFieldType>Empty</BackingFieldType>
+          <DefaultValue />
+          <Attributes />
+          <Implements />
+          <Rules />
+          <BusinessRules />
+          <AuthzProvider>IsInRole</AuthzProvider>
+          <ReadRoles />
+          <WriteRoles />
+          <ReadAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </ReadAuthzRuleType>
+          <WriteAuthzRuleType>
+            <BaseRuleProperties />
+            <Name />
+            <ObjectName />
+            <AssemblyFile />
+            <Type />
+            <Constructors />
+            <RuleProperties />
+            <CacheResult>false</CacheResult>
+          </WriteAuthzRuleType>
+          <Access>IsPublic</Access>
+          <PropSetAccessibility>Default</PropSetAccessibility>
+          <Undoable>true</Undoable>
+          <MarkDirtyOnChange>true</MarkDirtyOnChange>
+        </ValueProperty>
+      </ValueProperties>
+      <CriteriaObjects>
+        <Criteria>
+          <Name>CriteriaNew</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties />
+          <CreateOptions>
+            <Factory>true</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>true</DataPortal>
+            <RunLocal>true</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+        <Criteria>
+          <Name>CriteriaDelete</Name>
+          <CriteriaClassMode>Simple</CriteriaClassMode>
+          <NestedClass>true</NestedClass>
+          <Properties>
+            <Property>
+              <ParameterName>InvoiceItemID</ParameterName>
+              <Name>InvoiceItemID</Name>
+              <PropertyType>Guid</PropertyType>
+              <ReadOnly>false</ReadOnly>
+              <Nullable>false</Nullable>
+              <Summary />
+              <Remarks />
+              <DbBindColumn>
+                <ColumnOriginType>Table</ColumnOriginType>
+                <DataType>Guid</DataType>
+                <NativeType>uniqueidentifier</NativeType>
+                <Size>0</Size>
+                <SpResultIndex>0</SpResultIndex>
+                <ColumnName>InvoiceItemID</ColumnName>
+                <IsPrimaryKey>true</IsPrimaryKey>
+                <ObjectName>InvoiceItem</ObjectName>
+                <CatalogName>Lygl</CatalogName>
+                <SchemaName>dbo</SchemaName>
+                <IsNullable>false</IsNullable>
+                <IsIdentity>false</IsIdentity>
+              </DbBindColumn>
+              <ParameterValue />
+            </Property>
+          </Properties>
+          <CreateOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </CreateOptions>
+          <GetOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>false</Procedure>
+            <ProcedureName />
+            <FactorySuffix />
+          </GetOptions>
+          <DeleteOptions>
+            <Factory>false</Factory>
+            <AddRemove>false</AddRemove>
+            <DataPortal>false</DataPortal>
+            <RunLocal>false</RunLocal>
+            <Procedure>true</Procedure>
+            <ProcedureName>DeleteInvoiceItem</ProcedureName>
+            <FactorySuffix />
+          </DeleteOptions>
+          <Summary />
+          <Remarks />
+        </Criteria>
+      </CriteriaObjects>
+      <ParentType>InvoiceItemEditList</ParentType>
+      <ParentProperties />
+      <ParentInsertOnly>true</ParentInsertOnly>
+      <LazyLoad>false</LazyLoad>
+      <ItemType />
+      <ContainsItem>true</ContainsItem>
+      <UniqueItems>false</UniqueItems>
+      <FindMethodsParameters />
+      <UpdaterType />
+      <AllowNew>true</AllowNew>
+      <AllowEdit>true</AllowEdit>
+      <AllowRemove>true</AllowRemove>
+      <AddParentReference>false</AddParentReference>
+      <SimpleCacheOptions>None</SimpleCacheOptions>
+      <InvalidateCache />
+      <ValueColumn />
+      <NameColumn />
+      <CacheResults>true</CacheResults>
+      <DbName>LyglDB</DbName>
+      <PersistenceType>SqlConnectionManager</PersistenceType>
+      <DbContextObject />
+      <CommandTimeout />
+      <TransactionType>ADO</TransactionType>
+      <InsertUpdateRunLocal>false</InsertUpdateRunLocal>
+      <InsertProcedureName>AddInvoiceItemEdit</InsertProcedureName>
+      <SelectProcedureName />
+      <UpdateProcedureName>UpdateInvoiceItemEdit</UpdateProcedureName>
+      <DeleteProcedureName>DeleteInvoiceItemEdit</DeleteProcedureName>
+      <DeleteUseTimestamp>false</DeleteUseTimestamp>
+      <RemoveItem>true</RemoveItem>
+      <HashcodeProperty />
+      <EqualsProperty />
+      <ToStringProperty />
+      <BusinessRules />
+      <AuthzProvider>IsInRole</AuthzProvider>
+      <NewRoles />
+      <GetRoles />
+      <UpdateRoles />
+      <DeleteRoles />
+      <NewAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </NewAuthzRuleType>
+      <GetAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </GetAuthzRuleType>
+      <UpdateAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </UpdateAuthzRuleType>
+      <DeleteAuthzRuleType>
+        <BaseRuleProperties />
+        <Name />
+        <ObjectName />
+        <AssemblyFile />
+        <Type />
+        <Constructors />
+        <RuleProperties />
+        <CacheResult>false</CacheResult>
+      </DeleteAuthzRuleType>
+      <PublishToChannel />
+      <SubscribeToChannel />
+    </CslaObjectInfo>
+  </CslaObjects>
+  <AssociativeEntities />
+  <ConnectionString>Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\develop\Lygl3DX\Db\lygl.mdf;integrated security=SSPI;</ConnectionString>
+  <ProjectName>Invoice.project</ProjectName>
+  <TargetDirectory>D:\develop\Lygl3DX\Lygl.DalLib</TargetDirectory>
+  <FileVersion>4.0.3</FileVersion>
+</CslaGeneratorUnit>

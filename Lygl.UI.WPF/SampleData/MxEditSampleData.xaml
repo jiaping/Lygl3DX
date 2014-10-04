@@ -1,0 +1,22 @@
+<Lygl_Lib_Edit:MxEdit xmlns:Lygl_Lib_Edit="clr-namespace:Lygl.DalLib.Edit;assembly=Lygl.DalLib" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Csla_Rules="clr-namespace:Csla.Rules;assembly=Csla" CreateDate="Vestibulum aenean nam adipiscing maecenas" IsDeleted="False" IsDirty="True" IsSelfDirty="True" IsNew="False" IsSavable="True" IsSelfBusy="False" IsValid="True" IsChild="True" IsBusy="False" IsSelfValid="False" KbrName="Aliquam mauris parturient" MxStatus="68" MxType="35" Mz="Class curabitur" Name="Sed integer praesent dis quisque" Pos="Accumsan bibendum curae cras" RowColumn="Vestibulum phasellus est vestibulum" Style="Duis adipiscing donec">
+	<Lygl_Lib_Edit:MxEdit.AreaID>
+		<System:Guid/>
+	</Lygl_Lib_Edit:MxEdit.AreaID>
+	<Lygl_Lib_Edit:MxEdit.BrokenRulesCollection>
+		<Csla_Rules:BrokenRulesCollection AllowRemove="False" AllowNew="True" AllowEdit="False" ErrorCount="37" InformationCount="91" IsSelfBusy="False" IsReadOnly="True" IsBusy="True" RaiseListChangedEvents="True" WarningCount="45">
+			<Csla_Rules:BrokenRule Description="Parturient vestibulum etiam vestibulum consequat" Property="Dictumst hac adipiscing" RuleName="Eleifend convallis fusce dignissim parturient" Severity="Information"/>
+			<Csla_Rules:BrokenRule Description="Elementum vestibulum" Property="Vestibulum nunc facilisi nullam" RuleName="Vivamus adipiscing facilisis lorem" Severity="Information"/>
+			<Csla_Rules:BrokenRule Description="Parturient faucibus" Property="Leo habitant mus fermentum" RuleName="Vestibulum aptent vestibulum adipiscing" Severity="Information"/>
+			<Csla_Rules:BrokenRule Description="Auctor aliquam aliquet blandit" Property="Congue parturient cursus" RuleName="Dictum fringilla" Severity="Success"/>
+			<Csla_Rules:BrokenRule Description="Lectus habitasse morbi vestibulum libero" Property="Ligula nec hendrerit vestibulum amet" RuleName="Inceptos nulla" Severity="Information"/>
+			<Csla_Rules:BrokenRule Description="Litora ante interdum proin augue" Property="Himenaeos non" RuleName="Adipiscing per imperdiet luctus magnis" Severity="Error"/>
+			<Csla_Rules:BrokenRule Description="Parturient commodo dolor" Property="Mattis fames malesuada penatibus sed" RuleName="Arcu diam mauris conubia lobortis" Severity="Error"/>
+			<Csla_Rules:BrokenRule Description="Porttitor cubilia felis" Property="Sem sit vel eget ipsum" RuleName="Dapibus vestibulum mollis vestibulum elit" Severity="Success"/>
+			<Csla_Rules:BrokenRule Description="Enim erat montes nostra" Property="Nascetur egestas" RuleName="Justo adipiscing parturient tincidunt eros" Severity="Warning"/>
+			<Csla_Rules:BrokenRule Description="Pharetra ornare nam platea" Property="Euismod nibh lacus placerat sed" RuleName="Pulvinar primis nisi" Severity="Success"/>
+		</Csla_Rules:BrokenRulesCollection>
+	</Lygl_Lib_Edit:MxEdit.BrokenRulesCollection>
+	<Lygl_Lib_Edit:MxEdit.MxID>
+		<System:Guid/>
+	</Lygl_Lib_Edit:MxEdit.MxID>
+</Lygl_Lib_Edit:MxEdit>

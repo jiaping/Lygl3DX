@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Lygl.UI.Statistic.bbView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="359"   xmlns:my="clr-namespace:Lygl.DalLib.Business;assembly=Lygl.DalLib">
+    <DockPanel >
+        <ToolBarTray Height="26" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Width="200" DockPanel.Dock="Top">
+            <ToolBar x:Name="toolBar">
+                <ToolBar.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Path=Label}" cal:Message.Attach="[Click]=[Execute]" IsEnabled="{Binding Path=CanExecute}" ToolTip="{Binding Path=ToolTip}"></Button>
+                    </DataTemplate>
+                </ToolBar.ItemTemplate>
+            </ToolBar>
+        </ToolBarTray>
+        <Grid  DockPanel.Dock="Top" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <DataGrid x:Name="dgMain"  AutoGenerateColumns="False" EnableRowVirtualization="True" IsReadOnly="True" ItemsSource="{Binding dgMain, Mode=OneWay}" Margin="10,10,6,9" RowDetailsVisibilityMode="VisibleWhenSelected">
+                </DataGrid>
+            </Grid>
+
+                <Button Content="重新统计" Height="23" HorizontalAlignment="Left" Margin="392,8,0,0" VerticalAlignment="Top" Width="75" />
+                   </Grid>
+    </DockPanel>
+</UserControl>

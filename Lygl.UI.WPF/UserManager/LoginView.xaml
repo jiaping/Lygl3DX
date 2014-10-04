@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Lygl.UI.UserManager.LoginView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+        xmlns:csla="http://schemas.lhotka.net/4.1.0/xaml" xmlns:local="clr-namespace:Lygl.UI.UserManager" 
+        xmlns:Lygl_UI_Properties="clr-namespace:Lygl.UI.Properties" 
+        mc:Ignorable="d" Foreground="{x:Null}">
+   
+    <Border CornerRadius="10"
+        BorderBrush="Gray"
+        BorderThickness="3"
+        
+        Margin="24"
+        Padding="4" Background="Orange"  >
+        <Border.Effect>
+            <DropShadowEffect Color="Gray" Opacity=".50" ShadowDepth="16" />
+        </Border.Effect>	
+        <Grid >
+            <Grid.ColumnDefinitions>
+            	<ColumnDefinition Width="85" />
+            	<ColumnDefinition Width="240" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+            	<RowDefinition />
+            	<RowDefinition />
+            	<RowDefinition />
+            	<RowDefinition />
+            </Grid.RowDefinitions>
+            <Label HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" Margin="10" FontWeight="Normal" Content="陵园管理系统"/>
+            <Label Grid.Row="1" Content="用户名："/>
+            <TextBox Grid.Column="1" Grid.Row="1" ToolTip="输入用户代号，不是名称" x:Name="txtUserName" Text="" DataContext="{Binding UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="2" Content="密码："/>
+            <PasswordBox Grid.Column="1" Grid.Row="2" ToolTip="输入密码" x:Name="txtPassword" cal:Message.Attach="[PasswordChanged]=[PasswordChanged($source,$eventArgs)]" DataContext="{Binding UpdateSourceTrigger=PropertyChanged}" />
+            <!--<TextBox Grid.Column="1" Grid.Row="2" ToolTip="输入密码" x:Name="txtPassword"  DataContext="{Binding UpdateSourceTrigger=PropertyChanged}" />-->
+
+            <StackPanel Grid.Column="1" Grid.Row="4" Margin="10,5" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="Login" cal:Message.Attach="[Click]=[Login(txtUserName.Text)]"  AutomationProperties.AutomationId="login" IsDefault="True" Content="登录"   Width="68" >
+                	<Button.Effect>
+                        <DropShadowEffect Color="Gray" Opacity=".50" ShadowDepth="8" />
+                    </Button.Effect>
+				</Button>
+                <Button x:Name="btnCancel" Margin="2"  Width="68" Height="22" IsCancel="True" Content="取消" >
+                    <Button.Effect>
+                        <DropShadowEffect Color="Gray" Opacity=".50" ShadowDepth="8" />
+                    </Button.Effect>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

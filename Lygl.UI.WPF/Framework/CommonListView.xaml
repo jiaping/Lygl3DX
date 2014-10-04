@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Lygl.UI.Framework.CommonListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="559"   xmlns:my="clr-namespace:Lygl.DalLib.Business;assembly=Lygl.DalLib">
+    <DockPanel >
+        <!--<ToolBarTray Height="26" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Width="200" DockPanel.Dock="Top">
+            <ToolBar x:Name="toolBar">
+                <ToolBar.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Path=Label}" cal:Message.Attach="[Click]=[Execute]" IsEnabled="{Binding Path=CanExecute}" ToolTip="{Binding Path=ToolTip}"></Button>
+                    </DataTemplate>
+                </ToolBar.ItemTemplate>
+            </ToolBar>
+        </ToolBarTray>-->
+        <Grid  DockPanel.Dock="Top">
+            <GroupBox Header="列表" Margin="10" >
+                <ListView  ItemsSource="{Binding Model}" SelectedItem="{Binding CurrentNode}"   BorderBrush="{x:Null}"><!--//cal:Message.Attach="[SelectionChanged]=[SelectionChanged($Source,$EventArgs)]"-->
+                    <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <Label Content="{Binding Name}" />
+                            <!--<Label  Content="{Binding Description}" />-->
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            </GroupBox>
+        </Grid>
+        
+
+    </DockPanel>
+</UserControl>

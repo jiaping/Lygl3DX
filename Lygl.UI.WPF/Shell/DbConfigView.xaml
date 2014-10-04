@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Lygl.Shell.DbConfigView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+    x:Uid="idAboutBox" Width="493" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="294">
+    <Grid cal:Message.Attach="[TextBoxBase.TextChanged]=[TextChanged()]" >
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Content="服务器名" Height="28" HorizontalAlignment="Left" Margin="16,15,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="ServerName" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="0,18,0,0" VerticalAlignment="Top" Width="120" />
+        <Label Content="数据库名" Height="28" HorizontalAlignment="Left" Margin="27,18,0,0" VerticalAlignment="Top" Grid.Row="1" />
+        <TextBox x:Name="DBName" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" />
+        <Label Content="用户名" Height="28" HorizontalAlignment="Left" Margin="38,16,0,0" VerticalAlignment="Top" Grid.Column="2" />
+        <TextBox x:Name="UserName" Grid.Column="3" Height="23" HorizontalAlignment="Left" Margin="4,15,0,0" VerticalAlignment="Top" Width="120" />
+        <Label Content="密码" Height="28" HorizontalAlignment="Left" Margin="28,18,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" />
+        <TextBox x:Name="Pwd" Grid.Column="3" Height="23" HorizontalAlignment="Left" Margin="0,19,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" />
+        <Button Content="确定" cal:Message.Attach="[Click]=[btnOK()]" Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="7,19,0,0" VerticalAlignment="Top" Width="75" />
+        <Button Content="取消" cal:Message.Attach="[Click]=[btnCancel]" Height="23" HorizontalAlignment="Left" Margin="28,20,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Grid.Row="3" />
+        <!--<Label Content="数据通信端口号：" Margin="3,23,0,24" Grid.Row="2" />
+        <TextBox x:Name="ServerPort" Grid.Column="1" Margin="6,23,9,28" Grid.Row="2" />-->
+    </Grid>
+</UserControl>

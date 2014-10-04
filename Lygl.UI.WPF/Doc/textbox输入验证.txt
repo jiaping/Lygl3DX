@@ -1,0 +1,15 @@
+﻿引用自：http://blog.csdn.net/ShenKeTao/article/details/5841052
+
+ WPF TextBox 扩展验证控件
+
+还有一个例子
+http://kb.cnblogs.com/a/1986852/
+
+How to define TextBox input restrictions?
+http://stackoverflow.com/questions/1103765/how-to-define-textbox-input-restrictions
+
+Custom WPF TextBox which allows input based on the data type or a Regular Expression
+http://www.codeproject.com/Articles/310517/Custom-WPF-TextBox-which-allows-input-based-on-the
+
+ DecimalUpDown, DoubleUpDown, or IntegerUpDown controls.
+http://wpftoolkit.codeplex.com/wikipage?title=NumericUpDown&referringTitle=Home

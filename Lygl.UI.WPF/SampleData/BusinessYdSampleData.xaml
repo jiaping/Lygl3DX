@@ -1,0 +1,22 @@
+<Lygl_Lib_Business:BusinessYd xmlns:Lygl_Lib_Business="clr-namespace:Lygl.DalLib.Business;assembly=Lygl.DalLib" xmlns:Csla_Rules="clr-namespace:Csla.Rules;assembly=Csla" xmlns:System="clr-namespace:System;assembly=mscorlib" BusinessName="Aenean mauris class maecenas nullam" Drawee="Aliquam aptent" IsDeleted="True" IsDirty="False" IsSelfDirty="False" IsNew="True" IsSavable="False" IsSelfBusy="True" IsValid="False" IsChild="False" IsBusy="True" IsSelfValid="True" PayFlag="True">
+	<Lygl_Lib_Business:BusinessYd.BrokenRulesCollection>
+		<Csla_Rules:BrokenRulesCollection AllowRemove="True" AllowNew="False" AllowEdit="True" ErrorCount="76" InformationCount="38" IsSelfBusy="True" IsReadOnly="False" IsBusy="False" RaiseListChangedEvents="False" WarningCount="86">
+			<Csla_Rules:BrokenRule Description="Cras nam curabitur phasellus" Property="Consequat curae integer" RuleName="Donec etiam sed convallis auctor" Severity="Warning"/>
+			<Csla_Rules:BrokenRule Description="Dis vestibulum quisque adipiscing" Property="Praesent est" RuleName="Duis hac nunc parturient" Severity="Success"/>
+			<Csla_Rules:BrokenRule Description="Congue leo mus vivamus fusce" Property="Amet nec non" RuleName="Cursus per" Severity="Success"/>
+			<Csla_Rules:BrokenRule Description="Aliquam dignissim" Property="Lorem sed morbi nulla" RuleName="Sem vestibulum" Severity="Success"/>
+			<Csla_Rules:BrokenRule Description="Aliquet proin elementum facilisis" Property="Augue dictum ante arcu" RuleName="Vestibulum lectus blandit accumsan" Severity="Success"/>
+			<Csla_Rules:BrokenRule Description="Dolor libero" Property="Fames felis bibendum" RuleName="Fermentum fringilla ipsum sit" Severity="Information"/>
+			<Csla_Rules:BrokenRule Description="Ligula diam justo dictumst eleifend" Property="Adipiscing eget facilisi" RuleName="Litora faucibus lacus vel elit" Severity="Success"/>
+			<Csla_Rules:BrokenRule Description="Commodo parturient nam" Property="Habitant habitasse conubia luctus sed" RuleName="Enim cubilia magnis" Severity="Warning"/>
+			<Csla_Rules:BrokenRule Description="Hendrerit himenaeos" Property="Dis dapibus est mattis" RuleName="Egestas euismod inceptos vestibulum" Severity="Error"/>
+			<Csla_Rules:BrokenRule Description="Hac leo feugiat mus" Property="Gravida iaculis vestibulum lacinia" RuleName="Laoreet imperdiet lorem natoque" Severity="Error"/>
+		</Csla_Rules:BrokenRulesCollection>
+	</Lygl_Lib_Business:BusinessYd.BrokenRulesCollection>
+	<Lygl_Lib_Business:BusinessYd.BusinessID>
+		<System:Guid/>
+	</Lygl_Lib_Business:BusinessYd.BusinessID>
+	<Lygl_Lib_Business:BusinessYd.MxID>
+		<System:Guid/>
+	</Lygl_Lib_Business:BusinessYd.MxID>
+</Lygl_Lib_Business:BusinessYd>

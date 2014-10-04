@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="Lygl.UI.Edit.Views.RoleEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="559"  >
+    <UserControl.Resources>
+        <HierarchicalDataTemplate x:Key="PermissionItemTemplate" ItemsSource="{Binding PermissionItem}" >
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox IsEnabled="{Binding DataContext.IsEdit, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type UserControl}}}" IsChecked="{Binding IsChecked}" Grid.Column="0"></CheckBox>
+                    <TextBlock Text="{Binding Label}" ToolTip="{Binding Description}" Grid.Column="1"/>
+                </Grid>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <!--ItemsSource="{Binding MenuCategoryItems}"-->
+        <HierarchicalDataTemplate x:Key="CategoryItemTemplate" ItemsSource="{Binding PermissionItems}"  ItemTemplate="{StaticResource PermissionItemTemplate}"  >
+            <TextBlock Text="{Binding CategoryName}"/>
+        </HierarchicalDataTemplate>
+    </UserControl.Resources>
+        <DockPanel >
+        <!--<ToolBarTray Height="26" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Width="200" DockPanel.Dock="Top">
+            <ToolBar x:Name="toolBar">
+                <ToolBar.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Path=Label}" cal:Message.Attach="[Click]=[Execute]" IsEnabled="{Binding Path=CanExecute}" ToolTip="{Binding Path=ToolTip}"></Button>
+                    </DataTemplate>
+                </ToolBar.ItemTemplate>
+            </ToolBar>
+        </ToolBarTray>-->
+        <ContentControl Content="{StaticResource TitleAndToolbar}" DockPanel.Dock="Top" />
+        <Grid   DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="174*" />
+                <ColumnDefinition Width="385*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="279*" />
+                <RowDefinition Height="0*" />
+            </Grid.RowDefinitions>
+            <Grid IsEnabled="{Binding IsListEnable}">
+            <ContentControl Content="{Binding CommonList}"></ContentControl>
+</Grid>
+            <Grid  Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid IsEnabled="{Binding Path=IsEdit}" Grid.Row="0">
+                    <Grid DataContext="{Binding Path=Model}" DockPanel.Dock="Top" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MinWidth="360">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*" />
+                            <ColumnDefinition Width="0.3*" />
+                            <ColumnDefinition Width="0.2*" />
+                            <ColumnDefinition Width="0.3*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="36" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Content="角色名" HorizontalAlignment="Stretch" Margin="1" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" />
+                        <TextBox IsEnabled="True" Margin="1" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true,UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="1" Panel.ZIndex="1" Grid.Column="1" />
+                    </Grid>
+                </Grid>
+                <ScrollViewer   Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1" VerticalScrollBarVisibility="Auto" MinHeight="160" MaxHeight="300">
+                    <TreeView x:Name="TVPermissions"  ItemTemplate="{DynamicResource CategoryItemTemplate}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  />
+                </ScrollViewer>
+            </Grid>
+            </Grid>
+        
+
+    </DockPanel>
+</UserControl>
