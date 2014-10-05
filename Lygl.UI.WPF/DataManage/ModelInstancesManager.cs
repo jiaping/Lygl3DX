@@ -438,6 +438,19 @@ namespace Lygl.UI.Shell
             SelectedModel.Visibility = Visibility.Hidden;
             AddMxToMxModel(emi, vp);
         }
+
+        public static void CompletePolygonModify(JPViewport3DX vp)
+        {
+            vp.Items.Remove(ModelModifier);
+            ModelModifier.Visibility = Visibility.Hidden;
+            MxEdit mxEdit = MxEdit.GetMxEdit(new Guid(SelectedModel.Tag.ToString().Substring(46, 36)));
+            mxEdit.Pos = SelectedModel.Transform.Value.ToString();
+            mxEdit.Save(true);
+            Entity2ModelInfo emi = GetEntityModelInfo(SelectedModel.Tag.ToString());
+            emi.ModelPos = new Matrix(mxEdit.Pos.Split(new char[] { ',' }).Select(x => float.Parse(x)).ToArray());
+            SelectedModel.Visibility = Visibility.Hidden;
+            AddMxToMxModel(emi, vp);
+        }
         /// <summary>
         /// 添加模型到3D视图中
         /// </summary>

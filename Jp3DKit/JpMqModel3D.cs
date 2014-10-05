@@ -56,7 +56,6 @@ namespace Jp3DKit
                 
                 this.Modifier.AddCornerHandles(this.Positions);
                 this.Modifier.Attach(this.renderHost);
-
             }
             else
             {
