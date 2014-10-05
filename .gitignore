@@ -50,15 +50,12 @@ WPFReports
 Tools
 Lygl.UI.WPF/obj
 Lygl.DalLib/obj
-JP3dKit/obj
+JP3DKit/obj
 
 
 #project user file
 *.suo
 *.vssettings
-Db/*.mdf
-Db/*.ldf
 
-
-
-
+/Db/*.mdf
+/Db/*.ldf

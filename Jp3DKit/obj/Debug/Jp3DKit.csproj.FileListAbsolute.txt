@@ -5,3 +5,4 @@ D:\develop\Lygl3DX\Bin\Debug\Jp3DKit.dll
 D:\develop\Lygl3DX\Bin\Debug\Jp3DKit.pdb
 D:\develop\Lygl3DX\Jp3DKit\obj\Debug\Jp3DKit.dll
 D:\develop\Lygl3DX\Jp3DKit\obj\Debug\Jp3DKit.pdb
+D:\develop\Lygl3DX\Jp3DKit\obj\Debug\Jp3DKit.csprojResolveAssemblyReference.cache
