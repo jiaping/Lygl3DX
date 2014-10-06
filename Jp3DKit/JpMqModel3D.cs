@@ -53,7 +53,8 @@ namespace Jp3DKit
         {
             if (IsModify)
             {
-                
+                tempPoints = new Vector3[Positions.Count()];
+                Positions.CopyTo(tempPoints, 0);
                 this.Modifier.AddCornerHandles(this.Positions);
                 this.Modifier.Attach(this.renderHost);
             }
@@ -62,8 +63,8 @@ namespace Jp3DKit
                 this.Modifier.Detach();
             }
         }
-       
 
+        private Vector3[] tempPoints;
         //墓区的实际点集
         public Vector3[] Positions
         {
@@ -232,6 +233,7 @@ namespace Jp3DKit
             this.Children.Add(Face);
             this.Tag = mqTag;
             Positions = Vector3ArrayConverter.FromString(geometryText);
+
             //显示边界框
             //DrawBoundBox();
         }
@@ -338,6 +340,14 @@ namespace Jp3DKit
                 }
             }
             return hit;
+        }
+
+        public void RevertPoints()
+        {
+            if (tempPoints == null) return;
+            Positions = new Vector3[tempPoints.Count()];
+            tempPoints.CopyTo(Positions, 0);
+            this.OnPositionsChanged();
         }
     }
 

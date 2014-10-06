@@ -245,7 +245,11 @@ namespace Lygl.UI.ViewModels
                 operateMode = OperateMode.None;
                 this._viewport.ReleaseMouseCapture();
             }
-            if (this.currentMq !=null && this.currentMq.IsModify) this.currentMq.IsModify = false;
+            if (this.currentMq != null && this.currentMq.IsModify)
+            {
+                this.currentMq.RevertPoints();
+                this.currentMq.IsModify = false;
+            }
         }
 
         void _viewport_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
