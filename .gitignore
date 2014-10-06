@@ -60,3 +60,5 @@ Jp3DKit/obj
 /Db/*.mdf
 /Db/*.ldf
 obj
+/Db/*.mdf
+/Db/*.ldf
