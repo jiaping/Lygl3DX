@@ -102,7 +102,7 @@ namespace Lygl.UI.Shell
         /// <param name="vp"></param>
         public static void LoadModels(JPViewport3DX vp)
         {
-            JpSceneModel3D mq = new JpSceneModel3D() { ModelFileName = "all主墓区1.obj", Tag = "ALLMq" };
+            JpSceneModel3D mq = new JpSceneModel3D() { ModelFileName = "all主墓区2.obj", Tag = "ALLMq" };
             vp.Items.Add(mq);
             vp.Items.Add(ModelModifier);
             vp.Items.Remove(ModelModifier);

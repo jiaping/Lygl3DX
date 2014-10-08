@@ -131,6 +131,7 @@ namespace Lygl.UI.ViewModels
 
         public Camera Camera {get;private set;}
         public Vector3 DirectionalLightDirection { get; private set; }
+        public Transform3D DirectionalLightTransform { get; private set; }
         public Color4 DirectionalLightColor { get; private set; }
         public Color4 AmbientLightColor { get; private set; }
         
@@ -147,10 +148,12 @@ namespace Lygl.UI.ViewModels
             //MxROL.UpdateAllMxStatus();
             DataPortal.Execute(new Lygl.DalLib.DBCommand.UpdateAllMxStatusCommand());
             Model = IoC.Get<IGlobalData>().Areas; // AreaROL.GetAreaROL();
-           // Camera = new PerspectiveCamera { Position = new Point3D(3, 3, 5), LookDirection = new Vector3D(-3, -3, -5), UpDirection = new Vector3D(1, 0, 0) };
+            Camera = new PerspectiveCamera { Position = new Point3D(53, 23, 5), LookDirection = new Vector3D(-3, -3, -5), UpDirection = new Vector3D(1, 0, 0) };
             this.DirectionalLightColor = (Color4)SharpDX.Color.White;
             this.AmbientLightColor = (Color4)SharpDX.Color.LightGray;
-            this.DirectionalLightDirection = new Vector3(-2, -5, -2);
+            this.DirectionalLightDirection = new Vector3(0, -1, -1);
+            //this.DirectionalLightTransform = new TranslateTransform3D(0.0, 200.0, 0.0);
+            
 
             ModelMaterial = PhongMaterials.Glass;
             ModelTransform = System.Windows.Media.Media3D.Transform3D.Identity;
@@ -189,11 +192,44 @@ namespace Lygl.UI.ViewModels
             _viewport.MouseLeftButtonUp += _viewport_MouseLeftButtonUp;
             _viewport.MouseMove += _viewport_MouseMove;
 
+
+            PointLight3D pointLight = new PointLight3D();
+            pointLight.Color = (Color4)SharpDX.Color.White;
+            pointLight.Range = 10;
+            Transform3D pointLightTransfo = CreateAnimatedTransform1(new Vector3D(-4, 10, 0), new Vector3D(0, 1, 0), 3);// new TranslateTransform3D(20.0, 5.0, 0.0);
+            pointLight.Transform = pointLightTransfo;
+            MeshGeometryModel3D pointLightSphere = new MeshGeometryModel3D();
+            HelixToolkit.Wpf.SharpDX.MeshBuilder mb = new HelixToolkit.Wpf.SharpDX.MeshBuilder();
+            mb.AddSphere(new Vector3(0.0f, 5.0f, 0.0f), 0.2);
+            pointLightSphere.Geometry = mb.ToMeshGeometry3D();
+            pointLightSphere.Material = PhongMaterials.Red;
+            pointLightSphere.Transform = pointLightTransfo;
+            this._viewport.Items.Add(pointLight);
+            this._viewport.Items.Add(pointLightSphere);
+
             ModelInstancesManager.LoadEntityModelInfo(IoC.Get<IGlobalData>().Areas);
             ModelInstancesManager.LoadModels(_viewport);
         }
 
-       
+        private System.Windows.Media.Media3D.Transform3D CreateAnimatedTransform1(Vector3D translate, Vector3D axis, double speed = 4)
+        {
+            var lightTrafo = new System.Windows.Media.Media3D.Transform3DGroup();
+            lightTrafo.Children.Add(new System.Windows.Media.Media3D.TranslateTransform3D(translate));
+
+            var rotateAnimation = new System.Windows.Media.Animation.Rotation3DAnimation
+            {
+                RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever,
+                By = new System.Windows.Media.Media3D.AxisAngleRotation3D(axis, 90),
+                Duration = TimeSpan.FromSeconds(speed / 4),
+                IsCumulative = true,
+            };
+
+            var rotateTransform = new System.Windows.Media.Media3D.RotateTransform3D();
+            rotateTransform.BeginAnimation(System.Windows.Media.Media3D.RotateTransform3D.RotationProperty, rotateAnimation);
+            lightTrafo.Children.Add(rotateTransform);
+
+            return lightTrafo;
+        }
 
         
 

@@ -122,6 +122,8 @@ namespace Jp3DKit
             //DrawBoundBox();
         }
 
+      
+
         private void DrawBoundBox()
         {
             LineGeometryModel3D LineBoundBox = new LineGeometryModel3D();
@@ -140,50 +142,85 @@ namespace Jp3DKit
                 string mxtag = ee.Hit.Tag.ToString();
                  var bb= mxtag.Substring(mxtag.IndexOf("Matrix") + 6).Split(new char[]{',',' '},StringSplitOptions.RemoveEmptyEntries).Select(x=>float.Parse(x)).ToArray();
                 Matrix matrix = new Matrix(bb);
-                HelixToolkit.Wpf.SharpDX.MeshGeometry3D mg = new HelixToolkit.Wpf.SharpDX.MeshGeometry3D();
-                mg.Indices = IntCollection.Parse(selectGeometryIndiceStr); //  selectGeometryIndiceStr.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => int.Parse(i)).ToArray();
-                mg.Positions =new  Vector3Collection( Vector3Collection.Parse(selectGeometryStr).Select(o => Vector3.TransformCoordinate(o, matrix)));
-                mg.Normals = new Vector3Collection(mg.Positions.Select(o => Vector3.UnitY));
+                Point3D newSelectPoint=matrix.TranslationVector.ToPoint3D();
+                if (this.selectCurcle.Visibility==System.Windows.Visibility.Visible && this.selectPoint == newSelectPoint)
+                    return;
+                this.selectPoint = newSelectPoint;
+               
+                //HelixToolkit.Wpf.SharpDX.MeshGeometry3D mg = new HelixToolkit.Wpf.SharpDX.MeshGeometry3D();
+                //mg.Indices = IntCollection.Parse(selectGeometryIndiceStr); //  selectGeometryIndiceStr.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => int.Parse(i)).ToArray();
+                //mg.Positions =new  Vector3Collection( Vector3Collection.Parse(selectGeometryStr).Select(o => Vector3.TransformCoordinate(o, matrix)));
+                //mg.Normals = new Vector3Collection(mg.Positions.Select(o => Vector3.UnitY));
 
-                selectCurcle.Visibility = System.Windows.Visibility.Hidden;
-                this.Children.Remove(selectCurcle);
-                selectCurcle.Geometry = mg;
-                
-                this.selectPoint = matrix.TranslationVector.ToPoint3D();
+                //selectCurcle.Visibility = System.Windows.Visibility.Hidden;
+                //this.Children.Remove(selectCurcle);
+                //selectCurcle.Geometry = mg;                
+                            
+                //this.selectCurcle.Material =
+                //    new PhongMaterial
+                //        {
+                //            Name = "Red",
+                //            AmbientColor = PhongMaterials.ToColor(0, 0, 0, 1.0),
+                //            DiffuseColor = PhongMaterials.ToColor(0.1313f, 0.7764, 0.1343f, 1f),
+                //            SpecularColor = PhongMaterials.ToColor(0, 0, 0, 1.0),
+                //            EmissiveColor = PhongMaterials.ToColor(0.0, 0.0, 0.0, 1.0),
+                //            SpecularShininess = 12.8f,
+                //        }.Clone();
+
                 selectCurcle.Visibility = System.Windows.Visibility.Visible;
-                this.selectCurcle.Material =
-                    new PhongMaterial
-                        {
-                            Name = "Red",
-                            AmbientColor = PhongMaterials.ToColor(0, 0, 0, 1.0),
-                            DiffuseColor = PhongMaterials.ToColor(0.1313f, 0.7764, 0.1343f, 1f),
-                            SpecularColor = PhongMaterials.ToColor(0, 0, 0, 1.0),
-                            EmissiveColor = PhongMaterials.ToColor(0.0, 0.0, 0.0, 1.0),
-                            SpecularShininess = 12.8f,
-                        }.Clone();
-                this.Children.Add(selectCurcle);
+                selectCurcle.Transform = CreateAnimatedTransform1(this.selectPoint.ToVector3D(),new Vector3D(0,1,0), 3);
+                //this.Children.Add(selectCurcle);
             }
             else
             {
                 selectCurcle.Visibility = System.Windows.Visibility.Hidden ;
+               // selectCurcle.IsVisible = false;
             }
         }
+        ///利用d3d方式实现动画
+       //public override void Update(TimeSpan timeSpan)
+       //{
+       //    ///如果光圈不可见，则不需要更新
+       //    if (this.selectCurcle.Visibility == System.Windows.Visibility.Hidden) return;
+       //    base.Update(timeSpan);
+       //    Int64 time = (Int64)(timeSpan.TotalMilliseconds - lastTime);
+       //    if (time / 50 > 1)
+       //    {
+       //        lastTime = (Int64)timeSpan.TotalMilliseconds;
 
-       public override void Update(TimeSpan timeSpan)
+       //        degree += (Int64)(time / 50) * 10;
+       //        this.selectCurcle.Transform = (new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), degree), this.selectPoint));
+       //    }
+       //}
+
+        /// <summary>
+        /// 利用wpf方式实现动画
+        /// </summary>
+        /// <param name="translate"></param>
+        /// <param name="axis"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+       private System.Windows.Media.Media3D.Transform3D CreateAnimatedTransform1(Vector3D translate, Vector3D axis, double speed = 4)
        {
-           ///如果光圈不可见，则不需要更新
-           if (this.selectCurcle.Visibility == System.Windows.Visibility.Hidden) return;
-           base.Update(timeSpan);
-           Int64 time = (Int64)(timeSpan.TotalMilliseconds - lastTime);
-           if (time / 50 > 1)
+           var lightTrafo = new System.Windows.Media.Media3D.Transform3DGroup();
+           lightTrafo.Children.Add(new System.Windows.Media.Media3D.TranslateTransform3D(translate));
+
+           var rotateAnimation = new System.Windows.Media.Animation.Rotation3DAnimation
            {
-               lastTime = (Int64)timeSpan.TotalMilliseconds;
+               RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever,
 
-               degree += (Int64)(time / 50) * 10;
-               this.selectCurcle.Transform = (new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), degree), this.selectPoint));
-           }
+               By = new System.Windows.Media.Media3D.AxisAngleRotation3D(axis, 90),
+               Duration = TimeSpan.FromSeconds(speed / 4),
+               IsCumulative = true,
+           };
+
+           var rotateTransform = new System.Windows.Media.Media3D.RotateTransform3D();
+           rotateTransform.CenterX = translate.X; rotateTransform.CenterY = translate.Y; rotateTransform.CenterZ = translate.Z;
+           rotateTransform.BeginAnimation(System.Windows.Media.Media3D.RotateTransform3D.RotationProperty, rotateAnimation);
+           lightTrafo.Children.Add(rotateTransform);
+
+           return lightTrafo;
        }
-
         /// <summary>
         /// The on children changed.
         /// </summary>
