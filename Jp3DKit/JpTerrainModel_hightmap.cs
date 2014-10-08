@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace Jp3DKit
 {
-    public class JpTerrainModel : GeometryModel3D
+    public class JpTerrainModel_hightmap : GeometryModel3D
     {
         #region Structures
         public struct HeightMapType
@@ -64,7 +64,7 @@ namespace Jp3DKit
 
         // Using a DependencyProperty as the backing store for HeightMapFileName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HeightMapFileNameProperty =
-            DependencyProperty.Register("HeightMapFileName", typeof(string), typeof(JpTerrainModel), new PropertyMetadata(null));
+            DependencyProperty.Register("HeightMapFileName", typeof(string), typeof(JpTerrainModel_hightmap), new PropertyMetadata(null));
 
 
 
@@ -76,7 +76,7 @@ namespace Jp3DKit
 
         // Using a DependencyProperty as the backing store for TextureFileName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextureFileNameProperty =
-            DependencyProperty.Register("TextureFileName", typeof(string), typeof(JpTerrainModel), new PropertyMetadata(null));
+            DependencyProperty.Register("TextureFileName", typeof(string), typeof(JpTerrainModel_hightmap), new PropertyMetadata(null));
 
         public string ModelPath
         {
@@ -86,7 +86,7 @@ namespace Jp3DKit
 
         // Using a DependencyProperty as the backing store for ModelPath.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModelPathProperty =
-            DependencyProperty.Register("ModelPath", typeof(string), typeof(JpTerrainModel), new PropertyMetadata(null));
+            DependencyProperty.Register("ModelPath", typeof(string), typeof(JpTerrainModel_hightmap), new PropertyMetadata(null));
 
         #region Variables / Properties
         protected SharpDX.Direct3D11.Buffer VertexBuffer { get; set; }
@@ -124,7 +124,7 @@ namespace Jp3DKit
         #endregion
 
 
-        public JpTerrainModel()
+        public JpTerrainModel_hightmap()
         {
             ModelPath = AppDomain.CurrentDomain.BaseDirectory + @"3DModel\";
         }

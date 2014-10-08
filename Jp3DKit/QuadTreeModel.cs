@@ -31,7 +31,7 @@ namespace Jp3DKit
         private List<DefaultVertex> VertexList { get; set; }
 		private Node? ParentNode { get; set; }
 
-        public JpTerrainModel terrainModel { get; set; }
+        public JpTerrainModel_hightmap terrainModel { get; set; }
         public Frustum frustum { get; set; }
 		public readonly int MaxTriangles = 10000;
 

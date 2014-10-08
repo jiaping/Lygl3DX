@@ -105,12 +105,14 @@
     <Compile Include="JpSceneModel3D.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TerrainMapTexture.cs" />
+    <Compile Include="TerrainModel.cs" />
     <Compile Include="JpViewport3DXCommands.cs" />
     <Compile Include="MxModel3D.cs" />
     <Compile Include="JpObjModel3D.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="JpTerrainModel.cs" />
+    <Compile Include="JpTerrainModel_hightmap.cs" />
     <Compile Include="JPViewport3DX.cs" />
     <Compile Include="JPViewport3DXExtentions.cs" />
     <Compile Include="LineAdorner.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuadTreeModel.cs" />
     <Compile Include="SkyBoxModel.cs" />
+    <Compile Include="TerrainTexture.cs" />
     <Compile Include="Vector3ArrayConverter.cs" />
   </ItemGroup>
   <ItemGroup>
