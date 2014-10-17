@@ -94,10 +94,10 @@ namespace Jp3DKit
             }
             return false;
         }
-        
-        public JpMxModel3D(JPViewport3DX vp, string modelFileName,List<Entity2ModelInfo> instances,string tag)
+
+        public JpMxModel3D(JPViewport3DX vp, string modelFileName, List<Entity2ModelInfo> instances, string tag)
         {
-          //todo:: IntCollection.Parse();需要研究它的原理
+            //todo:: IntCollection.Parse();需要研究它的原理
 
             selectCurcle = new MeshGeometryModel3D();
             HelixToolkit.Wpf.SharpDX.MeshGeometry3D mg = new HelixToolkit.Wpf.SharpDX.MeshGeometry3D();
@@ -105,7 +105,7 @@ namespace Jp3DKit
             mg.Positions = Vector3Collection.Parse(selectGeometryStr);// Vector3ArrayConverter.FromString(selectGeometryStr);
 
             mg.Normals = mg.Positions;// mg.Positions.Select(o => Vector3.UnitY).ToArray();
-            
+
             this.selectCurcle.Material = HelixToolkit.Wpf.SharpDX.PhongMaterials.Blue;
             selectCurcle.Geometry = mg;
             this.selectCurcle.Material = HelixToolkit.Wpf.SharpDX.PhongMaterials.Blue;
@@ -122,7 +122,7 @@ namespace Jp3DKit
             //DrawBoundBox();
         }
 
-      
+
 
         private void DrawBoundBox()
         {
@@ -134,19 +134,19 @@ namespace Jp3DKit
         }
 
 
-       public override void OnMouseMoveOver3D(object sender, RoutedEventArgs e)
+        public override void OnMouseMoveOver3D(object sender, RoutedEventArgs e)
         {
             MouseMoveOver3DEventArgs ee = (MouseMoveOver3DEventArgs)e;
             if (ee.InOut)
             {
                 string mxtag = ee.Hit.Tag.ToString();
-                 var bb= mxtag.Substring(mxtag.IndexOf("Matrix") + 6).Split(new char[]{',',' '},StringSplitOptions.RemoveEmptyEntries).Select(x=>float.Parse(x)).ToArray();
+                var bb = mxtag.Substring(mxtag.IndexOf("Matrix") + 6).Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(x => float.Parse(x)).ToArray();
                 Matrix matrix = new Matrix(bb);
-                Point3D newSelectPoint=matrix.TranslationVector.ToPoint3D();
-                if (this.selectCurcle.Visibility==System.Windows.Visibility.Visible && this.selectPoint == newSelectPoint)
+                Point3D newSelectPoint = matrix.TranslationVector.ToPoint3D();
+                if (this.selectCurcle.Visibility == System.Windows.Visibility.Visible && this.selectPoint == newSelectPoint)
                     return;
                 this.selectPoint = newSelectPoint;
-               
+
                 //HelixToolkit.Wpf.SharpDX.MeshGeometry3D mg = new HelixToolkit.Wpf.SharpDX.MeshGeometry3D();
                 //mg.Indices = IntCollection.Parse(selectGeometryIndiceStr); //  selectGeometryIndiceStr.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => int.Parse(i)).ToArray();
                 //mg.Positions =new  Vector3Collection( Vector3Collection.Parse(selectGeometryStr).Select(o => Vector3.TransformCoordinate(o, matrix)));
@@ -155,7 +155,7 @@ namespace Jp3DKit
                 //selectCurcle.Visibility = System.Windows.Visibility.Hidden;
                 //this.Children.Remove(selectCurcle);
                 //selectCurcle.Geometry = mg;                
-                            
+
                 //this.selectCurcle.Material =
                 //    new PhongMaterial
                 //        {
@@ -168,30 +168,30 @@ namespace Jp3DKit
                 //        }.Clone();
 
                 selectCurcle.Visibility = System.Windows.Visibility.Visible;
-                selectCurcle.Transform = CreateAnimatedTransform1(this.selectPoint.ToVector3D(),new Vector3D(0,1,0), 3);
+                selectCurcle.Transform = CreateAnimatedTransform1(this.selectPoint.ToVector3D(), new Vector3D(0, 1, 0), 3);
                 //this.Children.Add(selectCurcle);
             }
             else
             {
-                selectCurcle.Visibility = System.Windows.Visibility.Hidden ;
-               // selectCurcle.IsVisible = false;
+                selectCurcle.Visibility = System.Windows.Visibility.Hidden;
+                // selectCurcle.IsVisible = false;
             }
         }
         ///利用d3d方式实现动画
-       //public override void Update(TimeSpan timeSpan)
-       //{
-       //    ///如果光圈不可见，则不需要更新
-       //    if (this.selectCurcle.Visibility == System.Windows.Visibility.Hidden) return;
-       //    base.Update(timeSpan);
-       //    Int64 time = (Int64)(timeSpan.TotalMilliseconds - lastTime);
-       //    if (time / 50 > 1)
-       //    {
-       //        lastTime = (Int64)timeSpan.TotalMilliseconds;
+        //public override void Update(TimeSpan timeSpan)
+        //{
+        //    ///如果光圈不可见，则不需要更新
+        //    if (this.selectCurcle.Visibility == System.Windows.Visibility.Hidden) return;
+        //    base.Update(timeSpan);
+        //    Int64 time = (Int64)(timeSpan.TotalMilliseconds - lastTime);
+        //    if (time / 50 > 1)
+        //    {
+        //        lastTime = (Int64)timeSpan.TotalMilliseconds;
 
-       //        degree += (Int64)(time / 50) * 10;
-       //        this.selectCurcle.Transform = (new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), degree), this.selectPoint));
-       //    }
-       //}
+        //        degree += (Int64)(time / 50) * 10;
+        //        this.selectCurcle.Transform = (new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), degree), this.selectPoint));
+        //    }
+        //}
 
         /// <summary>
         /// 利用wpf方式实现动画
@@ -200,27 +200,27 @@ namespace Jp3DKit
         /// <param name="axis"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
-       private System.Windows.Media.Media3D.Transform3D CreateAnimatedTransform1(Vector3D translate, Vector3D axis, double speed = 4)
-       {
-           var lightTrafo = new System.Windows.Media.Media3D.Transform3DGroup();
-           lightTrafo.Children.Add(new System.Windows.Media.Media3D.TranslateTransform3D(translate));
+        private System.Windows.Media.Media3D.Transform3D CreateAnimatedTransform1(Vector3D translate, Vector3D axis, double speed = 4)
+        {
+            var lightTrafo = new System.Windows.Media.Media3D.Transform3DGroup();
+            lightTrafo.Children.Add(new System.Windows.Media.Media3D.TranslateTransform3D(translate));
 
-           var rotateAnimation = new System.Windows.Media.Animation.Rotation3DAnimation
-           {
-               RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever,
+            var rotateAnimation = new System.Windows.Media.Animation.Rotation3DAnimation
+            {
+                RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever,
 
-               By = new System.Windows.Media.Media3D.AxisAngleRotation3D(axis, 90),
-               Duration = TimeSpan.FromSeconds(speed / 4),
-               IsCumulative = true,
-           };
+                By = new System.Windows.Media.Media3D.AxisAngleRotation3D(axis, 90),
+                Duration = TimeSpan.FromSeconds(speed / 4),
+                IsCumulative = true,
+            };
 
-           var rotateTransform = new System.Windows.Media.Media3D.RotateTransform3D();
-           rotateTransform.CenterX = translate.X; rotateTransform.CenterY = translate.Y; rotateTransform.CenterZ = translate.Z;
-           rotateTransform.BeginAnimation(System.Windows.Media.Media3D.RotateTransform3D.RotationProperty, rotateAnimation);
-           lightTrafo.Children.Add(rotateTransform);
+            var rotateTransform = new System.Windows.Media.Media3D.RotateTransform3D();
+            rotateTransform.CenterX = translate.X; rotateTransform.CenterY = translate.Y; rotateTransform.CenterZ = translate.Z;
+            rotateTransform.BeginAnimation(System.Windows.Media.Media3D.RotateTransform3D.RotationProperty, rotateAnimation);
+            lightTrafo.Children.Add(rotateTransform);
 
-           return lightTrafo;
-       }
+            return lightTrafo;
+        }
         /// <summary>
         /// The on children changed.
         /// </summary>
@@ -230,10 +230,10 @@ namespace Jp3DKit
             //this.Children.Add(selectCurcle);
             if (mxModel.Instances.Count() > 0)
                 this.Children.Add(mxModel);
-            
+
         }
 
-       
+
         public override bool HitTest(Ray ray, ref List<HitTestResult> hits)
         {
             bool hit = false;
@@ -250,6 +250,6 @@ namespace Jp3DKit
             }
             return hit;
         }
-    
+
     }
 }

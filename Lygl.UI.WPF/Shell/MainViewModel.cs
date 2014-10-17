@@ -33,6 +33,7 @@ using SharpDX.D3DCompiler;
 using System.Windows.Documents;
 using Point = System.Windows.Point;
 using Csla.Core;
+using Jp3DKit.MouseDrawHandler;
 
 namespace Lygl.UI.ViewModels
 {
@@ -191,21 +192,23 @@ namespace Lygl.UI.ViewModels
             _viewport.MouseDoubleClick += _viewport_MouseDoubleClick;
             _viewport.MouseLeftButtonUp += _viewport_MouseLeftButtonUp;
             _viewport.MouseMove += _viewport_MouseMove;
+            
 
-
-            PointLight3D pointLight = new PointLight3D();
-            pointLight.Color = (Color4)SharpDX.Color.White;
-            pointLight.Range = 10;
-            Transform3D pointLightTransfo = CreateAnimatedTransform1(new Vector3D(-4, 10, 0), new Vector3D(0, 1, 0), 3);// new TranslateTransform3D(20.0, 5.0, 0.0);
-            pointLight.Transform = pointLightTransfo;
-            MeshGeometryModel3D pointLightSphere = new MeshGeometryModel3D();
-            HelixToolkit.Wpf.SharpDX.MeshBuilder mb = new HelixToolkit.Wpf.SharpDX.MeshBuilder();
-            mb.AddSphere(new Vector3(0.0f, 5.0f, 0.0f), 0.2);
-            pointLightSphere.Geometry = mb.ToMeshGeometry3D();
-            pointLightSphere.Material = PhongMaterials.Red;
-            pointLightSphere.Transform = pointLightTransfo;
-            this._viewport.Items.Add(pointLight);
-            this._viewport.Items.Add(pointLightSphere);
+            #region 添加点光源
+            //PointLight3D pointLight = new PointLight3D();
+            //pointLight.Color = (Color4)SharpDX.Color.White;
+            //pointLight.Range = 10;
+            //Transform3D pointLightTransfo = CreateAnimatedTransform1(new Vector3D(-4, 10, 0), new Vector3D(0, 1, 0), 3);// new TranslateTransform3D(20.0, 5.0, 0.0);
+            //pointLight.Transform = pointLightTransfo;
+            //MeshGeometryModel3D pointLightSphere = new MeshGeometryModel3D();
+            //HelixToolkit.Wpf.SharpDX.MeshBuilder mb = new HelixToolkit.Wpf.SharpDX.MeshBuilder();
+            //mb.AddSphere(new Vector3(0.0f, 5.0f, 0.0f), 0.2);
+            //pointLightSphere.Geometry = mb.ToMeshGeometry3D();
+            //pointLightSphere.Material = PhongMaterials.Red;
+            //pointLightSphere.Transform = pointLightTransfo;
+            //this._viewport.Items.Add(pointLight);
+            //this._viewport.Items.Add(pointLightSphere);
+            #endregion
 
             ModelInstancesManager.LoadEntityModelInfo(IoC.Get<IGlobalData>().Areas);
             ModelInstancesManager.LoadModels(_viewport);
@@ -296,6 +299,8 @@ namespace Lygl.UI.ViewModels
                 case OperateMode.None:
                     break;
                 case OperateMode.DrawPolygon:
+                    break;
+                case OperateMode.DrawPolygonOld:
                     #region addPolygon
                     _drawShapeRecord.IsDraw = true;
                     var vv = _viewport.FindHits(p);
@@ -306,6 +311,7 @@ namespace Lygl.UI.ViewModels
                             _drawShapeRecord.ShapeType = "Polygon";
                             _drawShapeRecord.AddPoint(vv[0].PointHit);
                             this._viewport.Items.Add(_drawShapeRecord.Model);
+                            _drawShapeRecord.Model.Attach(this._viewport.RenderHost);
                         }
                         else
                         {
@@ -443,6 +449,8 @@ namespace Lygl.UI.ViewModels
                 case OperateMode.None:
                     break;
                 case OperateMode.DrawPolygon:
+                    break;
+                case OperateMode.DrawPolygonOld:
                     #region AddPolygon
                     if (_drawShapeRecord.IsCancel)
                     {
@@ -548,6 +556,13 @@ namespace Lygl.UI.ViewModels
                     #endregion
                     break;
                 case OperateMode.DrawPolygon:
+                    if (DrawPolygenHandler.Handler != null && DrawPolygenHandler.Handler.DrawShapeRecord.IsDraw)
+                    {
+                        CreateNewMq(Vector3ArrayConverter.ToString(DrawPolygenHandler.Handler.DrawShapeRecord.Model.Geometry.Positions.ToArray()));
+                        DrawPolygenHandler.Complete();
+                    }
+                    break;
+                case OperateMode.DrawPolygonOld:
                     #region AddPolygon
                     
                     if (_drawShapeRecord.IsDraw)
@@ -581,29 +596,7 @@ namespace Lygl.UI.ViewModels
                         //}
                         //else
                         {
-                            AreaEdit newArea = AreaEdit.NewAreaEdit();
-                            newArea.AreaID =  Guid.NewGuid();
-                            newArea.Name = "新建区域"+newArea.AreaID.ToString();
-                            newArea.GeometryText = _drawShapeRecord.Model.Geometry.Positions.ToString();// Vector3ArrayConverter.ToString(_drawShapeRecord.Model.Geometry.Positions);  //pg.ToString(new Lygl.UI.Framework.FormatProvider.GeometryIntFormatProvider());
-                            newArea.ApplyEdit();
-                            AreaEdit tempArea = newArea.Clone();
-                            newArea = tempArea.Save();
-                            if (!EditArea(newArea.AreaID, true) ?? false)
-                            {
-                                //撤消建立
-                                newArea.Delete();
-                                tempArea = newArea.Clone();
-                                newArea = tempArea.Save();
-                            }
-                            else
-                            {
-                                //AreaROL.GetAreaROL().First();
-                                //Model.Add(newArea.AreaID);
-                                IoC.Get<IGlobalData>().AreaMxsDictAdd(newArea.AreaID);   //更新全局列表缓存
-                                IoC.Get<IGlobalData>().Areas.Add(newArea.AreaID);
-                                ModelInstancesManager.DispAreaModel(_viewport, IoC.Get<IGlobalData>().Areas.FindAreaROByAreaID(newArea.AreaID), true);
-                                ModelInstancesManager.AddAreaItems2MxModelInstancesDict(newArea.AreaID);  //添加墓穴模型实例字典中墓区的分类列表                                
-                            }
+                            CreateNewMq(_drawShapeRecord.Model.Geometry.Positions.ToString());
 
                         }
                         this._viewport.Items.Remove(_drawShapeRecord.Model);
@@ -635,6 +628,33 @@ namespace Lygl.UI.ViewModels
                     break;
             }
         }
+
+        private void CreateNewMq(string mqGeometryPositions)
+        {
+            AreaEdit newArea = AreaEdit.NewAreaEdit();
+            newArea.AreaID = Guid.NewGuid();
+            newArea.Name = "新建区域" + newArea.AreaID.ToString();
+            newArea.GeometryText = mqGeometryPositions;// _drawShapeRecord.Model.Geometry.Positions.ToString();// Vector3ArrayConverter.ToString(_drawShapeRecord.Model.Geometry.Positions);  //pg.ToString(new Lygl.UI.Framework.FormatProvider.GeometryIntFormatProvider());
+            newArea.ApplyEdit();
+            AreaEdit tempArea = newArea.Clone();
+            newArea = tempArea.Save();
+            if (!EditArea(newArea.AreaID, true) ?? false)
+            {
+                //撤消建立
+                newArea.Delete();
+                tempArea = newArea.Clone();
+                newArea = tempArea.Save();
+            }
+            else
+            {
+                //AreaROL.GetAreaROL().First();
+                //Model.Add(newArea.AreaID);
+                IoC.Get<IGlobalData>().AreaMxsDictAdd(newArea.AreaID);   //更新全局列表缓存
+                IoC.Get<IGlobalData>().Areas.Add(newArea.AreaID);
+                ModelInstancesManager.DispAreaModel(_viewport, IoC.Get<IGlobalData>().Areas.FindAreaROByAreaID(newArea.AreaID), true);
+                ModelInstancesManager.AddAreaItems2MxModelInstancesDict(newArea.AreaID);  //添加墓穴模型实例字典中墓区的分类列表                                
+            }
+        }
         /// <summary>
         /// 处理模型位置修改结束动作
         /// </summary>
@@ -651,8 +671,9 @@ namespace Lygl.UI.ViewModels
             if (operateMode == OperateMode.None)
             {
                 operateMode = OperateMode.DrawPolygon;
-                this._viewport.Cursor = Cursors.Cross;
-                this._viewport.Focus();
+                //this._viewport.Cursor = Cursors.Cross;
+                //this._viewport.Focus();
+                DrawPolygenHandler.Start(this._viewport);
             }
         }
         public void Handle(DrawPathMessage message)

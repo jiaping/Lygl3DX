@@ -203,10 +203,6 @@ namespace Jp3DKit
         public JpMqModel3D(JPViewport3DX vp,string geometryText,string mqTag)
             :base()
         {
-            //this.CommandBindings.Add(new CommandBinding(JpViewport3DXCommands.ControlEnterkeypress, this.ControlEnterKeyPressHandler));
-            //this.InputBindings.Add(
-            //    new KeyBinding(JpViewport3DXCommands.ControlEnterkeypress, Key.Enter, ModifierKeys.None)
-            //    );
             this.Line = new LineGeometryModel3D {  };
             this.Face = new MeshGeometryModel3D { };
             diffuseColor = PhongMaterials.ToColor(1, 0, 0, 0.1f);

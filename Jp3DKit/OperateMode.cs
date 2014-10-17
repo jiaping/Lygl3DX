@@ -14,7 +14,8 @@ namespace Jp3DKit
         Delete = 4,
         MoveShape = 5,
         Select = 6,
-        ModifyPolygon=7   //编辑多边形
+        ModifyPolygon=7 ,  //编辑多边形
+        DrawPolygonOld = 8//画多边形
     }
 
     public enum MouseMode

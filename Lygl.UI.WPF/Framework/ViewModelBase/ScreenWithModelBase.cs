@@ -16,6 +16,7 @@ namespace Lygl.UI.Framework.ViewModelBase
     using Csla.Reflection;
     using Lygl.UI.Framework;
     using Lygl.UI.Framework.ViewModelBase;
+    using Caliburn.Micro;
 
     /// <summary>
     /// Base class used to create ScreenWithModel objects that
@@ -36,12 +37,14 @@ namespace Lygl.UI.Framework.ViewModelBase
             ManageObjectLifetime = false;
 #endif
             SetPropertiesAtObjectLevel();
+            views = new Dictionary<object, object>();
             IsNotifying = true;
             DisplayName = GetType().FullName;
         }
         #endregion
 
         #region Properties
+        public static readonly object DefaultContext = new object();
 
         /// <summary>
         /// Gets or sets the Model object.
@@ -997,7 +1000,7 @@ namespace Lygl.UI.Framework.ViewModelBase
         bool isInitialized;
         object parent;
         string displayName;
-        readonly Dictionary<object, object> views = new Dictionary<object, object>();
+        readonly Dictionary<object, object> views ;
 
         #region Implementation of IHaveDisplayName
 
@@ -1096,8 +1099,7 @@ namespace Lygl.UI.Framework.ViewModelBase
             if (!IsActive && !IsInitialized)
                 return;
 
-            AttemptingDeactivation(this, new DeactivationEventArgs
-            {
+            AttemptingDeactivation(this, new DeactivationEventArgs            {
                 WasClosed = close
             });
 
@@ -1230,6 +1232,10 @@ namespace Lygl.UI.Framework.ViewModelBase
 
         #region Implementation of IViewAware
 
+        protected IDictionary<object, object> Views
+        {
+            get { return views; }
+        }
         /// <summary>
         /// Attaches a view to this instance.
         /// </summary>
@@ -1237,17 +1243,46 @@ namespace Lygl.UI.Framework.ViewModelBase
         /// <param name="context">The context in which the view appears.</param>
         public virtual void AttachView(object view, object context)
         {
-            var loadWired = views.Values.Contains(view);
-            //views[context ?? View.DefaultContext] = view;
+            Views[context ?? DefaultContext] = view;
 
-            var element = view as FrameworkElement;
-            if (!loadWired && element != null)
-                element.Loaded += delegate { OnViewLoaded(view); };
+            var nonGeneratedView = PlatformProvider.Current.GetFirstNonGeneratedView(view);
+            PlatformProvider.Current.ExecuteOnFirstLoad(nonGeneratedView, OnViewLoaded);
+            //OnViewAttached(nonGeneratedView, context);
+            ViewAttached(this, new ViewAttachedEventArgs { View = nonGeneratedView, Context = context });
 
-            if (!loadWired)
-                ViewAttached(this, new ViewAttachedEventArgs { View = view, Context = context });
+            //var activatable = this as IActivate;
+            //if (activatable == null || activatable.IsActive)
+            //{
+            //    PlatformProvider.Current.ExecuteOnLayoutUpdated(nonGeneratedView, OnViewReady);
+            //}
+            //else
+            //{
+            //    AttachViewReadyOnActivated(activatable, nonGeneratedView);
+            //}
         }
+        //static void AttachViewReadyOnActivated(IActivate activatable, object nonGeneratedView)
+        //{
+        //    var viewReference = new WeakReference(nonGeneratedView);
+        //    EventHandler<ActivationEventArgs> handler = null;
+        //    handler = (s, e) =>
+        //    {
+        //        ((IActivate)s).Activated -= handler;
+        //        var view = viewReference.Target;
+        //        if (view != null)
+        //        {
+        //            PlatformProvider.Current.ExecuteOnLayoutUpdated(view, ((ViewAware)s).OnViewReady);
+        //        }
+        //    };
+        //    activatable.Activated += handler;
+        //}
 
+        /// <summary>
+        /// Called the first time the page's LayoutUpdated event fires after it is navigated to.
+        /// </summary>
+        /// <param name = "view"></param>
+        protected virtual void OnViewReady(object view)
+        {
+        }
         /// <summary>
         /// Called when an attached view's Loaded event fires.
         /// </summary>

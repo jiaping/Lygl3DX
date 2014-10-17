@@ -1,0 +1,47 @@
+1.搞清ambientLight,DirectionalLight,SpotLight,PointLight,相互关系
+2.搞清动画效果，有二种方法在helixtoolkit.wpf中
+	A、利用sharpdx架构的update更新变换
+	B、利用transform属性将设创建好的animation赋值给它，
+   对于常规循环使用的动画可用B，对于复杂智能的只能用A了。
+3.对于terrain来说，现在的游戏画面都很精美，每一场景都很精致，而且附加各种建筑装饰，都需要人工设计才体现完美
+
+
+
+
+
+
+
+
+实现键盘鼠标的命令手势
+一、首先定义路由命令，由于一般的命令只需要从路由命令继承即可
+ public static class ViewportCommands
+ {
+	public static RoutedCommand Zoom { get { return zoom; } }
+	private static RoutedCommand zoom = new RoutedCommand();
+}
+二、绑定键盘或鼠标手势到命令
+this.InputBindings.Add(new KeyBinding(ViewportCommands.ZoomExtents, Key.E, ModifierKeys.Control));
+this.InputBindings.Add(
+                new MouseBinding(
+                    ViewportCommands.ZoomExtents, new MouseGesture(MouseAction.LeftDoubleClick, ModifierKeys.Control)));
+
+三、绑定命令到处理程序
+this.CommandBindings.Add(new CommandBinding(ViewportCommands.ZoomExtents, this.ZoomExtentsHandler));
+
+
+一个很好的鼠标事件处理的例子
+public void Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (!this.CanExecute())
+            {
+                return;
+            }
+
+            this.Viewport.PushCameraSetting();
+            this.Viewport.MouseMove += this.OnMouseMove;
+            this.Viewport.MouseUp += this.OnMouseUp;
+            this.OnMouseDown(sender, null);
+            this.Viewport.Focus();
+            this.Viewport.CaptureMouse();
+        }
+将这个Execute与鼠标手势事件绑定，当手势触发时执行，在执行时，添加自己的具体鼠标事件到viewport的鼠标事件中，以获得鼠标的所有事件，这样的好处时无须在主程序中写代码，将自定义事件化代码与主程序脱钓，从面代码具有更高的灵活性和可读性

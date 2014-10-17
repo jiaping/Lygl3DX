@@ -105,6 +105,8 @@
     <Compile Include="JpSceneModel3D.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MouseDrawHandler\DrawPolygenHandler.cs" />
+    <Compile Include="MouseDrawHandler\MouseDrawHandler.cs" />
     <Compile Include="TerrainMapTexture.cs" />
     <Compile Include="TerrainModel.cs" />
     <Compile Include="JpViewport3DXCommands.cs" />

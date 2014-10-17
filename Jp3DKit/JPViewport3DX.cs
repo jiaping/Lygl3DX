@@ -20,7 +20,16 @@ namespace Jp3DKit
         public JPViewport3DX()
             : base()
         {
+            //this.CommandBindings.RemoveAt(1);
+            //this.CommandBindings.Add(new CommandBinding(ViewportCommands.SetTarget, this.SetTargetHandler));
             SetGestures();
+        }
+
+        private void SetTargetHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+            System.Windows.Media.Media3D.Vector3D normal;
+            System.Windows.Media.Media3D.Point3D? nearestPoint =this.FindNearestPoint(Mouse.GetPosition(this));
+                this.Camera.Position = nearestPoint ?? this.Camera.Position;
         }
 
        
@@ -79,7 +88,7 @@ namespace Jp3DKit
                     new MouseGesture(MouseAction.RightClick, ModifierKeys.Control | ModifierKeys.Shift)));
             this.InputBindings.Add(
                 new MouseBinding(
-                    ViewportCommands.SetTarget, new MouseGesture(MouseAction.RightDoubleClick, ModifierKeys.Control)));
+                    ViewportCommands.SetTarget, new MouseGesture(MouseAction.LeftClick, ModifierKeys.None)));
             this.InputBindings.Add(
                 new MouseBinding(
                     ViewportCommands.Reset, new MouseGesture(MouseAction.MiddleDoubleClick, ModifierKeys.Control)));
