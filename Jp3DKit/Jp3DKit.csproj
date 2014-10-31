@@ -102,9 +102,12 @@
     <Compile Include="JpModelVisual3D.cs" />
     <Compile Include="JpMqModel3D.cs" />
     <Compile Include="JpMxModel3D.cs" />
+    <Compile Include="JpObjReader.cs" />
+    <Compile Include="JpSceneModel3DForHitTest.cs" />
     <Compile Include="JpSceneModel3D.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="JpTerrainModel3D.cs" />
     <Compile Include="MouseDrawHandler\DrawPolygenHandler.cs" />
     <Compile Include="MouseDrawHandler\MouseDrawHandler.cs" />
     <Compile Include="TerrainMapTexture.cs" />

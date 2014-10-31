@@ -249,7 +249,7 @@ namespace Lygl.UI.ViewModels
                 string mqID = this.currentMq.Tag.ToString();
                 var ss = mqID.Split(new char[] { ':' });
                 AreaEdit ae = AreaEdit.GetAreaEdit(Guid.Parse(ss[1]));
-                ae.GeometryText = Vector3ArrayConverter.ToString(this.currentMq.Positions);  //pg.ToString(new Lygl.UI.Framework.FormatProvider.GeometryIntFormatProvider());
+                ae.GeometryText = Vector3ArrayConverter.ConvertToString(this.currentMq.Positions);  //pg.ToString(new Lygl.UI.Framework.FormatProvider.GeometryIntFormatProvider());
                 try
                 {
                     var savable = ae as ISavable;
@@ -558,7 +558,7 @@ namespace Lygl.UI.ViewModels
                 case OperateMode.DrawPolygon:
                     if (DrawPolygenHandler.Handler != null && DrawPolygenHandler.Handler.DrawShapeRecord.IsDraw)
                     {
-                        CreateNewMq(Vector3ArrayConverter.ToString(DrawPolygenHandler.Handler.DrawShapeRecord.Model.Geometry.Positions.ToArray()));
+                        CreateNewMq(   Vector3ArrayConverter.ConvertToString(DrawPolygenHandler.Handler.DrawShapeRecord.Model.Geometry.Positions.ToArray()));
                         DrawPolygenHandler.Complete();
                     }
                     break;

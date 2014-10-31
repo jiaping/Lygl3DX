@@ -86,9 +86,9 @@ namespace Jp3DKit
                 new MouseBinding(
                     ViewportCommands.ZoomRectangle,
                     new MouseGesture(MouseAction.RightClick, ModifierKeys.Control | ModifierKeys.Shift)));
-            this.InputBindings.Add(
-                new MouseBinding(
-                    ViewportCommands.SetTarget, new MouseGesture(MouseAction.LeftClick, ModifierKeys.None)));
+            //this.InputBindings.Add(
+            //    new MouseBinding(
+            //        ViewportCommands.SetTarget, new MouseGesture(MouseAction.LeftClick, ModifierKeys.None)));
             this.InputBindings.Add(
                 new MouseBinding(
                     ViewportCommands.Reset, new MouseGesture(MouseAction.MiddleDoubleClick, ModifierKeys.Control)));

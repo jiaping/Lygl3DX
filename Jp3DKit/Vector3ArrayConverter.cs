@@ -1,4 +1,5 @@
-﻿using SharpDX;
+﻿using HelixToolkit.Wpf.SharpDX.Core;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,32 @@ namespace Jp3DKit
 {
     public static class Vector3ArrayConverter
     {
-        public static string ToString(Vector3[] vectors)
+        public static string ConvertToString(this Vector3[] vectors)
         {
-            string result="";
-            foreach (var item in vectors)
+            //string result="";
+            //foreach (var item in vectors)
+            //{
+            //    result += item.X.ToString()+","+item.Y.ToString()+","+item.Z.ToString()+",";
+            //}
+            //result.Substring(0, result.Length - 1);
+            //return result;
+            if (vectors.Count() == 0)
             {
-                result += item.X.ToString()+","+item.Y.ToString()+","+item.Z.ToString()+",";
+                return String.Empty;
             }
-            result.Substring(0, result.Length - 1);
-            return result;
+
+            var str = new StringBuilder();
+            for (int i = 0; i < vectors.Count(); i++)
+            {
+                //str.AppendFormat(provider, "{0:" + format + "}", this[i]);
+                str.AppendFormat(null, "{0},{1},{2}", vectors[i].X, vectors[i].Y, vectors[i].Z);
+                if (i != vectors.Count() - 1)
+                {
+                    str.Append(",");
+                }
+            }
+
+            return str.ToString();
         }
 
         public static Vector3[] FromString(string str)
@@ -32,6 +50,26 @@ namespace Jp3DKit
                 result[i / 3].Z = float.Parse(arr[i+2]);
             }
             return result;
+        }
+        public static string ConvertToString(this Vector3Collection vectors)
+        {
+            if (vectors.Count() == 0)
+            {
+                return String.Empty;
+            }
+
+            var str = new StringBuilder();
+            for (int i = 0; i < vectors.Count(); i++)
+            {
+                //str.AppendFormat(provider, "{0:" + format + "}", this[i]);
+                str.AppendFormat(null, "{0},{1},{2}", vectors[i].X, vectors[i].Y, vectors[i].Z);
+                if (i != vectors.Count() - 1)
+                {
+                    str.Append(",");
+                }
+            }
+
+            return str.ToString();
         }
     }
 }

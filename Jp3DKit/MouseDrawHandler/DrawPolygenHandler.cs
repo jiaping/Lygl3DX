@@ -56,6 +56,10 @@ namespace Jp3DKit.MouseDrawHandler
         {
             return System.Windows.Input.Cursors.Cross;
         }
+        /// <summary>
+        /// 开始操作
+        /// </summary>
+        /// <param name="viewport"></param>
         public static void Start(JPViewport3DX viewport)
         {
             Handler = new DrawPolygenHandler(viewport);
@@ -64,6 +68,20 @@ namespace Jp3DKit.MouseDrawHandler
             //handler.Viewport.MouseDoubleClick += handler.OnMouseDoubleClick;
             Handler.Viewport.Focus();
             Handler.Viewport.CaptureMouse();
+        }
+        /// <summary>
+        /// 结束操作
+        /// </summary>
+        public static void Complete()
+        {
+            if (Handler == null) return;
+            Handler.Viewport.MouseMove -= Handler.OnMouseMove;
+            Handler.Viewport.MouseUp -= Handler.OnMouseUp;
+            Handler.Viewport.ReleaseMouseCapture();
+            Handler.Viewport.Cursor = Handler.OldCursor;
+            Handler.Viewport.Items.Remove(Handler._drawShapeRecord.Model);
+            Handler._drawShapeRecord.Clear();
+            Handler = null;
         }
         public  void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -109,17 +127,6 @@ namespace Jp3DKit.MouseDrawHandler
                     Viewport.Attach(_drawShapeRecord.Model);
                 }
             }
-        }
-       
-        public static void Complete()
-        {
-            if (Handler == null) return;
-            Handler.Viewport.MouseMove -= Handler.OnMouseMove;
-            Handler.Viewport.MouseUp -= Handler.OnMouseUp;
-            Handler.Viewport.ReleaseMouseCapture();
-            Handler.Viewport.Cursor = Handler.OldCursor;
-            Handler.Viewport.Items.Remove(Handler._drawShapeRecord.Model);
-            Handler._drawShapeRecord.Clear();
         }
     }
 }

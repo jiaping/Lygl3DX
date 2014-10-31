@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using Point = System.Windows.Point;
+using HelixToolkit.Wpf.SharpDX.Extensions;
 
 namespace Jp3DKit
 {
@@ -63,14 +64,11 @@ namespace Jp3DKit
 
         public void ReplaceLastPoint(Point3D p)
         {
-            Vector3 lastP=Model.Geometry.Positions.LastOrDefault();
-            //lastP.X = (float)p.X;
-            //lastP.Y = (float)p.Y + uplength;
-            //lastP.Z = (float)p.Z;
-            var array = new Vector3[Model.Geometry.Positions.Count];
-            Model.Geometry.Positions.CopyTo(array, 0);
-            array[Model.Geometry.Positions.Count - 1] = new Vector3((float)p.X, (float)p.Y + uplength, (float)p.Z);
-            Model.Geometry.Positions = new Vector3Collection(array);     
+            Model.Geometry.Positions[Model.Geometry.Positions.Count - 1]=new Vector3((float)p.X, (float)p.Y + uplength, (float)p.Z);
+            //var array = new Vector3[Model.Geometry.Positions.Count];
+            //Model.Geometry.Positions.CopyTo(array, 0);
+            //array[Model.Geometry.Positions.Count - 1] = new Vector3((float)p.X, (float)p.Y + uplength, (float)p.Z);
+            //Model.Geometry.Positions = new Vector3Collection(array);     
         }
         public void RemoveLastPoint()
         {
