@@ -109,7 +109,9 @@
     </Compile>
     <Compile Include="JpTerrainModel3D.cs" />
     <Compile Include="MouseDrawHandler\DrawPolygenHandler.cs" />
+    <Compile Include="MouseDrawHandler\ManipulateHandler.cs" />
     <Compile Include="MouseDrawHandler\MouseDrawHandler.cs" />
+    <Compile Include="MouseDrawHandler\GetClickPositionHandler.cs" />
     <Compile Include="TerrainMapTexture.cs" />
     <Compile Include="TerrainModel.cs" />
     <Compile Include="JpViewport3DXCommands.cs" />

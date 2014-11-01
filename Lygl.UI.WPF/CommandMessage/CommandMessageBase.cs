@@ -380,5 +380,11 @@ namespace Lygl.UI.CommandMessage
         }
     }
 
+    public static class CommandMessageNames
+    {
+        public  const string DrawMq = "DrawMq";
+        public  const string DrawMx = "DrawMx";
+    }
+
 
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+//#define OLDDRAWEVENT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,7 +46,7 @@ namespace Lygl.UI.ViewModels
         public DrawMqMessage()
             : base()
         {
-            Name = "DrawMq"; Label = "添加墓区"; ToolTip = "添加墓区"; Group = "LyView";
+            Name = CommandMessageNames.DrawMq; Label = "添加墓区"; ToolTip = "添加墓区"; Group = "LyView";
             ToolTip = "添加墓区"; IsMainMenuItem = true; Category = "陵园视图";
         }
     }
@@ -55,7 +57,7 @@ namespace Lygl.UI.ViewModels
         public DrawMxMessage()
             : base()
         {
-            Name = "DrawMx"; Label = "添加墓穴"; ToolTip = "添加墓穴"; Group = "LyView";
+            Name = CommandMessageNames.DrawMx; Label = "添加墓穴"; ToolTip = "添加墓穴"; Group = "LyView";
             ToolTip = "添加墓区"; IsMainMenuItem = true; Category = "陵园视图";
         }
     }
@@ -180,18 +182,20 @@ namespace Lygl.UI.ViewModels
         protected override void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            //添加手势命令-Escape,用于取消操作
-            (view as UIElement).CommandBindings.Add(new CommandBinding(JpViewport3DXCommands.Escape, this.EscapeHandler));
-            (view as UIElement).InputBindings.Add(new KeyBinding(JpViewport3DXCommands.Escape, Key.Escape, ModifierKeys.None));
-            //添加手势命令-Ctrl+S,用于保存操作
-            (view as UIElement).CommandBindings.Add(new CommandBinding(JpViewport3DXCommands.ControlSave, this.ControlSaveHandler));
-            (view as UIElement).InputBindings.Add(new KeyBinding(JpViewport3DXCommands.ControlSave, Key.S, ModifierKeys.Control));
+            ///下面二个命令移到 JPViewport3DX 中
+            ////添加手势命令-Escape,用于取消操作
+            //(view as UIElement).CommandBindings.Add(new CommandBinding(JpViewport3DXCommands.Escape, this.EscapeHandler));
+            //(view as UIElement).InputBindings.Add(new KeyBinding(JpViewport3DXCommands.Escape, Key.Escape, ModifierKeys.None));
+            ////添加手势命令-Ctrl+S,用于保存操作
+            //(view as UIElement).CommandBindings.Add(new CommandBinding(JpViewport3DXCommands.ControlSave, this.ControlSaveHandler));
+            //(view as UIElement).InputBindings.Add(new KeyBinding(JpViewport3DXCommands.ControlSave, Key.S, ModifierKeys.Control));
             
             _viewport = (view as FrameworkElement).FindName("MainViewport") as JPViewport3DX;
             IoC.Get<IGlobalData>().ViewPort3DX = _viewport;
             _viewport.MouseDoubleClick += _viewport_MouseDoubleClick;
-            _viewport.MouseLeftButtonUp += _viewport_MouseLeftButtonUp;
-            _viewport.MouseMove += _viewport_MouseMove;
+            //_viewport.MouseLeftButtonUp += _viewport_MouseLeftButtonUp;
+            //_viewport.MouseMove += _viewport_MouseMove;
+            _viewport.ManipulateComplete += _viewport_ManipulateComplete;
             
 
             #region 添加点光源
@@ -212,6 +216,27 @@ namespace Lygl.UI.ViewModels
 
             ModelInstancesManager.LoadEntityModelInfo(IoC.Get<IGlobalData>().Areas);
             ModelInstancesManager.LoadModels(_viewport);
+        }
+
+        void _viewport_ManipulateComplete(object sender, RoutedEventArgs e)
+        {
+            IManipulateHandler handler = (sender as JPViewport3DX).ManipulateHandler;
+            switch (handler.ManipulateName)
+            {
+                case CommandMessageNames.DrawMq :
+                    DrawPolygenHandler dph = handler as DrawPolygenHandler;
+                    if (handler == null) break;
+                    CreateNewMq(Vector3ArrayConverter.ConvertToString(dph.DrawShapeRecord.Model.Geometry.Positions.ToArray()));
+                    break;
+                case CommandMessageNames.DrawMx:
+                    GetClickPositionHandler ph = handler as GetClickPositionHandler;
+                    if (handler == null) break;
+                    CreateNewMx(ph.Position);
+                    break;
+            }
+
+            //释放handler
+           handler.Complete();
         }
 
         private System.Windows.Media.Media3D.Transform3D CreateAnimatedTransform1(Vector3D translate, Vector3D axis, double speed = 4)
@@ -237,6 +262,60 @@ namespace Lygl.UI.ViewModels
         
 
         #region _viewport相关鼠标事件及相关业务逻辑处理
+         /// <summary>
+        /// 将些事件由JPViewport3DX取出来，更好地与业务逻辑交互
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void _viewport_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+        #region
+                    if (e.ChangedButton == MouseButton.Left)
+                    {
+                        var hits = _viewport.FindHits(e.GetPosition(_viewport));
+                        string modelID = null;
+                        foreach (var item in hits)
+                        {
+                            if (item.IsValid)
+                            {
+                                if (item.Tag != null)  //墓穴对象返回的tag
+                                {
+                                    modelID = (string)item.Tag;
+                                    var ss = modelID.Split(new char[] { ':' });
+                                    if (ss[3] == "MX")    //TODO: if not =="Mx" 
+                                    {
+                                        MxRO mx = IoC.Get<IGlobalData>().GetMxRO(new Guid(ss[1]), new Guid(ss[4]));
+                                        IoC.Get<IGlobalData>().CurrentMx = mx;
+                                        //if (mx.MxStatusID==0)
+                                            //IoC.Get<IEventAggregator>().Publish(new Lygl.UI.Framework.DispBusinessYdMessage());
+                                        EditMx(mx);
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.ModelHit.Tag != null) //墓区对象返回的tag
+                                    {
+                                        modelID = (string)item.ModelHit.Tag;
+                                        var ss = modelID.Split(new char[] { ':' });
+                                        if (ss[0] == "MQ")    
+                                        {
+                                            EditArea(new Guid(ss[1]));
+                                            return;
+                                        }
+                                    }
+                                }
+                                //if (ModelSelected != null)
+                                //    ModelSelected(this, new ModelSelectedEventArg(modelID));
+                                //break;
+                            }
+                        }
+                    }
+                    #endregion
+            }
+
+
+#if OLDDRAWEVENT
         /// <summary>
         /// 响应键盘事件，Ctrl+S
         /// </summary>
@@ -253,8 +332,8 @@ namespace Lygl.UI.ViewModels
                 try
                 {
                     var savable = ae as ISavable;
-                   savable.Save();
-                   this.currentMq.IsModify = false;
+                    savable.Save();
+                    this.currentMq.IsModify = false;
                 }
                 catch (Exception ex)
                 {
@@ -279,7 +358,7 @@ namespace Lygl.UI.ViewModels
             {
                 this._viewport.Cursor = Cursors.Arrow;
                 if (_drawShapeRecord.IsDraw) _drawShapeRecord.IsCancel = true;
-                if(_drawShapeRecord.Model!=null) this._viewport.Items.Remove(_drawShapeRecord.Model);
+                if (_drawShapeRecord.Model != null) this._viewport.Items.Remove(_drawShapeRecord.Model);
                 _drawShapeRecord.Clear();
                 operateMode = OperateMode.None;
                 this._viewport.ReleaseMouseCapture();
@@ -325,81 +404,8 @@ namespace Lygl.UI.ViewModels
                     break;
                 case OperateMode.DrawMx:
                     #region 
-                    //查找Mx所在的区域
-                    var hits=_viewport.FindHits(p);
-                    AreaRO currentArea = null;
-                    string areaID = "";
-                    Vector3 hitGroundPoint=Vector3.Zero ;
-                    foreach (var item in hits)
-                    {
-                            if (item.IsValid)
-                            {
-                                if (item.Tag != null)  //墓穴对象返回的tag
-                                {
-                                        return;
-                                }
-                                else
-                                {
-                                    if (item.ModelHit.Tag != null) //墓区对象返回的tag
-                                    {
-                                        var modelID = (string)item.ModelHit.Tag;
-                                        var ss = modelID.Split(new char[] { ':' });
-                                        //if (ss[0] == "AllMq")
-                                        //{
-                                            
-                                        //    continue;
-                                        //}
-                                        if (ss[0] == "MQ")
-                                        {
-                                            areaID = ss[1];
-                                            hitGroundPoint = new Vector3((float)item.PointHit.X, (float)item.PointHit.Y, (float)item.PointHit.Z);
-                                            continue;
-                                        }
-                                    }
-                                }
-                            }
-                            if (areaID != string.Empty && hitGroundPoint != Vector3.Zero) break;
-                    }
-                    if (areaID == string.Empty)
-                    {
-                        System.Windows.MessageBox.Show("请在墓区范围内空白处点击，确定新建墓穴！");
-                        break;
-                    }
-                    currentArea = AreaROL.GetAreaROLByID(new Guid(areaID)).DefaultIfEmpty().First();
-                    if (currentArea == null ) throw new Exception("不能在空区域添加墓穴");
-                    
-                    MxEdit newMx = MxEdit.NewMxEdit();
-                    newMx.MxID = Guid.NewGuid();
-                    newMx.MxName =currentArea.Name +"新建墓穴"+newMx.MxID.ToString();// currentArea.Name + "新建墓穴";
-                    var pos=Matrix3D.Identity;
-                    pos.OffsetX=hitGroundPoint.X;pos.OffsetY=hitGroundPoint.Y;pos.OffsetZ=hitGroundPoint.Z;pos.M44=1;
-                    newMx.Pos =pos.ToString();
-                    newMx.MxStatus = MxStatusNVL.GetMxStatusNVL().Value(0);      //表示初始状态 Convert.ToInt32(MxStatus.DaiShou);
-                    newMx.MxType = MxTypeNVL.GetMxTypeNVL().Value(0); // Convert.ToInt32(MxType.DanRen);
-                    newMx.MxStyle = MxStyleNVL.GetMxStyleNVL().Value(1);
-                    newMx.AreaID = currentArea.AreaID;
-                    newMx.Angle = currentArea.Angle;
-                    operateMode = OperateMode.None;
-                    this._viewport.Cursor = Cursors.Arrow;
-                    //var bb = !EditMx(newMx);
-                    MxEdit cloneMx = newMx.Clone();
-                    newMx = cloneMx.Save();
-                    IoC.Get<IGlobalData>().AreaMxsDictAdd(currentArea.AreaID);   //更新全局列表缓存
-                    IoC.Get<IGlobalData>().CurrentMx = IoC.Get<IGlobalData>().GetMxRO(newMx.MxID);
-                    //编辑形状数据
-                    if (!EditMx(IoC.Get<IGlobalData>().CurrentMx, true) ?? false)
-                    {
-                        //撤消建立
-                        newMx.Delete();
-                        cloneMx = newMx.Clone();
-                        newMx = cloneMx.Save();
-                        IoC.Get<IGlobalData>().AreaMxsDictAdd(currentArea.AreaID);   //更新全局列表缓存
-                        return;
-                    }
-                    Entity2ModelInfo emi = new Entity2ModelInfo(EntityType.MX, newMx.MxID);
-                    emi.ModelPos = new Matrix(newMx.Pos.Split(new char[] { ',' }).Select(x => float.Parse(x)).ToArray());
-                    ModelInstancesManager.AddMxToMxModel(emi, _viewport);    
-#endregion
+
+                    #endregion
                     break;
                 case OperateMode.DrawPath:
                     break;
@@ -490,18 +496,7 @@ namespace Lygl.UI.ViewModels
             }
         }
 
-        private void StartModifyModel(string modelTag)
-        {
-            var ss = modelTag.Split(new char[] { ':' });
-            if (ss[3] == "MX")
-            {
-                MxRO mx = IoC.Get<IGlobalData>().GetMxRO(new Guid(ss[1]), new Guid(ss[4]));
-                IoC.Get<IGlobalData>().CurrentMx = mx;
-                ModelInstancesManager.StartModifyModel(modelTag, _viewport);
-            }
-        }
-
-        /// <summary>
+         /// <summary>
         /// 将些事件由JPViewport3DX取出来，更好地与业务逻辑交互
         /// </summary>
         /// <param name="sender"></param>
@@ -511,7 +506,7 @@ namespace Lygl.UI.ViewModels
             switch (operateMode)
             {
                 case OperateMode.None:
-                    #region
+        #region
                     if (e.ChangedButton == MouseButton.Left)
                     {
                         var hits = _viewport.FindHits(e.GetPosition(_viewport));
@@ -556,14 +551,14 @@ namespace Lygl.UI.ViewModels
                     #endregion
                     break;
                 case OperateMode.DrawPolygon:
-                    if (DrawPolygenHandler.Handler != null && DrawPolygenHandler.Handler.DrawShapeRecord.IsDraw)
-                    {
-                        CreateNewMq(   Vector3ArrayConverter.ConvertToString(DrawPolygenHandler.Handler.DrawShapeRecord.Model.Geometry.Positions.ToArray()));
-                        DrawPolygenHandler.Complete();
-                    }
+                    //if (DrawPolygenHandler.Handler != null && DrawPolygenHandler.Handler.DrawShapeRecord.IsDraw)
+                    //{
+                    //    CreateNewMq(   Vector3ArrayConverter.ConvertToString(DrawPolygenHandler.Handler.DrawShapeRecord.Model.Geometry.Positions.ToArray()));
+                    //    DrawPolygenHandler.Complete();
+                    //}
                     break;
                 case OperateMode.DrawPolygonOld:
-                    #region AddPolygon
+        #region AddPolygon
                     
                     if (_drawShapeRecord.IsDraw)
                     {
@@ -628,6 +623,20 @@ namespace Lygl.UI.ViewModels
                     break;
             }
         }
+#endif
+
+        private void StartModifyModel(string modelTag)
+        {
+            var ss = modelTag.Split(new char[] { ':' });
+            if (ss[3] == "MX")
+            {
+                MxRO mx = IoC.Get<IGlobalData>().GetMxRO(new Guid(ss[1]), new Guid(ss[4]));
+                IoC.Get<IGlobalData>().CurrentMx = mx;
+                ModelInstancesManager.StartModifyModel(modelTag, _viewport);
+            }
+        }
+
+       
 
         private void CreateNewMq(string mqGeometryPositions)
         {
@@ -655,6 +664,84 @@ namespace Lygl.UI.ViewModels
                 ModelInstancesManager.AddAreaItems2MxModelInstancesDict(newArea.AreaID);  //添加墓穴模型实例字典中墓区的分类列表                                
             }
         }
+
+        private void CreateNewMx(Point pos1)
+        {
+            //查找Mx所在的区域
+            var hits = _viewport.FindHits(pos1);
+            AreaRO currentArea = null;
+            string areaID = "";
+            Vector3 hitGroundPoint = Vector3.Zero;
+            foreach (var item in hits)
+            {
+                if (item.IsValid)
+                {
+                    if (item.Tag != null)  //墓穴对象返回的tag
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        if (item.ModelHit.Tag != null) //墓区对象返回的tag
+                        {
+                            var modelID = (string)item.ModelHit.Tag;
+                            var ss = modelID.Split(new char[] { ':' });
+                            //if (ss[0] == "AllMq")
+                            //{
+
+                            //    continue;
+                            //}
+                            if (ss[0] == "MQ")
+                            {
+                                areaID = ss[1];
+                                hitGroundPoint = new Vector3((float)item.PointHit.X, (float)item.PointHit.Y, (float)item.PointHit.Z);
+                                continue;
+                            }
+                        }
+                    }
+                }
+                if (areaID != string.Empty && hitGroundPoint != Vector3.Zero) break;
+            }
+            if (areaID == string.Empty)
+            {
+                System.Windows.MessageBox.Show("请在墓区范围内空白处点击，确定新建墓穴！");
+                return;
+            }
+            currentArea = AreaROL.GetAreaROLByID(new Guid(areaID)).DefaultIfEmpty().First();
+            if (currentArea == null) throw new Exception("不能在空区域添加墓穴");
+
+            MxEdit newMx = MxEdit.NewMxEdit();
+            newMx.MxID = Guid.NewGuid();
+            newMx.MxName = currentArea.Name + "新建墓穴" + newMx.MxID.ToString();// currentArea.Name + "新建墓穴";
+            var pos= Matrix3D.Identity;
+            pos.OffsetX = hitGroundPoint.X; pos.OffsetY = hitGroundPoint.Y; pos.OffsetZ = hitGroundPoint.Z; pos.M44 = 1;
+            newMx.Pos = pos.ToString();
+            newMx.MxStatus = MxStatusNVL.GetMxStatusNVL().Value(0);      //表示初始状态 Convert.ToInt32(MxStatus.DaiShou);
+            newMx.MxType = MxTypeNVL.GetMxTypeNVL().Value(0); // Convert.ToInt32(MxType.DanRen);
+            newMx.MxStyle = MxStyleNVL.GetMxStyleNVL().Value(1);
+            newMx.AreaID = currentArea.AreaID;
+            newMx.Angle = currentArea.Angle;
+            operateMode = OperateMode.None;
+            this._viewport.Cursor = Cursors.Arrow;
+            //var bb = !EditMx(newMx);
+            MxEdit cloneMx = newMx.Clone();
+            newMx = cloneMx.Save();
+            IoC.Get<IGlobalData>().AreaMxsDictAdd(currentArea.AreaID);   //更新全局列表缓存
+            IoC.Get<IGlobalData>().CurrentMx = IoC.Get<IGlobalData>().GetMxRO(newMx.MxID);
+            //编辑形状数据
+            if (!EditMx(IoC.Get<IGlobalData>().CurrentMx, true) ?? false)
+            {
+                //撤消建立
+                newMx.Delete();
+                cloneMx = newMx.Clone();
+                newMx = cloneMx.Save();
+                IoC.Get<IGlobalData>().AreaMxsDictAdd(currentArea.AreaID);   //更新全局列表缓存
+                return;
+            }
+            Entity2ModelInfo emi = new Entity2ModelInfo(EntityType.MX, newMx.MxID);
+            emi.ModelPos = new Matrix(newMx.Pos.Split(new char[] { ',' }).Select(x => float.Parse(x)).ToArray());
+            ModelInstancesManager.AddMxToMxModel(emi, _viewport);    
+        }
         /// <summary>
         /// 处理模型位置修改结束动作
         /// </summary>
@@ -673,7 +760,9 @@ namespace Lygl.UI.ViewModels
                 operateMode = OperateMode.DrawPolygon;
                 //this._viewport.Cursor = Cursors.Cross;
                 //this._viewport.Focus();
-                DrawPolygenHandler.Start(this._viewport);
+                DrawPolygenHandler handler = new DrawPolygenHandler(this._viewport,message.Name);
+                    handler.Start();
+                //DrawPolygenHandler.Start(this._viewport);
             }
         }
         public void Handle(DrawPathMessage message)
@@ -715,12 +804,12 @@ namespace Lygl.UI.ViewModels
         }
         public void Handle(DrawMxMessage message)
         {
-            if (operateMode == OperateMode.None)
-            {
-                operateMode = OperateMode.DrawMx;
-                this._viewport.Cursor = Cursors.Cross;
-                this._viewport.Focus();
-            }
+            GetClickPositionHandler handler = new GetClickPositionHandler(this._viewport, message.Name);
+            handler.Start();
+            //if (operateMode == OperateMode.None)
+            //{
+            //    operateMode = OperateMode.DrawMx;
+            //}
         }
         #endregion
 

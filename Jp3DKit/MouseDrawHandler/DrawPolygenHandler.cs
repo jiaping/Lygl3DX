@@ -10,79 +10,49 @@ using HelixToolkit.Wpf.SharpDX;
 
 namespace Jp3DKit.MouseDrawHandler
 {
-    public class DrawPolygenHandler 
+    /// <summary>
+    /// 鼠标操作绘制多边形
+    /// </summary>
+    public class DrawPolygenHandler : ManipulateHandler
     {
-        public static DrawPolygenHandler Handler = null;
         
-        protected JPViewport3DX Viewport { get; private set; }
         private Jp3DKit.DrawShapeRecord _drawShapeRecord;
         public Jp3DKit.DrawShapeRecord DrawShapeRecord
         { get { return _drawShapeRecord; } }
 
-        public DrawPolygenHandler(JPViewport3DX viewport)
+        public DrawPolygenHandler(JPViewport3DX viewport,string manipulateName)
+            : base(viewport, manipulateName)
         {
-            this.Viewport = viewport;
+            //this.Viewport = viewport;
         }
 
-        /// <summary>
-        /// Gets the camera.
-        /// </summary>
-        /// <value>The camera.</value>
-        protected ProjectionCamera Camera
-        {
-            get
-            {
-                return this.Viewport.Camera as ProjectionCamera;
-            }
-        }
-
-        /// <summary>
-        /// Gets the camera mode.
-        /// </summary>
-        /// <value>The camera mode.</value>
-        protected CameraMode CameraMode
-        {
-            get
-            {
-                return this.Viewport.CameraMode;
-            }
-        }
-        /// <summary>
-        /// Gets or sets the old cursor.
-        /// </summary>
-        private Cursor OldCursor { get; set; }
-
-        protected  System.Windows.Input.Cursor GetCursor()
-        {
-            return System.Windows.Input.Cursors.Cross;
-        }
         /// <summary>
         /// 开始操作
         /// </summary>
         /// <param name="viewport"></param>
-        public static void Start(JPViewport3DX viewport)
+        public override void Start()
         {
-            Handler = new DrawPolygenHandler(viewport);
-            Handler.Viewport.MouseMove += Handler.OnMouseMove;
-            Handler.Viewport.MouseUp += Handler.OnMouseUp;
+            base.Start();
+
+            this.Viewport.MouseMove += this.OnMouseMove;
+            this.Viewport.MouseUp += this.OnMouseUp;
             //handler.Viewport.MouseDoubleClick += handler.OnMouseDoubleClick;
-            Handler.Viewport.Focus();
-            Handler.Viewport.CaptureMouse();
+            this.Viewport.Focus();
+            this.Viewport.CaptureMouse();
         }
-        /// <summary>
-        /// 结束操作
-        /// </summary>
-        public static void Complete()
+
+        public override void Complete()
         {
-            if (Handler == null) return;
-            Handler.Viewport.MouseMove -= Handler.OnMouseMove;
-            Handler.Viewport.MouseUp -= Handler.OnMouseUp;
-            Handler.Viewport.ReleaseMouseCapture();
-            Handler.Viewport.Cursor = Handler.OldCursor;
-            Handler.Viewport.Items.Remove(Handler._drawShapeRecord.Model);
-            Handler._drawShapeRecord.Clear();
-            Handler = null;
+            this.Viewport.MouseMove -= this.OnMouseMove;
+            this.Viewport.MouseUp -= this.OnMouseUp;
+            this.Viewport.ReleaseMouseCapture();
+           
+            this.Viewport.Items.Remove(this._drawShapeRecord.Model);
+            this._drawShapeRecord.Clear();
+
+            base.Complete();
         }
+
         public  void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             Point p = e.GetPosition(Viewport);
@@ -114,7 +84,6 @@ namespace Jp3DKit.MouseDrawHandler
                 _drawShapeRecord.IsDraw = false;
                 if (_drawShapeRecord.Model != null) this.Viewport.Items.Remove(_drawShapeRecord.Model);
                 _drawShapeRecord.Clear();
-                Viewport.Cursor = Cursors.Arrow;
                 e.Handled = true;
                 return;
             }

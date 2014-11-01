@@ -1,4 +1,5 @@
 ﻿using HelixToolkit.Wpf.SharpDX;
+using Jp3DKit.MouseDrawHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,6 @@ namespace Jp3DKit
         private List<HitTestResult> mouseMoveHitModels = new List<HitTestResult>();
         private GeometryModel3D mouseMoveHitModel ;
 
-
         public JPViewport3DX()
             : base()
         {
@@ -32,7 +32,14 @@ namespace Jp3DKit
                 this.Camera.Position = nearestPoint ?? this.Camera.Position;
         }
 
-       
+        public  IManipulateHandler ManipulateHandler;
+        public event RoutedEventHandler ManipulateComplete
+        {
+            add { AddHandler(ManipulateCompleteEvent, value); }
+            remove { RemoveHandler(ManipulateCompleteEvent, value); }
+        }
+        public static readonly RoutedEvent ManipulateCompleteEvent =
+             EventManager.RegisterRoutedEvent("ManipulateComplete", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(JPViewport3DX));
 
         /// <summary>
         /// 添加模型对象，同时附加到renderhost;
@@ -92,7 +99,14 @@ namespace Jp3DKit
             this.InputBindings.Add(
                 new MouseBinding(
                     ViewportCommands.Reset, new MouseGesture(MouseAction.MiddleDoubleClick, ModifierKeys.Control)));
-            
+
+            //添加手势命令-Escape,用于取消操作
+            this.CommandBindings.Add(new CommandBinding(JpViewport3DXCommands.Escape, this.EscapeHandler));
+            this.InputBindings.Add(new KeyBinding(JpViewport3DXCommands.Escape, Key.Escape, ModifierKeys.None));
+            //添加手势命令-Ctrl+S,用于保存操作
+            this.CommandBindings.Add(new CommandBinding(JpViewport3DXCommands.ControlSave, this.ControlSaveHandler));
+            this.InputBindings.Add(new KeyBinding(JpViewport3DXCommands.ControlSave, Key.S, ModifierKeys.Control));
+
             //也可在xaml文件中绑定
             //<!--<Wpf:Viewport3DX.InputBindings>   UseDefaultGestures="False"
             //    <KeyBinding Key="B" Command="Wpf:ViewportCommands.BackView"/>
@@ -186,6 +200,74 @@ namespace Jp3DKit
                 //}
             }
            
+        }
+
+        /// <summary>
+        /// 响应键盘事件，Escape
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EscapeHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (this.ManipulateHandler == null) return;
+            this.ManipulateHandler.Cancel();
+            //if (operateMode == OperateMode.DrawMx)
+            //{
+            //    this._viewport.Cursor = Cursors.Arrow;
+            //    operateMode = OperateMode.None;
+            //}
+            //if (operateMode == OperateMode.DrawPolygon)
+            //{
+            //    this._viewport.Cursor = Cursors.Arrow;
+            //    if (_drawShapeRecord.IsDraw) _drawShapeRecord.IsCancel = true;
+            //    if (_drawShapeRecord.Model != null) this._viewport.Items.Remove(_drawShapeRecord.Model);
+            //    _drawShapeRecord.Clear();
+            //    operateMode = OperateMode.None;
+            //    this._viewport.ReleaseMouseCapture();
+            //}
+            //if (this.currentMq != null && this.currentMq.IsModify)
+            //{
+            //    this.currentMq.RevertPoints();
+            //    this.currentMq.IsModify = false;
+            //}
+        }
+        /// <summary>
+        /// 响应键盘事件，Ctrl+S
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ControlSaveHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (this.ManipulateHandler == null) return;
+            this.ManipulateHandler.End();
+            //if (this.currentMq != null && this.currentMq.IsModify)
+            //{
+            //    string mqID = this.currentMq.Tag.ToString();
+            //    var ss = mqID.Split(new char[] { ':' });
+            //    AreaEdit ae = AreaEdit.GetAreaEdit(Guid.Parse(ss[1]));
+            //    ae.GeometryText = Vector3ArrayConverter.ConvertToString(this.currentMq.Positions);  //pg.ToString(new Lygl.UI.Framework.FormatProvider.GeometryIntFormatProvider());
+            //    try
+            //    {
+            //        var savable = ae as ISavable;
+            //        savable.Save();
+            //        this.currentMq.IsModify = false;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw ex;
+            //    }
+            //}
+        }
+        
+    }
+
+    public class ModifyCompleteEventArgs : RoutedEventArgs
+    {
+        public IManipulateHandler Handler;
+        public ModifyCompleteEventArgs(RoutedEvent routedEvent, object source )
+            : base(routedEvent, source)
+        {
+            Handler = source as IManipulateHandler;
         }
     }
 }
