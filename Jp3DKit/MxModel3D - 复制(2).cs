@@ -8,14 +8,14 @@ using System.Text;
 using System.Windows;
 
 
-using HelixToolkit.SharpDX.Wpf;
-using HelixToolkit.SharpDX;
+using HelixToolkit.Wpf.SharpDX;
+using HelixToolkit.Wpf;
 using System;
 using Buffer = SharpDX.Direct3D11.Buffer;
 using SharpDX.DXGI;
 using SharpDX.Direct3D;
-using SharpDX.Toolkit.Graphics;
 using System.Windows.Media.Imaging;
+
 
 namespace Jp3DKit
 {
@@ -23,7 +23,7 @@ namespace Jp3DKit
     /// <summary>
     /// loader model data from .obj
     /// </summary>
-    public class ObjModel3D : GeometryModel3D
+    public class MxModel3D : Model3D   //,IMouseMoveHitable
     {
         #region property
         public string ModelFileName
@@ -34,7 +34,7 @@ namespace Jp3DKit
 
         // Using a DependencyProperty as the backing store for ModelFileName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModelFileNameProperty =
-            DependencyProperty.Register("ModelFileName", typeof(string), typeof(JpObjModel3D), new PropertyMetadata(null));
+            DependencyProperty.Register("ModelFileName", typeof(string), typeof(MxModel3D), new PropertyMetadata(null));
 
         public string ModelPath
         {
@@ -44,7 +44,18 @@ namespace Jp3DKit
 
         // Using a DependencyProperty as the backing store for ModelPath.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModelPathProperty =
-            DependencyProperty.Register("ModelPath", typeof(string), typeof(JpObjModel3D), new PropertyMetadata(null));
+            DependencyProperty.Register("ModelPath", typeof(string), typeof(MxModel3D), new PropertyMetadata(null));
+
+        public BoundingBox Bounds
+        {
+            get { return (BoundingBox)this.GetValue(BoundsProperty); }
+            protected set { this.SetValue(BoundsPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey BoundsPropertyKey =
+            DependencyProperty.RegisterReadOnly("Bounds", typeof(BoundingBox), typeof(MxModel3D), new UIPropertyMetadata(new BoundingBox()));
+
+        public static readonly DependencyProperty BoundsProperty = BoundsPropertyKey.DependencyProperty;
 
         public IEnumerable<Entity2ModelInfo> Instances
         {
@@ -56,14 +67,15 @@ namespace Jp3DKit
         /// 
         /// </summary>
         public static readonly DependencyProperty InstancesProperty =
-            DependencyProperty.Register("Instances", typeof(IEnumerable<Entity2ModelInfo>), typeof(JpObjModel3D), new UIPropertyMetadata(null, InstancesChanged));
+            DependencyProperty.Register("Instances", typeof(IEnumerable<Entity2ModelInfo>), typeof(MxModel3D), new UIPropertyMetadata(null, InstancesChanged));
 
         private static void InstancesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var model = (JpObjModel3D)d;
+            var model = (MxModel3D)d;
             if (e.NewValue != null)
             {
                 model.instanceArray = ((IEnumerable<Entity2ModelInfo>)e.NewValue).ToArray();
+                model.UpdateBounds();
             }
             else
             {
@@ -72,7 +84,18 @@ namespace Jp3DKit
             model.isChanged = true;
         }
 
-
+        private void UpdateBounds()
+        {
+            if (this.instanceArray.Count() == 0) return;
+            BoundingBox bb = BoundingBox.FromPoints(this.ModelVertices.Select(x => Vector3.TransformCoordinate(x.Position, this.instanceArray.First().ModelPos)).ToArray());
+            ///todo:这里还有改进空间，可得用模型数据一致，只有变换矩阵不同，考虑计算出模型标准Box,只计算box二点参加计算，可极大减少计算时间
+            foreach (var item in this.instanceArray)
+            {
+                var bounds = BoundingBox.FromPoints(this.ModelVertices.Select(x => Vector3.TransformCoordinate(x.Position, item.ModelPos)).ToArray());
+                bb = BoundingBox.Merge(bb, bounds);
+            }
+            this.Bounds = bb;
+        }
 
         public float Alpha
         {
@@ -82,7 +105,7 @@ namespace Jp3DKit
 
         // Using a DependencyProperty as the backing store for Alpha.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AlphaProperty =
-            DependencyProperty.Register("Alpha", typeof(float), typeof(JpObjModel3D), new PropertyMetadata(1f));
+            DependencyProperty.Register("Alpha", typeof(float), typeof(MxModel3D), new PropertyMetadata(1f));
 
 
         #endregion
@@ -111,7 +134,7 @@ namespace Jp3DKit
             //public ShaderResourceView TextureRV11;
             public SharpDX.Toolkit.Graphics.Texture2D TextureRV11;
             public ShaderResourceView TextrueMap;
-            public SharpDX.Direct3D11.EffectTechnique Technique;
+            //public SharpDX.Direct3D11.EffectTechnique Technique;
 
         }
         internal struct AttributeRage
@@ -141,16 +164,16 @@ namespace Jp3DKit
         private Buffer vertexBuffer;
         private Buffer indexBuffer;
         private Buffer instanceBuffer;
-        private SharpDX.Direct3D11.EffectTechnique technique;
+        private SharpDX.Direct3D11.EffectTechnique effectTechnique;
         protected SharpDX.Direct3D11.EffectPass effectPass;
         private EffectTransformVariables effectTransforms;
-        protected HelixToolkit.SharpDX.Wpf.MaterialGeometryModel3D.EffectMaterialVariables effectMaterial;
+        protected HelixToolkit.Wpf.SharpDX.MaterialGeometryModel3D.EffectMaterialVariables effectMaterial;
         
         private EffectVectorVariable vFrustum, vViewport, vLineParams;
         private SharpDX.Direct3D11.RasterizerState rasterState;
         private SharpDX.Direct3D11.DepthStencilState depthStencilState;
 
-        protected MeshGeometry3D geometry;
+        //protected MeshGeometry3D geometry;
         protected Entity2ModelInfo[] instanceArray;
 
 
@@ -161,7 +184,7 @@ namespace Jp3DKit
         protected bool hasInstances = false;
         protected bool hasShadowMap = false;
 
-
+        
         public List<SharpDX.Toolkit.Graphics.VertexPositionNormalTexture> ModelVertices { get; private set; }
         public List<int> ModelIndices { get; private set; }
         public List<int> ModelAttribute { get; private set; }
@@ -173,17 +196,49 @@ namespace Jp3DKit
         private VertexBufferBinding vertexBufferBinding;
 
         private int CurSubSet;
+
+        //public static readonly RoutedEvent MouseMoveOver3DEvent =
+        //   EventManager.RegisterRoutedEvent("MouseMoveOver3D", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MxModel3D));
+
+        /// <summary>
+        /// Provide CLR accessors for the event 
+        /// </summary>
+        //public event RoutedEventHandler MouseMoveOver3D
+        //{
+        //    add { AddHandler(MouseMoveOver3DEvent, value); }
+        //    remove { RemoveHandler(MouseMoveOver3DEvent, value); }
+        //}
+
         #endregion
 
         #region Constructors
-        public ObjModel3D()
+        private MxModel3D()
         {
             CurSubSet = 0;
-            ModelVertices = new List<VertexPositionNormalTexture>();
+            ModelVertices = new List<SharpDX.Toolkit.Graphics.VertexPositionNormalTexture>();
             ModelIndices = new List<int>();
             ModelAttribute = new List<int>();
             ModelMaterials = new List<Material>();
             ModelPath = AppDomain.CurrentDomain.BaseDirectory + @"3DModel\";
+
+            if (ModelFileName == null) throw new ArgumentNullException("ModelFileName", "模型文件名不能为空");
+            if (!LoadModel()) return;
+            //this.Geometry = ConvertModelToMeshGeometry3D();
+        }
+
+        public MxModel3D(string modelFileName)
+        {
+            CurSubSet = 0;
+            ModelVertices = new List<SharpDX.Toolkit.Graphics.VertexPositionNormalTexture>();
+            ModelIndices = new List<int>();
+            ModelAttribute = new List<int>();
+            ModelMaterials = new List<Material>();
+            ModelPath = AppDomain.CurrentDomain.BaseDirectory + @"3DModel\";
+
+            this.ModelFileName = modelFileName;
+            if (ModelFileName == null) throw new ArgumentNullException("ModelFileName", "模型文件名不能为空");
+            if (!LoadModel()) return;
+           // this.Geometry = ConvertModelToMeshGeometry3D();
         }
         #endregion
 
@@ -192,45 +247,42 @@ namespace Jp3DKit
         /// 
         /// </summary>
         /// <param name="depthBias"></param>
-        protected override void OnRasterStateChanged(int depthBias)
-        {
-            if (this.isAttached)
-            {
-                Disposer.RemoveAndDispose(ref this.rasterState);
-                /// --- set up rasterizer states
-                var rasterStateDesc = new RasterizerStateDescription()
-                {
-                    FillMode = FillMode.Solid,
-                    CullMode = CullMode.Back,
-                    DepthBias = depthBias,
-                    DepthBiasClamp = -1000,
-                    SlopeScaledDepthBias = +0,
-                    IsDepthClipEnabled = true,
-                    IsFrontCounterClockwise = true,
+        //protected override void OnRasterStateChanged(int depthBias)
+        //{
+        //    if (this.IsAttached)
+        //    {
+        //        Disposer.RemoveAndDispose(ref this.rasterState);
+        //        /// --- set up rasterizer states
+        //        var rasterStateDesc = new RasterizerStateDescription()
+        //        {
+        //            FillMode = FillMode.Solid,
+        //            CullMode = CullMode.Back,
+        //            DepthBias = depthBias,
+        //            DepthBiasClamp = -500,
+        //            SlopeScaledDepthBias = +0,
+        //            IsDepthClipEnabled = true,
+        //            IsFrontCounterClockwise = true,
 
-                    //IsMultisampleEnabled = true,
-                    //IsAntialiasedLineEnabled = true,                    
-                    //IsScissorEnabled = true,
-                };
-                this.rasterState = new SharpDX.Direct3D11.RasterizerState(this.device, rasterStateDesc);
-            }
-        }
+        //            //IsMultisampleEnabled = true,
+        //            //IsAntialiasedLineEnabled = true,                    
+        //            //IsScissorEnabled = true,
+        //        };
+        //        this.rasterState = new SharpDX.Direct3D11.RasterizerState(this.Device, rasterStateDesc);
+        //    }
+        //}
 
         public override void Attach(IRenderHost host)
         {
             try
-            {
-                /// --- attach
-                this.effectName = Techniques.RenderPhong;//host.RenderTechnique.ToString();
-                if (ModelFileName == null) throw new ArgumentNullException("ModelFileName", "模型文件名不能为空");
-                if (!LoadModel()) return;
-                this.Geometry = ConvertModelToMeshGeometry3D();
+            {                
                 base.Attach(host);
                 LoadMaterialsTexture();
-
                 // --- get variables
-                this.vertexLayout = host.Effects.GetLayout(this.effectName);
-                this.technique = effect.GetTechniqueByName(this.effectName);
+                this.vertexLayout = EffectsManager.Instance.GetLayout(host.RenderTechnique);
+                this.effectTechnique = effect.GetTechniqueByName(host.RenderTechnique.Name);
+                //this.technique = effect.GetTechniqueByName(this.renderTechnique.Name);
+                //this.vertexLayout = host.Effects.GetLayout(this.effectName);
+                //this.technique = effect.GetTechniqueByName(this.effectName);
                 //this.geometry = this.Geometry as MeshGeometry3D;
 
                 /// --- constant buffer for transformation
@@ -240,7 +292,7 @@ namespace Jp3DKit
                 //this.AttachMaterial();
 
                 /// --- init vertex buffer
-                this.vertexBuffer = device.CreateBuffer(BindFlags.VertexBuffer, DefaultVertex.SizeInBytes, this.ModelVertices.Select((x, ii) => new DefaultVertex()
+                this.vertexBuffer = Device.CreateBuffer(BindFlags.VertexBuffer, DefaultVertex.SizeInBytes, this.ModelVertices.Select((x, ii) => new DefaultVertex()
                 {
                     Position = new Vector4(x.Position, 1f),
                     Color = new Color4(0f, 0f, 1f, 1f),
@@ -253,7 +305,7 @@ namespace Jp3DKit
 
                 /// --- init index buffer
 
-                this.indexBuffer = device.CreateBuffer(BindFlags.IndexBuffer, sizeof(int), this.ModelIndices.ToArray());
+                this.indexBuffer = Device.CreateBuffer(BindFlags.IndexBuffer, sizeof(int), this.ModelIndices.ToArray());
 
                 //var rasterStateDesc = new RasterizerStateDescription()
                 //{
@@ -277,20 +329,21 @@ namespace Jp3DKit
                 this.bHasInstances = this.effect.GetVariableByName("bHasInstances").AsScalar();
                 if (this.hasInstances)
                 {
-                    this.instanceBuffer = Buffer.Create(this.device, this.instanceArray.Select(x => x.ModelPos).ToArray(), new BufferDescription(Matrix.SizeInBytes * this.instanceArray.Length, ResourceUsage.Dynamic, BindFlags.VertexBuffer, CpuAccessFlags.Write, ResourceOptionFlags.None, 0));
+                    this.instanceBuffer = Buffer.Create(this.Device, this.instanceArray.Select(x => x.ModelPos).ToArray(), new BufferDescription(Matrix.SizeInBytes * this.instanceArray.Length, ResourceUsage.Dynamic, BindFlags.VertexBuffer, CpuAccessFlags.Write, ResourceOptionFlags.None, 0));
                 }
 
                 //this.texDiffuseMapVariable = effect.GetVariableByName("texDiffuseMap").AsShaderResource();
                 //this.bHasDiffuseMapVariable = effect.GetVariableByName("bHasDiffuseMap").AsScalar();
-                
-                
-                this.effectMaterial = new HelixToolkit.SharpDX.Wpf.MaterialGeometryModel3D.EffectMaterialVariables(this.effect);
-                this.effectPass = this.technique.GetPassByIndex(0);
+
+
+                this.effectMaterial = new HelixToolkit.Wpf.SharpDX.MaterialGeometryModel3D.EffectMaterialVariables(this.effect);
+                this.effectPass = this.effectTechnique.GetPassByIndex(0);
+                //this.effectPass = this.technique.GetPassByIndex(0);
                 if (!hasInstances)
                     vertexBufferBinding = new VertexBufferBinding(this.vertexBuffer, DefaultVertex.SizeInBytes, 0);
-                this.OnRasterStateChanged(this.DepthBias);
+               // this.OnRasterStateChanged(0);  //(this.DepthBias);
                 /// --- flush
-                this.device.ImmediateContext.Flush();
+                this.Device.ImmediateContext.Flush();
             }
             catch (Exception e)
             {
@@ -303,11 +356,15 @@ namespace Jp3DKit
             var g = new MeshGeometry3D();
             try
             {
-                
-                g.Positions = this.ModelVertices.Select(x => x.Position).ToArray();
-                g.Normals = this.ModelVertices.Select(x => x.Normal).ToArray();
-                g.TextureCoordinates = this.ModelVertices.Select(x => x.TextureCoordinate).ToArray();
-                g.Indices = this.ModelIndices.ToArray();
+
+                g.Positions =new HelixToolkit.Wpf.SharpDX.Core.Vector3Collection( this.ModelVertices.Select(x => x.Position));
+                g.Normals = new HelixToolkit.Wpf.SharpDX.Core.Vector3Collection( this.ModelVertices.Select(x => x.Normal));
+                g.TextureCoordinates = new HelixToolkit.Wpf.SharpDX.Core.Vector2Collection( this.ModelVertices.Select(x => x.TextureCoordinate));
+//#if DEBUG    //用于高度时能正确显示三角形数，对于对象instance模式
+//                g.Indices = new int[this.ModelIndices.Count() * this.instanceArray.Count()];
+//#else
+                g.Indices =new HelixToolkit.Wpf.SharpDX.Core.IntCollection( this.ModelIndices);
+//#endif
             }
             catch (Exception e)
             {
@@ -329,10 +386,10 @@ namespace Jp3DKit
             Disposer.RemoveAndDispose(ref this.rasterState);
             Disposer.RemoveAndDispose(ref this.depthStencilState);
 
-            this.effectName = null;
+            //this.effectName = null;
             this.phongMaterial = null;
-            this.geometry = null;
-            this.technique = null;
+           
+            this.effectTechnique = null;
             this.vertexLayout = null;
 
             base.Detach();
@@ -347,15 +404,15 @@ namespace Jp3DKit
             if (!this.IsRendering)
                 return;
 
-            if (this.Geometry == null)
-                return;
+            //if (this.Geometry == null)
+            //    return;
 
             if (this.Visibility != System.Windows.Visibility.Visible)
                 return;
 
-            if (renderContext.IsShadowPass)
-                if (!this.IsThrowingShadow)
-                    return;
+            //if (renderContext.IsShadowPass)
+            //    if (!this.IsThrowingShadow)
+            //        return;
             try
             {
                 /// --- set constant paramerers             
@@ -366,21 +423,17 @@ namespace Jp3DKit
                 //this.effectTransforms.mView.SetMatrix(ref viewMatrix);
                 //this.effectTransforms.mProjection.SetMatrix(ref projectionMatrix);
                 //this.effectTransforms.vEyePos.Set(renderContext.Camera.Position.ToVector3());
-
-
-
                 /// --- check shadowmaps
                 this.hasShadowMap = this.renderHost.IsShadowMapEnabled;
-
 
                 /// --- check instancing
                 this.hasInstances = this.Instances != null;
                 this.bHasInstances.Set(this.hasInstances);
 
                 /// --- set context
-                this.device.ImmediateContext.InputAssembler.InputLayout = this.vertexLayout;
-                this.device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
-                this.device.ImmediateContext.InputAssembler.SetIndexBuffer(this.indexBuffer, Format.R32_UInt, 0);
+                this.Device.ImmediateContext.InputAssembler.InputLayout = this.vertexLayout;
+                this.Device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
+                this.Device.ImmediateContext.InputAssembler.SetIndexBuffer(this.indexBuffer, Format.R32_UInt, 0);
                 //this.device.ImmediateContext.Rasterizer.State = rasterState;
                 //this.device.ImmediateContext.OutputMerger.DepthStencilState = depthStencilState;
 
@@ -394,10 +447,10 @@ namespace Jp3DKit
                     if (this.isChanged)
                     {
                         DataStream stream;
-                        device.ImmediateContext.MapSubresource(this.instanceBuffer, MapMode.WriteDiscard, global::SharpDX.Direct3D11.MapFlags.None, out stream);
+                        Device.ImmediateContext.MapSubresource(this.instanceBuffer, MapMode.WriteDiscard, global::SharpDX.Direct3D11.MapFlags.None, out stream);
                         stream.Position = 0;
                         stream.WriteRange(this.instanceArray.Select(x => x.ModelPos).ToArray(), 0, this.instanceArray.Length);
-                        device.ImmediateContext.UnmapSubresource(this.instanceBuffer, 0);
+                        Device.ImmediateContext.UnmapSubresource(this.instanceBuffer, 0);
                         stream.Dispose();
                         vertexBufferBindings = new[] {
                                                                                             new VertexBufferBinding(this.vertexBuffer, DefaultVertex.SizeInBytes, 0),
@@ -406,27 +459,25 @@ namespace Jp3DKit
                         this.isChanged = false;
                     }
                     /// --- INSTANCING: need to set 2 buffers            
-                    this.device.ImmediateContext.InputAssembler.SetVertexBuffers(0, vertexBufferBindings);
+                    this.Device.ImmediateContext.InputAssembler.SetVertexBuffers(0, vertexBufferBindings);
                     foreach (var item in AttributeTable)
                     {
                         SetTechniqueAndMaterial(item);
-                        this.effectPass.Apply(device.ImmediateContext);
+                        this.effectPass.Apply(Device.ImmediateContext);
                         //this.OnRasterStateChanged(this.DepthBias);
-                        this.device.ImmediateContext.DrawIndexedInstanced(item.FaceCount * 3, this.instanceArray.Length, item.FaceStart * 3, 0, 0);
+                        this.Device.ImmediateContext.DrawIndexedInstanced(item.FaceCount * 3, this.instanceArray.Length, item.FaceStart * 3, 0, 0);
                     }
                 }
                 else
                 {
                     /// --- bind buffer                
-                    this.device.ImmediateContext.InputAssembler.SetVertexBuffers(0, vertexBufferBinding);
-                    
+                    this.Device.ImmediateContext.InputAssembler.SetVertexBuffers(0, vertexBufferBinding);                    
                     foreach (var item in AttributeTable)
                     {
                         SetTechniqueAndMaterial(item);
                         //this.OnRasterStateChanged(this.DepthBias);
-                        this.effectPass.Apply(device.ImmediateContext);
-                        
-                        this.device.ImmediateContext.DrawIndexed(item.FaceCount * 3, item.FaceStart * 3, 0);
+                        this.effectPass.Apply(Device.ImmediateContext);                        
+                        this.Device.ImmediateContext.DrawIndexed(item.FaceCount * 3, item.FaceStart * 3, 0);
                     }
 
                 }
@@ -454,7 +505,7 @@ namespace Jp3DKit
             var vd = new Vector4(material.vDiffuse, 1);
             this.effectMaterial.vMaterialAmbientVariable.Set(material.vAmbient);
             this.effectMaterial.vMaterialDiffuseVariable.Set(vd);
-            this.effectMaterial.vMaterialSpecularVariable.Set(material.vSpecular);
+            this.effectMaterial.vMaterialSpecularVariable.Set(material.vSpecular); 
 
             if (material.TextrueMap == null)
             {
@@ -532,20 +583,6 @@ namespace Jp3DKit
 
         public bool LoadModel()
         {
-
-            var obj = new ObjReader();
-            obj.Read(ModelPath + ModelFileName);
-            mb = new MeshBuilder(true, true);
-
-            foreach (var item in obj.Groups)
-            {
-                mb.Append(item.MeshBuilder);
-            }
-            MeshGeometryModel3D mgm = new MeshGeometryModel3D();
-            mgm.Geometry = mb.ToMeshGeometry3D();
-            mgm.Material = PhongMaterials.Red;
-
-
             bool IsLeftHandCoord = false;
             List<Vector3> Positions = new List<Vector3>();
             List<Vector2> TexCoords = new List<Vector2>();
@@ -553,7 +590,7 @@ namespace Jp3DKit
 
             string MaterialFileName = string.Empty;
             List<string> lines = null;
-            
+
             try
             {
                 lines = File.ReadLines(ModelPath + ModelFileName).ToList();
@@ -610,7 +647,7 @@ namespace Jp3DKit
                     ModelAttribute.Add( CurSubSet );
                     **/
                         #endregion
-                        VertexPositionNormalTexture vertex;
+                        SharpDX.Toolkit.Graphics.VertexPositionNormalTexture vertex;
 
                         // OBJ format uses 1-based arrays
                         var value = line.Trim().Substring(1).Split(new char[] { ' ', '/' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
@@ -712,7 +749,14 @@ namespace Jp3DKit
                 return false;
             }
         }
-
+        //public override void OnMouse3DUp(object sender, RoutedEventArgs e)
+        //{
+        //    base.OnMouse3DUp(sender, e);
+        //}
+        //public override void OnMouse3DDown(object sender, RoutedEventArgs e)
+        //{
+        //    base.OnMouse3DDown(sender, e);
+        //}
         private void SetupAttributeTable()
         {
             AttributeTable = new List<AttributeRage>();
@@ -737,36 +781,36 @@ namespace Jp3DKit
 
         }
 
-        public override bool HitTest(Ray rayWS, ref List<HitTestResult> hits)
-        {
-            if (this.Instances != null)
-            {
-                bool hit = false;
-                foreach (var modeinfo in Instances)
-                {
-                    var b = this.Bounds;
-                    this.PushMatrix(modeinfo.ModelPos);
-                  //  this.Bounds = BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, this.modelMatrix)).ToArray());
-                    if (base.HitTest(rayWS, ref hits))
-                    {
-                        hit = true;
-                        var lastHit = hits[hits.Count - 1];
-                        lastHit.Tag =this.Tag.ToString()+":"+ modeinfo.ModelID;  //返回实体对象的ID
-                        //#if DEBUG
-                        //                        System.Diagnostics.Debug.WriteLine("hitTest ModelID:" + modeinfo.ModelID);
-                        //#endif
-                        hits[hits.Count - 1] = lastHit;
-                    }
-                    this.PopMatrix();
-                    this.Bounds = b;
-                }
-                return hit;
-            }
-            else
-            {
-                return base.HitTest(rayWS, ref hits);
-            }
-        }
+//        public override bool HitTest(Ray rayWS, ref List<HitTestResult> hits)
+//        {
+//            if (this.Instances != null)
+//            {
+//                bool hit = false;
+//                foreach (var modeinfo in Instances)
+//                {
+//                    var b = this.Bounds;
+//                    this.PushMatrix(modeinfo.ModelPos);
+//                  //  this.Bounds = BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, this.modelMatrix)).ToArray());
+//                    if (base.HitTest(rayWS, ref hits))
+//                    {
+//                        hit = true;
+//                        var lastHit = hits[hits.Count - 1];
+//                        lastHit.Tag =this.Tag.ToString()+":"+ modeinfo.ModelID;  //返回实体对象的ID
+//#if DEBUG
+//                        System.Diagnostics.Debug.WriteLine("hitTest ModelID:" + modeinfo.ModelID);
+//#endif
+//                        hits[hits.Count - 1] = lastHit;
+//                    }
+//                    this.PopMatrix();
+//                    this.Bounds = b;
+//                }
+//                return hit;
+//            }
+//            else
+//            {
+//                return base.HitTest(rayWS, ref hits);
+//            }
+//        }
 
         private void InitMaterial(ref Material pMaterial)
         {
@@ -882,9 +926,9 @@ namespace Jp3DKit
                         //pMaterial.TextureRV11 = SharpDX.Toolkit.Graphics.Texture.Load(gd, SystemConfiguration.DataFilePath + pMaterial.TextureFileName.Replace("/", "\\"));
                         //  var filepath = SystemConfiguration.FullDataFilePath + pMaterial.TextureFileName.Replace("/","\\");
                         // pMaterial.TextureRV11 = ShaderResourceView.FromFile( SystemConfiguration.DataFilePath + pMaterial.TextureFileName.Replace("/", "\\"));
-                        using (var texture = SharpDX.Direct3D11.Texture2D.FromFile<SharpDX.Direct3D11.Texture2D>(this.device, ModelPath + pMaterial.TextureFileName))
+                        using (var texture = SharpDX.Direct3D11.Texture2D.FromFile<SharpDX.Direct3D11.Texture2D>(this.Device, ModelPath + pMaterial.TextureFileName))
                         {
-                            pMaterial.TextrueMap = new ShaderResourceView(this.device, texture);
+                            pMaterial.TextrueMap = new ShaderResourceView(this.Device, texture);
                         }
                         //pMaterial.TextrueMap = ShaderResourceView.FromFile(device, ModelPath + pMaterial.TextureFileName);
 
@@ -905,12 +949,12 @@ namespace Jp3DKit
 
         }
 
-        internal int AddVertex(VertexPositionNormalTexture pVertex)
-        {
+        //internal int AddVertex(SharpDX.Toolkit.Graphics.VertexPositionNormalTexture pVertex)
+        //{
 
-            ModelVertices.Add(pVertex);
-            return ModelVertices.Count - 1;
-        }
+        //    ModelVertices.Add(pVertex);
+        //    return ModelVertices.Count - 1;
+        //}
 
 
         /* *             
@@ -1104,6 +1148,64 @@ namespace Jp3DKit
         }
         #endregion
 
+        //public bool MouseMoveHitTest(Ray rayWS, ref List<HitTestResult> hits)
+        //{
+        //    if (this.Visibility == Visibility.Collapsed)
+        //    {
+        //        return false;
+        //    }
+        //    if (this.IsMouseMoveHitTestVisible == false)
+        //    {
+        //        return false;
+        //    }
+        //    if (this.Instances != null)
+        //    {
+        //        bool hit = false;
+        //        foreach (var modeinfo in Instances)
+        //        {
+        //            var b = this.Bounds;
+        //            this.PushMatrix(modeinfo.ModelPos);
+        //            //  this.Bounds = BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, this.modelMatrix)).ToArray());
+        //            if (base.HitTest(rayWS, ref hits))
+        //            {
+        //                hit = true;
+        //                var lastHit = hits[hits.Count - 1];
+        //                lastHit.Tag = this.Tag.ToString() + ":" + modeinfo.ModelID;  //返回实体对象的ID
+        //                hits[hits.Count - 1] = lastHit;
+        //                this.PopMatrix();
+        //                this.Bounds = b;
+        //                break;
 
+        //            }
+        //            this.PopMatrix();
+        //            this.Bounds = b;
+        //        }
+        //        return hit;
+        //    }
+        //    else
+        //    {
+        //        return base.HitTest(rayWS, ref hits);
+        //    }
+
+        //}
+
+        public bool IsMouseMoveHitTestVisible
+        {
+            get { return (bool)GetValue(IsMouseMoveHitTestVisibleProperty); }
+            set { SetValue(IsMouseMoveHitTestVisibleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsMouseMoveHitTestVisible.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsMouseMoveHitTestVisibleProperty =
+            DependencyProperty.Register("IsMouseMoveHitTestVisible", typeof(bool), typeof(MxModel3D), new PropertyMetadata(true));
+
+        public bool IsLighting
+        {
+            get { return (bool)GetValue(IsLightingProperty); }
+            set { SetValue(IsLightingProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsLightingProperty =
+            DependencyProperty.Register("IsLighting", typeof(bool), typeof(MxModel3D), new PropertyMetadata(false));
     }
 }

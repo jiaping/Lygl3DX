@@ -1,4 +1,10 @@
-﻿namespace Lygl.UI.Properties {
+﻿#if DEBUG
+#define LOGCALIBURNMESSAGGE
+
+#endif
+namespace Lygl.UI.Properties {
+
+
     
     
     // 通过此类可以处理设置类的特定事件:

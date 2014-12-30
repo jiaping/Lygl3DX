@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Jp3DKit.AreaVisual3D" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AreaVisual3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.Frustum" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAgAAAAAgAAAAAAAAAAAAAAAAAAEIAAAAQAABA=</HashCode>
+      <FileName>Frustum.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Jp3DKit.Entity2ModelInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAgAAAAAAAQACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IModelInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Jp3DKit.InteractionHandle3D" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAiBgCAAgEAkAACJAAAoAUAAAAABBIAAABIgAAAGAE=</HashCode>
+      <FileName>InteractionHandle3D.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Jp3DKit.JpCompositeModel3D" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEEAAAAAAAAAAAAAAAgBKAAAAAAAAAAAAAAAAACAAQ=</HashCode>
+      <FileName>JpCompositeModel3D.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Jp3DKit.MouseMoveOver3DEventArgs" Collapsed="true">
+    <Position X="13.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAIAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JpCompositeModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpEntityModel3D" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JpEntityModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpModelStream" Collapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAgAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>JpModelStream.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpMqModel3D" Collapsed="true">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIiABAAAAABAAAAgEAAAJCgAgMiAAIAGABAEAAABAAQ=</HashCode>
+      <FileName>JpMqModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpMxModel3D" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAAAAABAAAAAAAAAACAAgAwAAEAAAAAAEAAgAIQ=</HashCode>
+      <FileName>JpMxModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpObjModel3D" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICQYnAalCJAAAIE4AAYAAQAEJQCCDRiQXgIgBAABDI=</HashCode>
+      <FileName>JpObjModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpSceneModel3D" Collapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICQYnAakCJAAAIE4AAYAAQAEJQCCDRiQXgIgBAABDI=</HashCode>
+      <FileName>JpSceneModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpSceneModel3DForHitTest" Collapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICQYnAakCJAAAIE4AAYAAQAUJQCCDRiQXgIgBAABDI=</HashCode>
+      <FileName>JpSceneModel3DForHitTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpTerrainModel_hightmap" Collapsed="true">
+    <Position X="8" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQQgQIAmAAGQAEBQAIEAEAC5AAQABAERggABAEMAI=</HashCode>
+      <FileName>JpTerrainModel_hightmap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpTerrainModel3D" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACQQjAagCJAAAIAAAAQAAQAQJACAARCAXgAgAAABDI=</HashCode>
+      <FileName>JpTerrainModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JPViewport3DX" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAIwQIAAAAAKAEQJAAAQAEEIgAAEAAAAA=</HashCode>
+      <FileName>JPViewport3DX.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.CurrentMxChangedEventArgs" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAIAAAAAA=</HashCode>
+      <FileName>JPViewport3DX.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.ModifyCompleteEventArgs" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JPViewport3DX.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JpViewport3DXCommands" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAoAAAACAAEACAAAAAAKAQAAAAAAEAAAAAAA=</HashCode>
+      <FileName>JpViewport3DXCommands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.JPViewport3DXExtentions" Collapsed="true">
+    <Position X="15" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>JPViewport3DXExtentions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.LineAdorner" Collapsed="true">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAQAAAAAgAAAAAAAAAAAAAAAAAIAAAAAo=</HashCode>
+      <FileName>LineAdorner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.MouseRectangleSelectHandler" Collapsed="true">
+    <Position X="15" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MouseRectangleSelectHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.MxModel3D" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAUYnAalCJAAAIE4AAYBKQAEJQCCDRiQXgIgBASBjI=</HashCode>
+      <FileName>MxModel3D.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Jp3DKit.QuadTreeModel" Collapsed="true">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEAQgAUAAgABQAAABAACAAAAsBAABQAQRhAAAAQABI=</HashCode>
+      <FileName>QuadTreeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.SkyBoxModel" Collapsed="true">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQQgAAAAAAAAAAAAAAAAAAAJAAAABAABAAAAAAAAA=</HashCode>
+      <FileName>SkyBoxModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.MapTexture" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAACAIAAAACACAAAAAAAA=</HashCode>
+      <FileName>TerrainMapTexture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.TerrainModel1" Collapsed="true">
+    <Position X="13.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAABAAACAAAAAAYAEAAAgAIADABCAKAAAAAgAA=</HashCode>
+      <FileName>TerrainModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.TerrainTexture" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TerrainTexture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.Vector3ArrayConverter" Collapsed="true">
+    <Position X="16.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vector3ArrayConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.BaseModel.RenderbaleBaseModel" Collapsed="true">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseModel\RenderbaleBaseModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.DecorateModel.DecorateModel3D" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAQQgAAAAAAAAIAEAAQAAAAAJCoAABgABQAAQAAhAA=</HashCode>
+      <FileName>DecorateModel\DecorateModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.DecorateModel.SelectedDecorateModel3D" Collapsed="true">
+    <Position X="5.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAoAAAAAAAAAAAAAAAgAAAAAAAQAEgAAAAA=</HashCode>
+      <FileName>DecorateModel\SelectedDecorateModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JpModelVisual3D" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgBAgEAAAQACAAAAAAAAAAAACAAAAQAAAAA=</HashCode>
+      <FileName>JpModelVisual3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.MouseDrawHandler.DrawPolygenHandler" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAIAAAAAAIAAABAAAAAAAAAAAAgCAAA=</HashCode>
+      <FileName>MouseDrawHandler\DrawPolygenHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.MouseDrawHandler.GetClickPositionHandler" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAIgAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>MouseDrawHandler\GetClickPositionHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.MouseDrawHandler.ManipulateHandler" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAQCAEAAIAIAACAAAAAACAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>MouseDrawHandler\ManipulateHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Lygl.UI.MouseDraw.MouseDrawHandler" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QIgCIAiAAAAEAAYAAEBAKAAAARKCAYAAIAAQAIgGAAA=</HashCode>
+      <FileName>MouseDrawHandler\MouseDrawHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.ObjModel.MaterialDefinition" Collapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAEAAAAAAAAAAAgCAgAQAAAAAAAACIQABBUAAQAA=</HashCode>
+      <FileName>ObjModel\JpObjReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.ObjModel.JpObjReader" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AggAIEAAEAAAwBAAIEBoIoghAAAAECA0ADAIgAABIAA=</HashCode>
+      <FileName>ObjModel\JpObjReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.ObjModel.ObjModel3D" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQQjAagCAAAAIAAAAQEAQAAJACAARCAXgAgAAABDI=</HashCode>
+      <FileName>ObjModel\ObjModel3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jp3DKit.TerrainModels.TerrainSceneModel" Collapsed="true">
+    <Position X="15" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>TerrainModels\TerrainSceneModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Jp3DKit.DrawShapeRecord" Collapsed="true">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAQQMAAAQAAAAAAAgAAAgAAAAgAAABAAAw=</HashCode>
+      <FileName>DrawShapeRecord.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Jp3DKit.ObjModel.MaterialAttributeRange" Collapsed="true">
+    <Position X="9.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAIAAAAAAAQAAAAEAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>ObjModel\JpObjReader.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Jp3DKit.ObjModel.ModelData" Collapsed="true">
+    <Position X="11.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIEAAAAAAAAAAIAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>ObjModel\JpObjReader.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Jp3DKit.IEntity2ModelInfo" Collapsed="true">
+    <Position X="8" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IModelInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Jp3DKit.IMouseMoveHitable" Collapsed="true">
+    <Position X="11.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Jp3DKit.MouseDrawHandler.IManipulateHandler" Collapsed="true">
+    <Position X="9.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAQCAEAAIAIAACAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>MouseDrawHandler\ManipulateHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Jp3DKit.EntityType" Collapsed="true">
+    <Position X="8" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>IModelInfo.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Jp3DKit.OperateMode" Collapsed="true">
+    <Position X="11.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAIAAAAAAAAAAAAAEAAAAoAAAAQkEAAAA=</HashCode>
+      <FileName>OperateMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Jp3DKit.MouseMode" Collapsed="true">
+    <Position X="9.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAIACAAAAIAABAAQAAAAAAAAAAEAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>OperateMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

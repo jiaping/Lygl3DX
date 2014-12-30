@@ -31,7 +31,7 @@ namespace Jp3DKit
             get { return (string)GetValue(ModelFileNameProperty); }
             set { SetValue(ModelFileNameProperty, value); }
         }
-
+         
         // Using a DependencyProperty as the backing store for ModelFileName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModelFileNameProperty =
             DependencyProperty.Register("ModelFileName", typeof(string), typeof(JpObjModel3D), new PropertyMetadata(null));

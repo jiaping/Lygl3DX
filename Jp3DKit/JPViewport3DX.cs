@@ -1,5 +1,6 @@
 ﻿using HelixToolkit.Wpf.SharpDX;
 using Jp3DKit.MouseDrawHandler;
+using Jp3DKit.TerrainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,73 @@ namespace Jp3DKit
 {
     public class JPViewport3DX : Viewport3DX
     {
-        private List<HitTestResult> mouseMoveHitModels = new List<HitTestResult>();
+        //private List<HitTestResult> mouseMoveHitModels = new List<HitTestResult>();
         private GeometryModel3D mouseMoveHitModel ;
+
+        public OperateMode OperateMode { get; set; }
+        /// <summary>
+        /// 标识场景中地形地面场景对象
+        /// 因为要经常用到获取地面点，同时地形地面场景对象较多，程序正常运行时，用到鼠标hit不多，因此设计为不可hit
+        /// 设计一个新的GetTerrainPoint来获取hit
+        /// </summary>
+        public TerrainSceneModel TerrainSceneModel
+        {
+            get { return (TerrainSceneModel)GetValue(TerrainSceneModelProperty); }
+            set { SetValue(TerrainSceneModelProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TerrainSceneModel.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TerrainSceneModelProperty =
+            DependencyProperty.Register("TerrainSceneModel", typeof(TerrainSceneModel), typeof(JPViewport3DX), new UIPropertyMetadata(null, TerrainSceneModelChanged));
+
+        private static void TerrainSceneModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue != null)
+            {
+                var vp = (JPViewport3DX)d;
+                vp.Items.Add(e.NewValue);
+            }
+        }
+
+        public MqSceneModel MqSceneModel
+        {
+            get { return (MqSceneModel)GetValue(MqSceneModelProperty); }
+            set { SetValue(MqSceneModelProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MqSceneModel.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MqSceneModelProperty =
+            DependencyProperty.Register("MqSceneModel", typeof(MqSceneModel), typeof(JPViewport3DX), new UIPropertyMetadata(null,MqSceneModelChanged));
+
+        private static void MqSceneModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue != null)
+            {
+                var vp = (JPViewport3DX)d;
+                vp.Items.Add(e.NewValue);
+            }
+        }
+
+
+
+        public MxSceneModel MxSceneModel
+        {
+            get { return (MxSceneModel)GetValue(MxSceneModelProperty); }
+            set { SetValue(MxSceneModelProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MxSceneModel.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MxSceneModelProperty =
+            DependencyProperty.Register("MxSceneModel", typeof(MxSceneModel), typeof(JPViewport3DX), new UIPropertyMetadata(null,MxSceneModelChanged) );
+         private static void MxSceneModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue != null)
+            {
+                var vp = (JPViewport3DX)d;
+                vp.Items.Add(e.NewValue);
+            }
+        }
+        
 
         public JPViewport3DX()
             : base()
@@ -23,6 +89,7 @@ namespace Jp3DKit
             //this.CommandBindings.RemoveAt(1);
             //this.CommandBindings.Add(new CommandBinding(ViewportCommands.SetTarget, this.SetTargetHandler));
             SetGestures();
+            this.OperateMode = OperateMode.None;
         }
 
         private void SetTargetHandler(object sender, ExecutedRoutedEventArgs e)
@@ -33,14 +100,30 @@ namespace Jp3DKit
         }
 
         public  IManipulateHandler ManipulateHandler;
-        public event RoutedEventHandler ManipulateComplete
+        #region 已废弃，将事件触发改为委托实现
+        ///// <summary>
+        ///// 鼠标操作：绘制多边形、修改多边形、创建墓穴的处理器
+        ///// 实现与主程序中事件解藕，将处理程序独立出来
+        ///// 处理结束后通过事件（ModifyCompleteEvent)引发主程序处理维护数据的保存、显示等操作
+        ///// </summary>
+        //public event RoutedEventHandler ManipulateComplete
+        //{
+        //    add { AddHandler(ManipulateCompleteEvent, value); }
+        //    remove { RemoveHandler(ManipulateCompleteEvent, value); }
+        //}
+        //public static readonly RoutedEvent ManipulateCompleteEvent =
+        //     EventManager.RegisterRoutedEvent("ManipulateComplete", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(JPViewport3DX)); 
+        #endregion
+        /// <summary>
+        /// 声明当前墓穴改变处理器
+        /// </summary>
+        public event RoutedEventHandler CurrentMxChanged
         {
-            add { AddHandler(ManipulateCompleteEvent, value); }
-            remove { RemoveHandler(ManipulateCompleteEvent, value); }
+            add { AddHandler(CurrentMxChangedEvent, value); }
+            remove { RemoveHandler(CurrentMxChangedEvent, value); }
         }
-        public static readonly RoutedEvent ManipulateCompleteEvent =
-             EventManager.RegisterRoutedEvent("ManipulateComplete", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(JPViewport3DX));
-
+        public static readonly RoutedEvent CurrentMxChangedEvent =
+             EventManager.RegisterRoutedEvent("CurrentMxChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(JPViewport3DX));
         /// <summary>
         /// 添加模型对象，同时附加到renderhost;
         /// 用于动态增加模型
@@ -152,6 +235,7 @@ namespace Jp3DKit
 
             //this.RefreshViewport();
         }
+     
         /// <summary>
         /// Invoked when an unhandled MouseMove attached event reaches an element in its route that is derived from this class.
         /// </summary>
@@ -160,14 +244,23 @@ namespace Jp3DKit
         /// </param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
+
             if (e.MiddleButton == MouseButtonState.Pressed)
                 return;
-            if (e.LeftButton==MouseButtonState.Pressed || e.RightButton==MouseButtonState.Pressed )//||e.MiddleButton==MouseButtonState.Pressed
-               base.OnMouseMove(e);
+            if (e.LeftButton == MouseButtonState.Pressed || e.RightButton == MouseButtonState.Pressed)//||e.MiddleButton==MouseButtonState.Pressed
+            {
+                base.OnMouseMove(e);
+              //  System.Diagnostics.Debug.WriteLine("mouse press move!");
+            }
             else
                 this.MouseMoveHitTest(e);  //调用鼠标移动时对象的捕捉
         }
 
+        //protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+        //{
+        //    base.OnMouseLeftButtonUp(e);
+        //    var hits = this.MouseMoveFindHits(e.GetPosition(this));
+        //}
         
         /// <summary>
         /// 
@@ -176,28 +269,33 @@ namespace Jp3DKit
         private void MouseMoveHitTest(MouseEventArgs e)
         {
             var hits = this.MouseMoveFindHits(e.GetPosition(this));
-            if (mouseMoveHitModel != null)
+            if (hits.Count()==0 &&mouseMoveHitModel != null)
             {
+                //Mouse.Capture(null, CaptureMode.SubTree);
                 mouseMoveHitModel.RaiseEvent(new MouseMoveOver3DEventArgs(mouseMoveHitModel, false, new HitTestResult()));
+                mouseMoveHitModel = null;
             }
             if (hits.Count > 0)
             {
-                // Mouse.Capture(this, CaptureMode.SubTree);
-                var firsthit=hits.First();
-                //if (!firsthit.Equals(mouseMoveHitModel))
+                var firsthit = hits.First();
+                if (mouseMoveHitModel==null)
                 {
                     mouseMoveHitModel = firsthit.ModelHit;
-                    mouseMoveHitModel.RaiseEvent(new MouseMoveOver3DEventArgs(firsthit.ModelHit, true,firsthit));
+                    //Mouse.Capture(mouseMoveHitModel, CaptureMode.SubTree);
+                    mouseMoveHitModel.RaiseEvent(new MouseMoveOver3DEventArgs(firsthit.ModelHit, true, firsthit));
+                } else
+                {
+                    if (!firsthit.ModelHit.Equals(mouseMoveHitModel))
+                    {
+                        //Mouse.Capture(null, CaptureMode.SubTree);
+                        mouseMoveHitModel.RaiseEvent(new MouseMoveOver3DEventArgs(mouseMoveHitModel, false, new HitTestResult()));
+
+                        mouseMoveHitModel = firsthit.ModelHit;
+                        //Mouse.Capture(mouseMoveHitModel, CaptureMode.SubTree);
+                        mouseMoveHitModel.RaiseEvent(new MouseMoveOver3DEventArgs(firsthit.ModelHit, true, firsthit));
+                    }
                 }
-                //foreach (var hit in hits.Where(x => x.IsValid))
-                //{
-                //    hit.ModelHit.RaiseEvent(new MouseMove3DEventArgs(hit.ModelHit, hit, e.GetPosition(this), this));
-
-                //    tempMouseMoveHitModels.Add(hit);
-
-                //    // the winner takes it all: only the nearest hit is taken!
-                //    break;
-                //}
+               
             }
            
         }
@@ -258,9 +356,19 @@ namespace Jp3DKit
             //    }
             //}
         }
-        
-    }
 
+    }
+    public class CurrentMxChangedEventArgs : RoutedEventArgs
+    {
+        public string AreaID { get; set; }
+        public string MxID { get; set; }
+        public CurrentMxChangedEventArgs(RoutedEvent routedEvent, string areaID,string mxID)
+            : base(routedEvent)
+        {
+            this.AreaID = areaID;
+            this.MxID=mxID;
+        }
+    }
     public class ModifyCompleteEventArgs : RoutedEventArgs
     {
         public IManipulateHandler Handler;

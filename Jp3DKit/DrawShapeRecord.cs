@@ -34,7 +34,6 @@ namespace Jp3DKit
 
         public void AddPoint(Point3D p)
         {
-
             if (Model == null)
             {
                 PointCount = 2;
@@ -64,6 +63,7 @@ namespace Jp3DKit
 
         public void ReplaceLastPoint(Point3D p)
         {
+            if (p == null) return;
             Model.Geometry.Positions[Model.Geometry.Positions.Count - 1]=new Vector3((float)p.X, (float)p.Y + uplength, (float)p.Z);
             //var array = new Vector3[Model.Geometry.Positions.Count];
             //Model.Geometry.Positions.CopyTo(array, 0);

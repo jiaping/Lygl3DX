@@ -1,4 +1,5 @@
 ﻿using HelixToolkit.Wpf.SharpDX;
+using Jp3DKit.ObjModel;
 using SharpDX;
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;

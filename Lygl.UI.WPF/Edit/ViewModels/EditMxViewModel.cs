@@ -116,7 +116,7 @@ namespace Lygl.UI.Edit.ViewModels
         public void Handle(ModifyMxMessage message)
         {
             IsEdit = true;
-            NotifyOfPropertyChange("IsEdit");
+            NotifyOfPropertyChange("IsEdit");  
         }
         public void Handle(SaveMxDataMessage message)
         {

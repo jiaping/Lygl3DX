@@ -12,8 +12,11 @@ namespace Lygl.UI.Framework
     {
         public Logger()
         {
+#if LOGCALIBURNMESSAGGE
             //设置caliburn的日志代理，通过代理记录到log4net中
             Caliburn.Micro.LogManager.GetLog = type => CaliburnLogInstance;
+#endif
+            //Caliburn.Micro.LogManager.GetLog = type => CaliburnLogInstance;
         }
 
         //设置caliburn的日志代理，通过代理记录到log4net中

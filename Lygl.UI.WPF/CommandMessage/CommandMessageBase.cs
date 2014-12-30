@@ -384,6 +384,9 @@ namespace Lygl.UI.CommandMessage
     {
         public  const string DrawMq = "DrawMq";
         public  const string DrawMx = "DrawMx";
+
+        public const string ModifyMq = "ModifyMq";
+        public const string ModifyMxPos = "ModifyMxPos";
     }
 
 

@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Matrix = SharpDX.Matrix;
 using GeometryModel3D = HelixToolkit.Wpf.SharpDX.GeometryModel3D;
+using Jp3DKit.TerrainModels;
+using Jp3DKit.ObjModel;
 
 
 namespace Lygl.UI.Shell
@@ -64,7 +66,10 @@ namespace Lygl.UI.Shell
                 {
                     foreach (MxRO mx in mxs)
                     {
-                        List<Entity2ModelInfo> list = GetAreaMxModelClassifyDictItem(mx);
+                        string areaModelID = GetMxAreaStatusClassifylTag(mx);
+                        List<Entity2ModelInfo> list;
+                        AreaMxModelClassifyDict.TryGetValue(areaModelID, out list);
+                        //List<Entity2ModelInfo> list = GetAreaMxModelClassifyDictItem(mx);
                         Entity2ModelInfo emi = GetEntityModelInfo(mx);
                         //var dd = emi.ModelPos.ToMatrix3D().ToString();
                         list.Add(emi);
@@ -102,19 +107,35 @@ namespace Lygl.UI.Shell
         /// <param name="vp"></param>
         public static void LoadModels(JPViewport3DX vp)
         {
-            JpSceneModel3D mq = new JpSceneModel3D() { ModelFileName = "all主墓区2.obj", Tag = "ALLMq" };
-            vp.Items.Add(mq);
-            vp.Items.Add(ModelModifier);
-            vp.Items.Remove(ModelModifier);
-            vp.Items.Add(SelectedModel);
+            //vp.Items.Add(ModelModifier);
+            //vp.Items.Remove(ModelModifier);
+            //vp.Items.Add(SelectedModel);
+            
+            //显示墓区模型
+            DispAreaModels(vp, IoC.Get<IGlobalData>().Areas);  
+            //显示墓穴
+            var cc = new MxSceneModel(vp, AreaMxModelClassifyDict);
+            vp.MxSceneModel = cc;
+            //vp.Items.Add(cc);
 
-            DispAreaModels(vp, IoC.Get<IGlobalData>().Areas);  //显示墓区模型
 
-            foreach (var item in AreaMxModelClassifyDict)
-            //var item = AreaMxModelClassifyDict.Single(o=>o.Key=="MQ:d9630cd3-b451-4522-87d1-89ba8a8967d9:DS" );
-            {
-                DispMxModelInstanceDictItem(vp, item);
-            }            
+            #region test 
+            //var mxModel = new MxModel3D("mx.obj");
+            ////mxModel.ModelFileName = modelFileName;
+            //var mx = MxROL.GetMxROLByMxID("8d79f437-3158-4d85-a426-019882b46b13").First();
+            //var item = GetEntityModelInfo(mx);
+            //List<Entity2ModelInfo> list = new List<Entity2ModelInfo>();
+            //list.Add(item);
+            //mxModel.Instances = list;
+            //mxModel.Tag = "item.Key";
+            //vp.Items.Add(mxModel); 
+            #endregion
+            #region absolote
+            //foreach (var item in AreaMxModelClassifyDict)
+            ////var item = AreaMxModelClassifyDict.Single(o=>o.Key=="MQ:d9630cd3-b451-4522-87d1-89ba8a8967d9:DS" );
+            //{
+            //    DispMxModelInstanceDictItem(vp, item);
+            //}            
 
             //JpObjModel3D obj = new JpObjModel3D();
             //obj.ModelFileName = "mx.obj";
@@ -133,7 +154,58 @@ namespace Lygl.UI.Shell
             //QuadTreeModel qt = new QuadTreeModel() { terrainModel = tm };
             //vp.Items.Add(qt);
             //vp.Items.Add(tm);
-            //qt.Transform = new TranslateTransform3D(-50, -20, -150);
+            //qt.Transform = new TranslateTransform3D(-50, -20, -150); 
+            #endregion
+        }
+
+        public static void LoadTerrainSceneModel(JPViewport3DX vp)
+        {
+            MeshGeometryModel3D meshModel = new MeshGeometryModel3D();
+            HelixToolkit.Wpf.SharpDX.MeshGeometry3D geometry = new HelixToolkit.Wpf.SharpDX.MeshGeometry3D();
+            geometry.Positions = new HelixToolkit.Wpf.SharpDX.Core.Vector3Collection();
+            geometry.TextureCoordinates = new HelixToolkit.Wpf.SharpDX.Core.Vector2Collection();
+            geometry.Normals = new HelixToolkit.Wpf.SharpDX.Core.Vector3Collection();
+            geometry.Indices = new HelixToolkit.Wpf.SharpDX.Core.IntCollection();
+            geometry.Positions.Add(new Vector3(0.65f, 0f, -0f));
+            geometry.Positions.Add(new Vector3(-0.00228214f, 0f, -2.46236f));
+            geometry.Positions.Add(new Vector3(0f, 0f, -0f));
+            geometry.TextureCoordinates.Add(new Vector2(1.06627f, 0f));
+            geometry.TextureCoordinates.Add(new Vector2(-0.00374367f, 4.03931f));
+            geometry.TextureCoordinates.Add(new Vector2(0f, 0f));
+            geometry.Normals.Add(new Vector3(0f, 1f, 0f));
+            geometry.Normals.Add(new Vector3(0f, 1f, 0f));
+            geometry.Normals.Add(new Vector3(0f, 1f, 0f));
+            geometry.Indices.Add(0);
+            geometry.Indices.Add(1);
+            geometry.Indices.Add(2);
+            meshModel.Geometry = geometry;
+            meshModel.Material = PhongMaterials.Red;
+            meshModel.Transform = new TranslateTransform3D(-3, 0, 0);
+            vp.Items.Add(meshModel);
+            //var selectedCurcle = new Jp3DKit.DecorateModel.SelectedDecorateModel3D();
+            //selectedCurcle.PositionPoint = new Vector3D();
+            //vp.Items.Add(selectedCurcle);
+            //显示墓区地形
+            //JpSceneModel3D mq = new JpSceneModel3D() { ModelFileName = "all主墓区2.obj", Tag = "ALLMq", IsHitTestVisible = false };
+            //vp.Items.Add(mq);
+            
+            //AssimpSceneModel3D mq1 = new AssimpSceneModel3D(@"all主墓区2.obj");
+            //vp.Items.Add(mq1);
+            //JpObjReader reader = new JpObjReader();
+            //var dm = reader.Read(System.AppDomain.CurrentDomain.BaseDirectory +@"3DModel\mx.obj"); //@"3DModel\all主墓区2.obj");    //
+            //var Terrain = new ObjModel3D(dm);
+            //var mm = Matrix.Identity;
+            //mm.M41 = -22;
+            //mm.M42 = -18;
+            //mm.M43 = -66;
+            ////Terrain.Transform=new TranslateTransform3D(-22f,-18f,-66f);
+
+            //vp.Items.Add(Terrain);
+           // var Terrain = new ObjTerrainModel3D(vp, dm);
+            //JpObjModel3D mq = new JpObjModel3D() { ModelFileName = "all主墓区2.obj", Tag = "ALLMq", IsHitTestVisible = false };
+            //vp.Items.Add(mq);
+            TerrainSceneModel mq = new TerrainSceneModel(vp);
+            vp.TerrainSceneModel = mq;
         }
 
         public static void ReLoadModels(JPViewport3DX vp)
@@ -142,11 +214,12 @@ namespace Lygl.UI.Shell
             ModelInstancesManager.LoadEntityModelInfo(IoC.Get<IGlobalData>().Areas);
             DispAreaModels(vp, IoC.Get<IGlobalData>().Areas,true);  //显示墓区模型
 
-            foreach (var item in AreaMxModelClassifyDict)
-           // var item = AreaMxModelClassifyDict.Single(o=>o.Key=="MQ:d9630cd3-b451-4522-87d1-89ba8a8967d9:DS" );
-            {
-                DispMxModelInstanceDictItem(vp, item,true);
-            }
+            vp.Items.Add(new MxSceneModel(vp, AreaMxModelClassifyDict));
+           // foreach (var item in AreaMxModelClassifyDict)
+           //// var item = AreaMxModelClassifyDict.Single(o=>o.Key=="MQ:d9630cd3-b451-4522-87d1-89ba8a8967d9:DS" );
+           // {
+           //     DispMxModelInstanceDictItem(vp, item,true);
+           // }
         }
         private static void ClearViewportAreaMxItems(JPViewport3DX vp)
         {
@@ -159,10 +232,9 @@ namespace Lygl.UI.Shell
         /// <param name="vp"></param>
         /// <param name="item"></param>
         /// <param name="forceAttach">是否需要附加模型，用于加载完成后新增模型</param>
+       [Obsolete]
         private static void DispMxModelInstanceDictItem(JPViewport3DX vp, KeyValuePair<string, List<Entity2ModelInfo>> item, bool forceAttach = false)
         {
-            
-
             string modelfilename;
             switch (item.Key.Substring(item.Key.Length - 2, 2))
             {
@@ -172,31 +244,31 @@ namespace Lygl.UI.Shell
                     modelfilename = "mx.obj";
                     break;
             }
-            try
-            {
-                #region 墓穴对象使用实例模式
-                var models = new JpMxModel3D(vp,modelfilename,item.Value,item.Key);
-                    vp.Items.Add(models);
-                if (forceAttach) vp.Attach(models);
-                #endregion
-                #region 墓穴对象不使用实例模式
-                //foreach (var mxmatrix in item.Value)
-                //{
-                //    var models = new JpMxModel3D();
-                //    models.ModelFileName = modelfilename;
-                //    models.PushMatrix(mxmatrix.ModelPos);
-                //    models.Tag = item.Key;
-                //    vp.Items.Add(models);
-                //    if (forceAttach) vp.Attach(models);
-                //}
-                #endregion
+            //try
+            //{
+            //    #region 墓穴对象使用实例模式
+            //    var models = new JpMxModel3D(vp,modelfilename,item.Value,item.Key);
+            //        vp.Items.Add(models);
+            //    if (forceAttach) vp.Attach(models);
+            //    #endregion
+            //    #region 墓穴对象不使用实例模式
+            //    //foreach (var mxmatrix in item.Value)
+            //    //{
+            //    //    var models = new JpMxModel3D();
+            //    //    models.ModelFileName = modelfilename;
+            //    //    models.PushMatrix(mxmatrix.ModelPos);
+            //    //    models.Tag = item.Key;
+            //    //    vp.Items.Add(models);
+            //    //    if (forceAttach) vp.Attach(models);
+            //    //}
+            //    #endregion
 
-            }
-            catch (Exception e)
-            {
+            //}
+            //catch (Exception e)
+            //{
 
-                throw e;
-            }
+            //    throw e;
+            //}
         }
 
 
@@ -207,34 +279,37 @@ namespace Lygl.UI.Shell
         /// <param name="areas"></param>
         private static void DispAreaModels(JPViewport3DX vp, AreaROL areas, bool forceAttach = false)
         {
-            foreach (var item in areas)
-            {
-                if (item.GeometryText.StartsWith("M"))
-                {
-                    #region old area data
-                    //DispAreaModelOld(vp, item);
-                    #endregion
-                }
-                else
-                {
-                    DispAreaModel(vp, item,forceAttach);
-
-                }
-
-            }
-
+            MqSceneModel mqs = new MqSceneModel();
+           foreach(var item in areas)
+           {
+               if (item.GeometryText.StartsWith("M"))
+               {
+                   #region old area data
+                   //DispAreaModelOld(vp, item);
+                   #endregion
+               }
+               else
+               {
+                   string mqTag=GetAreaModelTag(item);
+                   var model = new JpMqModel3D(vp, item.GeometryText, mqTag);
+                   mqs.AddChild(mqTag, model);
+               }
+           }
+           vp.MqSceneModel = mqs;
         }
         /// <summary>
         /// 画出墓区模型，并添加到视图中
         /// </summary>
         /// <param name="vp"></param>
         /// <param name="item"></param>
+        [Obsolete]
         public static void DispAreaModel(JPViewport3DX vp, AreaRO item, bool forceAttach = false)
         {
             var models = new JpMqModel3D(vp, item.GeometryText, GetAreaModelTag(item));
             vp.Items.Add(models);
            if (forceAttach) vp.Attach(models);
         }
+        [Obsolete]
         private static void DispAreaModelOld(JPViewport3DX vp, AreaRO area)
         {
             Geometry pg = Geometry.Parse(area.GeometryText);
@@ -322,45 +397,18 @@ namespace Lygl.UI.Shell
             return points;
         }
 
+        
         /// <summary>
-        /// 根据mx信息确定显示区域字典项
+        /// 在字典中查找mx的emi
         /// </summary>
         /// <param name="mx"></param>
         /// <returns></returns>
-        private static List<Entity2ModelInfo> GetAreaMxModelClassifyDictItem(MxRO mx)
+        public static Entity2ModelInfo LookupMxEMI(string mxAreaStatusClassifyTag, string mxID)
         {
-#if AREACLASSIFY
             List<Entity2ModelInfo> list;
-            switch (mx.MxStatusID)
-            {
-                case 0:
-                    AreaMxModelClassifyDict.TryGetValue( "DS", out list);
-
-                    break;
-                case 1: AreaMxModelClassifyDict.TryGetValue( "YS", out list);
-                    break;
-                default:
-                    AreaMxModelClassifyDict.TryGetValue( "LB", out list);
-                    break;
-            }
-            return list;
-#else
-            string areaModelID = "MQ:" + mx.AreaID.ToString();
-            List<Entity2ModelInfo> list;
-            switch (mx.MxStatusID)
-            {
-                case 0:
-                    AreaMxModelClassifyDict.TryGetValue(areaModelID + ":DS", out list);
-
-                    break;
-                case 1: AreaMxModelClassifyDict.TryGetValue(areaModelID + ":YS", out list);
-                    break;
-                default:
-                    AreaMxModelClassifyDict.TryGetValue(areaModelID + ":LB", out list);
-                    break;
-            }
-            return list;
-#endif
+            AreaMxModelClassifyDict.TryGetValue(mxAreaStatusClassifyTag, out list);
+            var emi = list.Find(x => x.EntityID.ToString() == mxID);
+            return emi;
         }
 
         /// <summary>
@@ -368,6 +416,7 @@ namespace Lygl.UI.Shell
         /// </summary>
         /// <param name="modelTag">"MQ:GUID:Status:MX:Guid</param>
         /// <returns></returns>
+        [Obsolete]
         private static List<Entity2ModelInfo> GetDictItem(string modelTag)
         {
             var ss = modelTag.Split(new char[] { ':' });
@@ -385,41 +434,43 @@ namespace Lygl.UI.Shell
         //    ModelInstancesDict.TryGetValue("SelectArea", out list);
         //    return list;
         //}
+       
         /// <summary>
         /// 将选择的墓穴从区域列表中移动到选择区域中
         /// </summary>
         /// <param name="mx"></param>
         /// <param name="vp"></param>
+        [Obsolete]
         public static void StartModifyModel(string modelTag, JPViewport3DX vp)
         {
-           var mxitem = GetEntityModelInfo(modelTag);
-           var list = GetDictItem(modelTag);
-           //var selectList = GetSelectDictItem();
-           //selectList.Add(mxitem);
-           //JpObjModel3D selectAreaModels = null;
-           foreach (var item in vp.Items)
-           {
-               JpMxModel3D model = item as JpMxModel3D;
-               if (model == null) continue;
-               if (model.mxModel.Tag.ToString() == modelTag.Substring(0, 42))
-               {
-                   model.mxModel.Instances = null;
-                   if (!list.Remove(mxitem)) throw new Exception("移除对象失败");
-                   model.mxModel.Instances = list;
-                   SelectedModel.ModelFileName = "mx.obj";
-                   SelectedModel.Tag = modelTag;
-                   var bb = new System.Windows.Media.Media3D.TranslateTransform3D(mxitem.ModelPos.M41, mxitem.ModelPos.M42, mxitem.ModelPos.M43);
-                   SelectedModel.Transform = bb;
-                   SelectedModel.Visibility = Visibility.Visible;
-                   vp.Attach(ModelModifier);
-                   vp.Items.Add(ModelModifier);
+            //var mxitem = GetEntityModelInfo(modelTag);
+            //var list = GetDictItem(modelTag);
+            ////var selectList = GetSelectDictItem();
+            ////selectList.Add(mxitem);
+            ////JpObjModel3D selectAreaModels = null;
+            //foreach (var item in vp.Items)
+            //{
+            //    JpMxModel3D model = item as JpMxModel3D;
+            //    if (model == null) continue;
+            //    if (model.mxModel.Tag.ToString() == modelTag.Substring(0, 42))
+            //    {
+            //        model.mxModel.Instances = null;
+            //        if (!list.Remove(mxitem)) throw new Exception("移除对象失败");
+            //        model.mxModel.Instances = list;
+            //        SelectedModel.ModelFileName = "mx.obj";
+            //        SelectedModel.Tag = modelTag;
+            //        var bb = new System.Windows.Media.Media3D.TranslateTransform3D(mxitem.ModelPos.M41, mxitem.ModelPos.M42, mxitem.ModelPos.M43);
+            //        SelectedModel.Transform = bb;
+            //        SelectedModel.Visibility = Visibility.Visible;
+            //        vp.Attach(ModelModifier);
+            //        vp.Items.Add(ModelModifier);
 
-                   ModelModifier.Bind(SelectedModel);
-                   //ModelModifier.Visibility = Visibility.Visible;
+            //        ModelModifier.Bind(SelectedModel);
+            //        //ModelModifier.Visibility = Visibility.Visible;
 
-                   break;
-               }
-           }
+            //        break;
+            //    }
+            //}
 
          }
         /// <summary>
@@ -458,64 +509,59 @@ namespace Lygl.UI.Shell
         public static void AddMxToMxModel(Entity2ModelInfo emi, JPViewport3DX vp)
         {
             var mx = IoC.Get<IGlobalData>().GetMxRO(emi.EntityID);
-            var list = GetAreaMxModelClassifyDictItem(mx);
-            var mxitem = GetEntityModelInfo(mx);
-            string mqModelTag = GetMxAreaModelTag(mx);
-            if (list.Count == 0)  //空组，需要添加新模型到视图中
-            {
-                list.Add(emi);
-                DispMxModelInstanceDictItem(IoC.Get<IGlobalData>().ViewPort3DX, new KeyValuePair<string, List<Entity2ModelInfo>>(mqModelTag, list), true);
-            }
-            else
-            {
-                foreach (var item in vp.Items)
-                {
-                    JpMxModel3D model = item as JpMxModel3D;
-                    if (model == null || model.Visibility == Visibility.Hidden) continue;
-                    if (model.mxModel.Tag.ToString() == mqModelTag)
-                    {
+            string mxAreaClassifyTag = ModelInstancesManager.GetMxAreaStatusClassifylTag(mx);
+            List<Entity2ModelInfo> list;
+            ModelInstancesManager.AreaMxModelClassifyDict.TryGetValue(mxAreaClassifyTag, out list);
+            list.Add(emi);
+            vp.MxSceneModel.ResetMxModelInstances(mxAreaClassifyTag, list);
+            //var mx = IoC.Get<IGlobalData>().GetMxRO(emi.EntityID);
+            //var list = GetAreaMxModelClassifyDictItem(mx);
+            //var mxitem = GetEntityModelInfo(mx);
+            //string mqModelTag = GetMxAreaModelTag(mx);
+            //if (list.Count == 0)  //空组，需要添加新模型到视图中
+            //{
+            //    list.Add(emi);
+            //    DispMxModelInstanceDictItem(IoC.Get<IGlobalData>().ViewPort3DX, new KeyValuePair<string, List<Entity2ModelInfo>>(mqModelTag, list), true);
+            //}
+            //else
+            //{
+            //    foreach (var item in vp.Items)
+            //    {
+            //        JpMxModel3D model = item as JpMxModel3D;
+            //        if (model == null || model.Visibility == Visibility.Hidden) continue;
+            //        if (model.mxModel.Tag.ToString() == mqModelTag)
+            //        {
                         
-                        model.mxModel.Instances = null;
-                        list.Add(emi);
-                        model.mxModel.Instances = list;
-                        vp.Attach(model);
-                    }
-                }
-            }
+            //            model.mxModel.Instances = null;
+            //            list.Add(emi);
+            //            model.mxModel.Instances = list;
+            //            vp.Attach(model);
+            //        }
+            //    }
+            //}
         }
         /// <summary>
         /// 在3D视图中,从墓穴模型对象中删除墓穴
         /// 当墓穴模型中，墓穴被删除时，同时更新显示
         /// </summary>
         /// <param name="item"></param>
-        public static void RemoveMxFormMxModel(MxRO mx, JPViewport3DX vp)
+        public static Entity2ModelInfo RemoveMxFormMxModel(MxRO mx,JPViewport3DX vp)
         {
-            //var mx = IoC.Get<IGlobalData>().GetMxRO(emi.EntityID);
-            var list = GetAreaMxModelClassifyDictItem(mx);
-            var mxitem = GetEntityModelInfo(mx);
-            string mqModelTag = GetMxAreaModelTag(mx);
-                foreach (var item in vp.Items)
-                {
-                    JpMxModel3D model = item as JpMxModel3D;
-                    if (model == null || model.Visibility == Visibility.Hidden) continue;
-                    if (model.mxModel.Tag.ToString() == mqModelTag)
-                    {
-
-                        model.mxModel.Instances = null;
-                       var mxEmi= list.Find(o => (o.EntityID == mx.MxID));
-                       list.Remove(mxEmi);
-                        model.mxModel.Instances = list;
-                        vp.Attach(model);
-                    }
-                }
+            string mxAreaClassifyTag = ModelInstancesManager.GetMxAreaStatusClassifylTag(mx);
+            List<Entity2ModelInfo> list;
+            ModelInstancesManager.AreaMxModelClassifyDict.TryGetValue(mxAreaClassifyTag, out list);
+            var emi = ModelInstancesManager.LookupMxEMI(mxAreaClassifyTag, mx.MxID.ToString());
+            list.Remove(emi);          
+            vp.MxSceneModel.ResetMxModelInstances(mxAreaClassifyTag, list);
+            return emi;
         }
         /// <summary>
-        /// 根据墓穴信息生成相应的显示模型对象的标记属性字符串
+        /// 根据墓穴信息生成相应的显示模型对象的墓区标记属性字符串
         /// 该字符串用来标记对象
         /// </summary>
         /// <param name="mx"></param>
         /// <returns></returns>
-        private static string GetMxAreaModelTag(MxRO mx)
+        public static string GetMxAreaStatusClassifylTag(MxRO mx)
         {
             string areaModelID = "MQ:" + mx.AreaID.ToString();
             switch (mx.MxStatusID)
@@ -575,6 +621,7 @@ namespace Lygl.UI.Shell
             }
             else
             {
+
                 float[] cc = mx.Pos.Split(new char[] { ',' }).Select(x => float.Parse(x)).ToArray();
                 m = new Matrix(cc);
             }
@@ -588,6 +635,7 @@ namespace Lygl.UI.Shell
         /// </summary>
         /// <param name="modelID">模型中ＩＤ</param>
         /// <returns></returns>
+      [Obsolete]
         private static Entity2ModelInfo GetEntityModelInfo(string modelID)
         {
             Entity2ModelInfo emi = null;

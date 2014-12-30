@@ -59,7 +59,7 @@ namespace Jp3DKit
         /// <param name="mesh">
         /// The mesh.
         /// </param>
-        public override void Calculate(TerrainModel model, MeshGeometry3D mesh)
+        public override void Calculate(TerrainModel1 model, MeshGeometry3D mesh)
         {
             var texcoords = new Vector2Collection();
             foreach (var p in mesh.Positions)

@@ -62,12 +62,12 @@ namespace Lygl.UI.ViewModels
         }
     }
     [Export(typeof(ICommandMessage))]
-    public class ModifyPosMessage : CommandMessageBase
+    public class ModifyMxPosMessage : CommandMessageBase
     {
-        public ModifyPosMessage()
+        public ModifyMxPosMessage()
             : base()
         {
-            Name = "ModifyPos"; Label = "修改位置和角度"; ToolTip = "修改形状的位置和角度"; Group = "LyView";
+            Name = "ModifyMxPos"; Label = "移动墓穴"; ToolTip = "修改墓穴的位置和角度"; Group = "LyView";
             IsMainMenuItem = true; Category = "陵园视图";
         }
     }
@@ -97,7 +97,7 @@ namespace Lygl.UI.ViewModels
         public ModifyMqMessage()
             : base()
         {
-            Name = "ModifyMq"; Label = "修改墓区形状"; ToolTip = "修改墓区形状"; Group = "LyView";
+            Name =CommandMessageNames.ModifyMq; Label = "修改墓区形状"; ToolTip = "修改墓区形状"; Group = "LyView";
             IsMainMenuItem = true; Category = "陵园视图";
         }
     }
@@ -122,7 +122,7 @@ namespace Lygl.UI.ViewModels
     class MainViewModel : Lygl.UI.Framework.ViewModelBase.ScreenWithModel<AreaROL>,
         IHandle<DrawMqMessage>,
         IHandle<DrawMxMessage>,
-        IHandle<ModifyPosMessage>,
+        IHandle<ModifyMxPosMessage>,
         IHandle<DrawPathMessage>,
         IHandle<MoveShapeMessage>,
         IHandle<ZoomOutMessage>,
@@ -141,7 +141,7 @@ namespace Lygl.UI.ViewModels
         public PhongMaterial ModelMaterial { get; private set; }
         public System.Windows.Media.Media3D.Transform3D ModelTransform { get; private set; }
 
-        private OperateMode operateMode{get;set;}
+        //private OperateMode operateMode{get;set;}
 
         private JpMqModel3D currentMq;
         public MainViewModel()
@@ -161,7 +161,7 @@ namespace Lygl.UI.ViewModels
             ModelMaterial = PhongMaterials.Glass;
             ModelTransform = System.Windows.Media.Media3D.Transform3D.Identity;
 
-            operateMode = OperateMode.None;
+            //operateMode = OperateMode.None;
 
         }
 
@@ -191,12 +191,14 @@ namespace Lygl.UI.ViewModels
             //(view as UIElement).InputBindings.Add(new KeyBinding(JpViewport3DXCommands.ControlSave, Key.S, ModifierKeys.Control));
             
             _viewport = (view as FrameworkElement).FindName("MainViewport") as JPViewport3DX;
+            SetViewportAttr();
             IoC.Get<IGlobalData>().ViewPort3DX = _viewport;
             _viewport.MouseDoubleClick += _viewport_MouseDoubleClick;
-            //_viewport.MouseLeftButtonUp += _viewport_MouseLeftButtonUp;
             //_viewport.MouseMove += _viewport_MouseMove;
-            _viewport.ManipulateComplete += _viewport_ManipulateComplete;
-            
+           //[Obsolete]
+           // _viewport.ManipulateComplete += _viewport_ManipulateComplete;
+
+            _viewport.CurrentMxChanged += _viewport_CurrentMxChanged;
 
             #region 添加点光源
             //PointLight3D pointLight = new PointLight3D();
@@ -213,30 +215,120 @@ namespace Lygl.UI.ViewModels
             //this._viewport.Items.Add(pointLight);
             //this._viewport.Items.Add(pointLightSphere);
             #endregion
-
+            ModelInstancesManager.LoadTerrainSceneModel(_viewport);  //
             ModelInstancesManager.LoadEntityModelInfo(IoC.Get<IGlobalData>().Areas);
-            ModelInstancesManager.LoadModels(_viewport);
+            ModelInstancesManager.LoadModels(_viewport); 
+            
+                  
+            
         }
 
+
+        void _viewport_CurrentMxChanged(object sender, RoutedEventArgs e)
+        {
+            string mxID = ((CurrentMxChangedEventArgs)e).MxID;
+            string areaID = ((CurrentMxChangedEventArgs)e).AreaID;
+            MxRO mx = IoC.Get<IGlobalData>().GetMxRO(new Guid(areaID), new Guid(mxID));
+            IoC.Get<IGlobalData>().CurrentMx = mx;
+        }
+
+
+        /// <summary>
+        /// 设置视图调试属性
+        /// </summary>
+        private void SetViewportAttr()
+        {
+            _viewport.EnableCurrentPosition = true;
+            _viewport.ShowCoordinateSystem = true;
+            _viewport.ShowFrameRate = true;
+            _viewport.ShowTriangleCountInfo = true;
+            _viewport.ShowFieldOfView = true;
+            _viewport.ShowCameraInfo = true;
+            _viewport.ShowCameraTarget = true;
+        }
+
+        
+        [Obsolete]
         void _viewport_ManipulateComplete(object sender, RoutedEventArgs e)
         {
             IManipulateHandler handler = (sender as JPViewport3DX).ManipulateHandler;
             switch (handler.ManipulateName)
             {
                 case CommandMessageNames.DrawMq :
-                    DrawPolygenHandler dph = handler as DrawPolygenHandler;
+                    DrawMqHandler dph = handler as DrawMqHandler;
                     if (handler == null) break;
                     CreateNewMq(Vector3ArrayConverter.ConvertToString(dph.DrawShapeRecord.Model.Geometry.Positions.ToArray()));
                     break;
                 case CommandMessageNames.DrawMx:
-                    GetClickPositionHandler ph = handler as GetClickPositionHandler;
+                    DrawMxHandler dm = handler as DrawMxHandler;
                     if (handler == null) break;
-                    CreateNewMx(ph.Position);
+                    CreateNewMx(dm.Position);
                     break;
+                case CommandMessageNames.ModifyMq:
+                    ModifyMqHandler mmq = handler as ModifyMqHandler;
+                    if (handler == null) break;
+                    //ModifyMq(mmq.Position);
+                    SaveModifiedMqPositions(mmq.Mq.Tag.ToString().Substring(3), mmq.Mq.Positions.ConvertToString());
+                    //this._viewport.MqSceneModel.ModifyMq(this._viewport,mmq.Position);
+                    break;
+                case CommandMessageNames.ModifyMxPos:
+                    ModifyMxPosHandler mm = handler as ModifyMxPosHandler;
+                    if (handler == null) break;
+                    var bb = mm.MxEMI;
+                    SaveModifiedMxPositions(bb.EntityID.ToString(), bb.ModelPos.ToMatrix3D().ToString());
+                    ModelInstancesManager.AddMxToMxModel(bb,this._viewport);
+                    break;
+                    
             }
 
             //释放handler
            handler.Complete();
+        }
+        #region 维护操作相关处理函数，用于委托
+        public void DrawMqCompleteHandle(IManipulateHandler handler)
+        {
+            DrawMqHandler dph = handler as DrawMqHandler;
+            CreateNewMq(Vector3ArrayConverter.ConvertToString(dph.DrawShapeRecord.Model.Geometry.Positions.ToArray()));
+        }
+        public void DrawMxCompleteHandle(IManipulateHandler handler)
+        {
+            DrawMxHandler dm = handler as DrawMxHandler;
+            CreateNewMx(dm.Position);
+        }
+        public void ModifyMqCompleteHandle(IManipulateHandler handler)
+        {
+            ModifyMqHandler mmq = handler as ModifyMqHandler;
+            SaveModifiedMqPositions(mmq.Mq.Tag.ToString().Substring(3), mmq.Mq.Positions.ConvertToString());
+        }
+        
+        public void ModifyMxPosCompleteHandle(IManipulateHandler handler)
+        {
+            ModifyMxPosHandler mm = handler as ModifyMxPosHandler;
+            var bb = mm.MxEMI;
+            if (!mm.IsCanceled)
+            {
+                SaveModifiedMxPositions(bb.EntityID.ToString(), bb.ModelPos.ToMatrix3D().ToString());
+            }
+                ModelInstancesManager.AddMxToMxModel(bb, this._viewport);
+        } 
+        #endregion
+
+        /// <summary>
+        ///保存修改的墓区位置信息
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        private void SaveModifiedMqPositions(string mqID, string geometryText)
+        {
+            AreaEdit area= AreaEdit.GetAreaEdit(new Guid( mqID));
+            area.GeometryText = geometryText;
+            area.Save();
+        }
+        private void SaveModifiedMxPositions(string mxID, string mxPos)
+        {
+            MxEdit mx=MxEdit.GetMxEdit(new Guid(mxID));
+            mx.Pos=mxPos;
+            mx.Save();
         }
 
         private System.Windows.Media.Media3D.Transform3D CreateAnimatedTransform1(Vector3D translate, Vector3D axis, double speed = 4)
@@ -269,6 +361,8 @@ namespace Lygl.UI.ViewModels
         /// <param name="e"></param>
         void _viewport_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            //Console.WriteLine(e.GetPosition(_viewport).ToString());
+            if (this._viewport.OperateMode!= OperateMode.None) return;
         #region
                     if (e.ChangedButton == MouseButton.Left)
                     {
@@ -282,7 +376,7 @@ namespace Lygl.UI.ViewModels
                                 {
                                     modelID = (string)item.Tag;
                                     var ss = modelID.Split(new char[] { ':' });
-                                    if (ss[3] == "MX")    //TODO: if not =="Mx" 
+                                    if (ss[3] == "MX")    //TODO: if not =="Mx"  
                                     {
                                         MxRO mx = IoC.Get<IGlobalData>().GetMxRO(new Guid(ss[1]), new Guid(ss[4]));
                                         IoC.Get<IGlobalData>().CurrentMx = mx;
@@ -316,59 +410,7 @@ namespace Lygl.UI.ViewModels
 
 
 #if OLDDRAWEVENT
-        /// <summary>
-        /// 响应键盘事件，Ctrl+S
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ControlSaveHandler(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (this.currentMq != null && this.currentMq.IsModify)
-            {
-                string mqID = this.currentMq.Tag.ToString();
-                var ss = mqID.Split(new char[] { ':' });
-                AreaEdit ae = AreaEdit.GetAreaEdit(Guid.Parse(ss[1]));
-                ae.GeometryText = Vector3ArrayConverter.ConvertToString(this.currentMq.Positions);  //pg.ToString(new Lygl.UI.Framework.FormatProvider.GeometryIntFormatProvider());
-                try
-                {
-                    var savable = ae as ISavable;
-                    savable.Save();
-                    this.currentMq.IsModify = false;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 响应键盘事件，Escape
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EscapeHandler(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (operateMode == OperateMode.DrawMx)
-            {
-                this._viewport.Cursor = Cursors.Arrow;
-                operateMode = OperateMode.None;
-            }
-            if (operateMode == OperateMode.DrawPolygon)
-            {
-                this._viewport.Cursor = Cursors.Arrow;
-                if (_drawShapeRecord.IsDraw) _drawShapeRecord.IsCancel = true;
-                if (_drawShapeRecord.Model != null) this._viewport.Items.Remove(_drawShapeRecord.Model);
-                _drawShapeRecord.Clear();
-                operateMode = OperateMode.None;
-                this._viewport.ReleaseMouseCapture();
-            }
-            if (this.currentMq != null && this.currentMq.IsModify)
-            {
-                this.currentMq.RevertPoints();
-                this.currentMq.IsModify = false;
-            }
-        }
+    
 
         void _viewport_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -624,7 +666,7 @@ namespace Lygl.UI.ViewModels
             }
         }
 #endif
-
+        [Obsolete()]
         private void StartModifyModel(string modelTag)
         {
             var ss = modelTag.Split(new char[] { ':' });
@@ -636,7 +678,6 @@ namespace Lygl.UI.ViewModels
             }
         }
 
-       
 
         private void CreateNewMq(string mqGeometryPositions)
         {
@@ -721,7 +762,7 @@ namespace Lygl.UI.ViewModels
             newMx.MxStyle = MxStyleNVL.GetMxStyleNVL().Value(1);
             newMx.AreaID = currentArea.AreaID;
             newMx.Angle = currentArea.Angle;
-            operateMode = OperateMode.None;
+            //operateMode = OperateMode.None;
             this._viewport.Cursor = Cursors.Arrow;
             //var bb = !EditMx(newMx);
             MxEdit cloneMx = newMx.Clone();
@@ -755,15 +796,17 @@ namespace Lygl.UI.ViewModels
         #region 命令按钮相关
         public void Handle(DrawMqMessage message)
         {
-            if (operateMode == OperateMode.None)
-            {
-                operateMode = OperateMode.DrawPolygon;
-                //this._viewport.Cursor = Cursors.Cross;
-                //this._viewport.Focus();
-                DrawPolygenHandler handler = new DrawPolygenHandler(this._viewport,message.Name);
-                    handler.Start();
-                //DrawPolygenHandler.Start(this._viewport);
-            }
+            DrawMqHandler handler = new DrawMqHandler(this._viewport, message.Name,DrawMqCompleteHandle);
+            handler.Start();
+            //if (operateMode == OperateMode.None)
+            //{
+            //    operateMode = OperateMode.DrawPolygon;
+            //    //this._viewport.Cursor = Cursors.Cross;
+            //    //this._viewport.Focus();
+            //    DrawPolygenHandler handler = new DrawPolygenHandler(this._viewport,message.Name);
+            //        handler.Start();
+            //    //DrawPolygenHandler.Start(this._viewport);
+            //}
         }
         public void Handle(DrawPathMessage message)
         {
@@ -771,25 +814,30 @@ namespace Lygl.UI.ViewModels
             //(_graphyControl as JpGraphyControl).Status = OperateStatus.DrawPath;
             ModelInstancesManager.ToggleModifierDisp(_viewport);
         }
-        public void Handle(ModifyPosMessage message)
+        public void Handle(ModifyMxPosMessage message)
         {
+            MxRO mx= IoC.Get<IGlobalData>().CurrentMx;
+            var mxemi=ModelInstancesManager.RemoveMxFormMxModel(mx,this._viewport);
+
+            ModifyMxPosHandler handler = new ModifyMxPosHandler(this._viewport, message.Name, mxemi, ModifyMxPosCompleteHandle);
+            handler.Start();
             //if (_graphyControl == null) throw new ArgumentNullException("JpGraphyControl is null");
             ////(_graphyControl as JpGraphyControl).Status = OperateStatus.DrawPolygon;
-            this.operateMode = OperateMode.MoveShape;// _viewport.OperateMode = OperateMode.MoveShape;
+            //this.operateMode = OperateMode.MoveShape;// _viewport.OperateMode = OperateMode.MoveShape;
         }
         public void Handle(MoveShapeMessage message)
         {
             //if (_graphyControl == null) throw new ArgumentNullException("JpGraphyControl is null");
             //(_graphyControl as JpGraphyControl).Status = OperateStatus.MoveShape;
-            this.operateMode = OperateMode.MoveShape;
+            //this.operateMode = OperateMode.MoveShape;
             //_viewport.OperateMode = this.operateMode;
             //_viewport.selectHandler.Execute();
         }
         public void Handle(ModifyMqMessage message)
         {
-            //if (_graphyControl == null) throw new ArgumentNullException("JpGraphyControl is null");
-            //(_graphyControl as JpGraphyControl).Status = OperateStatus.MoveShape;
-            this.operateMode = OperateMode.ModifyPolygon;
+            ModifyMqHandler handler = new ModifyMqHandler(this._viewport, message.Name,ModifyMqCompleteHandle);
+            handler.Start();
+            //this._viewport.OperateMode = OperateMode.ModifyMq;
             //_viewport.OperateMode = this.operateMode;
             //_viewport.selectHandler.Execute();
         }
@@ -804,7 +852,7 @@ namespace Lygl.UI.ViewModels
         }
         public void Handle(DrawMxMessage message)
         {
-            GetClickPositionHandler handler = new GetClickPositionHandler(this._viewport, message.Name);
+            DrawMxHandler handler = new DrawMxHandler(this._viewport, message.Name,DrawMxCompleteHandle);
             handler.Start();
             //if (operateMode == OperateMode.None)
             //{

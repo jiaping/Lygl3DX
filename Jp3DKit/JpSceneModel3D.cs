@@ -745,7 +745,7 @@ namespace Jp3DKit
                 foreach (var modeinfo in Instances)
                 {
                     var b = this.Bounds;
-                    this.PushMatrix(modeinfo.ModelPos);
+                    this.PushMatrix(modeinfo.ModelPos); 
                   //  this.Bounds = BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, this.modelMatrix)).ToArray());
                     if (base.HitTest(rayWS, ref hits))
                     {

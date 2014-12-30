@@ -21,7 +21,7 @@ using Vector3D = global::SharpDX.Vector3;
 using HelixToolkit.Wpf.SharpDX;
 using SharpDX.Direct3D11;
 
-namespace Jp3DKit
+namespace Jp3DKit.ObjModel
 {
     // --------------------------------------------------------------------------------------------------------------------
     // <copyright file="ObjReader.cs" company="Helix Toolkit">
@@ -213,7 +213,7 @@ namespace Jp3DKit
    {
        public List<SharpDX.Toolkit.Graphics.VertexPositionNormalTexture> ModelVertices;
        public List<int> ModelIndices;
-       public Dictionary<string, Jp3DKit.MaterialDefinition> ModelMaterials;
+       public Dictionary<string, MaterialDefinition> ModelMaterials;
        public List<MaterialAttributeRange> AttributeTable;
    }
     public class JpObjReader 

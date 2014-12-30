@@ -49,7 +49,7 @@ namespace Jp3DKit
         }
         public virtual void OnMouseMoveOver3D(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         public virtual bool MouseMoveHitTest(SharpDX.Ray ray, ref List<HitTestResult> hits)

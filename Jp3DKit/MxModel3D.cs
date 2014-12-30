@@ -23,7 +23,7 @@ namespace Jp3DKit
     /// <summary>
     /// loader model data from .obj
     /// </summary>
-    public class MxModel3D : GeometryModel3D,IMouseMoveHitable
+    public class MxModel3D : Model3D   //,IMouseMoveHitable
     {
         #region property
         public string ModelFileName
@@ -45,6 +45,17 @@ namespace Jp3DKit
         // Using a DependencyProperty as the backing store for ModelPath.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModelPathProperty =
             DependencyProperty.Register("ModelPath", typeof(string), typeof(MxModel3D), new PropertyMetadata(null));
+
+        public BoundingBox Bounds
+        {
+            get { return (BoundingBox)this.GetValue(BoundsProperty); }
+            protected set { this.SetValue(BoundsPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey BoundsPropertyKey =
+            DependencyProperty.RegisterReadOnly("Bounds", typeof(BoundingBox), typeof(MxModel3D), new UIPropertyMetadata(new BoundingBox()));
+
+        public static readonly DependencyProperty BoundsProperty = BoundsPropertyKey.DependencyProperty;
 
         public IEnumerable<Entity2ModelInfo> Instances
         {
@@ -75,13 +86,13 @@ namespace Jp3DKit
 
         private void UpdateBounds()
         {
-            if (this.instanceArray.Count()==0) return;
-            BoundingBox bb=BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, this.instanceArray.First().ModelPos)).ToArray());
+            if (this.instanceArray.Count() == 0) return;
+            BoundingBox bb = BoundingBox.FromPoints(this.ModelVertices.Select(x => Vector3.TransformCoordinate(x.Position, this.instanceArray.First().ModelPos)).ToArray());
             ///todo:这里还有改进空间，可得用模型数据一致，只有变换矩阵不同，考虑计算出模型标准Box,只计算box二点参加计算，可极大减少计算时间
             foreach (var item in this.instanceArray)
             {
-                var bounds = BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, item.ModelPos)).ToArray());
-                  bb = BoundingBox.Merge(bb, bounds);
+                var bounds = BoundingBox.FromPoints(this.ModelVertices.Select(x => Vector3.TransformCoordinate(x.Position, item.ModelPos)).ToArray());
+                bb = BoundingBox.Merge(bb, bounds);
             }
             this.Bounds = bb;
         }
@@ -212,7 +223,7 @@ namespace Jp3DKit
 
             if (ModelFileName == null) throw new ArgumentNullException("ModelFileName", "模型文件名不能为空");
             if (!LoadModel()) return;
-            this.Geometry = ConvertModelToMeshGeometry3D();
+            //this.Geometry = ConvertModelToMeshGeometry3D();
         }
 
         public MxModel3D(string modelFileName)
@@ -227,7 +238,7 @@ namespace Jp3DKit
             this.ModelFileName = modelFileName;
             if (ModelFileName == null) throw new ArgumentNullException("ModelFileName", "模型文件名不能为空");
             if (!LoadModel()) return;
-            this.Geometry = ConvertModelToMeshGeometry3D();
+           // this.Geometry = ConvertModelToMeshGeometry3D();
         }
         #endregion
 
@@ -236,40 +247,36 @@ namespace Jp3DKit
         /// 
         /// </summary>
         /// <param name="depthBias"></param>
-        protected override void OnRasterStateChanged(int depthBias)
-        {
-            if (this.IsAttached)
-            {
-                Disposer.RemoveAndDispose(ref this.rasterState);
-                /// --- set up rasterizer states
-                var rasterStateDesc = new RasterizerStateDescription()
-                {
-                    FillMode = FillMode.Solid,
-                    CullMode = CullMode.Back,
-                    DepthBias = depthBias,
-                    DepthBiasClamp = -500,
-                    SlopeScaledDepthBias = +0,
-                    IsDepthClipEnabled = true,
-                    IsFrontCounterClockwise = true,
+        //protected override void OnRasterStateChanged(int depthBias)
+        //{
+        //    if (this.IsAttached)
+        //    {
+        //        Disposer.RemoveAndDispose(ref this.rasterState);
+        //        /// --- set up rasterizer states
+        //        var rasterStateDesc = new RasterizerStateDescription()
+        //        {
+        //            FillMode = FillMode.Solid,
+        //            CullMode = CullMode.Back,
+        //            DepthBias = depthBias,
+        //            DepthBiasClamp = -500,
+        //            SlopeScaledDepthBias = +0,
+        //            IsDepthClipEnabled = true,
+        //            IsFrontCounterClockwise = true,
 
-                    //IsMultisampleEnabled = true,
-                    //IsAntialiasedLineEnabled = true,                    
-                    //IsScissorEnabled = true,
-                };
-                this.rasterState = new SharpDX.Direct3D11.RasterizerState(this.Device, rasterStateDesc);
-            }
-        }
+        //            //IsMultisampleEnabled = true,
+        //            //IsAntialiasedLineEnabled = true,                    
+        //            //IsScissorEnabled = true,
+        //        };
+        //        this.rasterState = new SharpDX.Direct3D11.RasterizerState(this.Device, rasterStateDesc);
+        //    }
+        //}
 
         public override void Attach(IRenderHost host)
         {
             try
-            {
-
-                
+            {                
                 base.Attach(host);
                 LoadMaterialsTexture();
-
-
                 // --- get variables
                 this.vertexLayout = EffectsManager.Instance.GetLayout(host.RenderTechnique);
                 this.effectTechnique = effect.GetTechniqueByName(host.RenderTechnique.Name);
@@ -334,7 +341,7 @@ namespace Jp3DKit
                 //this.effectPass = this.technique.GetPassByIndex(0);
                 if (!hasInstances)
                     vertexBufferBinding = new VertexBufferBinding(this.vertexBuffer, DefaultVertex.SizeInBytes, 0);
-                this.OnRasterStateChanged(this.DepthBias);
+               // this.OnRasterStateChanged(0);  //(this.DepthBias);
                 /// --- flush
                 this.Device.ImmediateContext.Flush();
             }
@@ -397,15 +404,15 @@ namespace Jp3DKit
             if (!this.IsRendering)
                 return;
 
-            if (this.Geometry == null)
-                return;
+            //if (this.Geometry == null)
+            //    return;
 
             if (this.Visibility != System.Windows.Visibility.Visible)
                 return;
 
-            if (renderContext.IsShadowPass)
-                if (!this.IsThrowingShadow)
-                    return;
+            //if (renderContext.IsShadowPass)
+            //    if (!this.IsThrowingShadow)
+            //        return;
             try
             {
                 /// --- set constant paramerers             
@@ -742,7 +749,14 @@ namespace Jp3DKit
                 return false;
             }
         }
-
+        //public override void OnMouse3DUp(object sender, RoutedEventArgs e)
+        //{
+        //    base.OnMouse3DUp(sender, e);
+        //}
+        //public override void OnMouse3DDown(object sender, RoutedEventArgs e)
+        //{
+        //    base.OnMouse3DDown(sender, e);
+        //}
         private void SetupAttributeTable()
         {
             AttributeTable = new List<AttributeRage>();
@@ -767,36 +781,36 @@ namespace Jp3DKit
 
         }
 
-        public override bool HitTest(Ray rayWS, ref List<HitTestResult> hits)
-        {
-            if (this.Instances != null)
-            {
-                bool hit = false;
-                foreach (var modeinfo in Instances)
-                {
-                    var b = this.Bounds;
-                    this.PushMatrix(modeinfo.ModelPos);
-                  //  this.Bounds = BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, this.modelMatrix)).ToArray());
-                    if (base.HitTest(rayWS, ref hits))
-                    {
-                        hit = true;
-                        var lastHit = hits[hits.Count - 1];
-                        lastHit.Tag =this.Tag.ToString()+":"+ modeinfo.ModelID;  //返回实体对象的ID
-                        //#if DEBUG
-                        //                        System.Diagnostics.Debug.WriteLine("hitTest ModelID:" + modeinfo.ModelID);
-                        //#endif
-                        hits[hits.Count - 1] = lastHit;
-                    }
-                    this.PopMatrix();
-                    this.Bounds = b;
-                }
-                return hit;
-            }
-            else
-            {
-                return base.HitTest(rayWS, ref hits);
-            }
-        }
+//        public override bool HitTest(Ray rayWS, ref List<HitTestResult> hits)
+//        {
+//            if (this.Instances != null)
+//            {
+//                bool hit = false;
+//                foreach (var modeinfo in Instances)
+//                {
+//                    var b = this.Bounds;
+//                    this.PushMatrix(modeinfo.ModelPos);
+//                  //  this.Bounds = BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, this.modelMatrix)).ToArray());
+//                    if (base.HitTest(rayWS, ref hits))
+//                    {
+//                        hit = true;
+//                        var lastHit = hits[hits.Count - 1];
+//                        lastHit.Tag =this.Tag.ToString()+":"+ modeinfo.ModelID;  //返回实体对象的ID
+//#if DEBUG
+//                        System.Diagnostics.Debug.WriteLine("hitTest ModelID:" + modeinfo.ModelID);
+//#endif
+//                        hits[hits.Count - 1] = lastHit;
+//                    }
+//                    this.PopMatrix();
+//                    this.Bounds = b;
+//                }
+//                return hit;
+//            }
+//            else
+//            {
+//                return base.HitTest(rayWS, ref hits);
+//            }
+//        }
 
         private void InitMaterial(ref Material pMaterial)
         {
@@ -935,12 +949,12 @@ namespace Jp3DKit
 
         }
 
-        internal int AddVertex(SharpDX.Toolkit.Graphics.VertexPositionNormalTexture pVertex)
-        {
+        //internal int AddVertex(SharpDX.Toolkit.Graphics.VertexPositionNormalTexture pVertex)
+        //{
 
-            ModelVertices.Add(pVertex);
-            return ModelVertices.Count - 1;
-        }
+        //    ModelVertices.Add(pVertex);
+        //    return ModelVertices.Count - 1;
+        //}
 
 
         /* *             
@@ -1134,48 +1148,46 @@ namespace Jp3DKit
         }
         #endregion
 
+        //public bool MouseMoveHitTest(Ray rayWS, ref List<HitTestResult> hits)
+        //{
+        //    if (this.Visibility == Visibility.Collapsed)
+        //    {
+        //        return false;
+        //    }
+        //    if (this.IsMouseMoveHitTestVisible == false)
+        //    {
+        //        return false;
+        //    }
+        //    if (this.Instances != null)
+        //    {
+        //        bool hit = false;
+        //        foreach (var modeinfo in Instances)
+        //        {
+        //            var b = this.Bounds;
+        //            this.PushMatrix(modeinfo.ModelPos);
+        //            //  this.Bounds = BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, this.modelMatrix)).ToArray());
+        //            if (base.HitTest(rayWS, ref hits))
+        //            {
+        //                hit = true;
+        //                var lastHit = hits[hits.Count - 1];
+        //                lastHit.Tag = this.Tag.ToString() + ":" + modeinfo.ModelID;  //返回实体对象的ID
+        //                hits[hits.Count - 1] = lastHit;
+        //                this.PopMatrix();
+        //                this.Bounds = b;
+        //                break;
 
+        //            }
+        //            this.PopMatrix();
+        //            this.Bounds = b;
+        //        }
+        //        return hit;
+        //    }
+        //    else
+        //    {
+        //        return base.HitTest(rayWS, ref hits);
+        //    }
 
-        public bool MouseMoveHitTest(Ray rayWS, ref List<HitTestResult> hits)
-        {
-            if (this.Visibility == Visibility.Collapsed)
-            {
-                return false;
-            }
-            if (this.IsMouseMoveHitTestVisible == false)
-            {
-                return false;
-            }
-            if (this.Instances != null)
-            {
-                bool hit = false;
-                foreach (var modeinfo in Instances)
-                {
-                    var b = this.Bounds;
-                    this.PushMatrix(modeinfo.ModelPos);
-                    //  this.Bounds = BoundingBox.FromPoints(this.Geometry.Positions.Select(x => Vector3.TransformCoordinate(x, this.modelMatrix)).ToArray());
-                    if (base.HitTest(rayWS, ref hits))
-                    {
-                        hit = true;
-                        var lastHit = hits[hits.Count - 1];
-                        lastHit.Tag = this.Tag.ToString() + ":" + modeinfo.ModelID;  //返回实体对象的ID
-                        hits[hits.Count - 1] = lastHit;
-                        this.PopMatrix();
-                        this.Bounds = b;
-                        break;
-
-                    }
-                    this.PopMatrix();
-                    this.Bounds = b;
-                }
-                return hit;
-            }
-            else
-            {
-                return base.HitTest(rayWS, ref hits);
-            }
-
-        }
+        //}
 
         public bool IsMouseMoveHitTestVisible
         {
@@ -1187,8 +1199,6 @@ namespace Jp3DKit
         public static readonly DependencyProperty IsMouseMoveHitTestVisibleProperty =
             DependencyProperty.Register("IsMouseMoveHitTestVisible", typeof(bool), typeof(MxModel3D), new PropertyMetadata(true));
 
-
-
         public bool IsLighting
         {
             get { return (bool)GetValue(IsLightingProperty); }
@@ -1197,7 +1207,5 @@ namespace Jp3DKit
 
         public static readonly DependencyProperty IsLightingProperty =
             DependencyProperty.Register("IsLighting", typeof(bool), typeof(MxModel3D), new PropertyMetadata(false));
-
-      
     }
 }

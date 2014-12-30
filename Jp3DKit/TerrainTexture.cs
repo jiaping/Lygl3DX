@@ -43,7 +43,7 @@ namespace Jp3DKit
         /// <param name="mesh">
         /// The mesh.
         /// </param>
-        public virtual void Calculate(TerrainModel model, MeshGeometry3D mesh)
+        public virtual void Calculate(TerrainModel1 model, MeshGeometry3D mesh)
         {
         }
 

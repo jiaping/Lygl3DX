@@ -47,9 +47,10 @@
             </ToolBar>
         </ToolBarTray>-->
         <!--cal:Message.Attach="[Event Loaded]=[Action GraphyControlLoaded()]"-->
-        <Jp3DKit:JPViewport3DX x:Name="MainViewport"    Margin="0" EnableCurrentPosition="True" ShowCoordinateSystem="True" Grid.ColumnSpan="2" Grid.RowSpan="2" ShowFrameRate="True" ShowTriangleCountInfo="True" ShowFieldOfView="True" ShowCameraInfo="True">
+        <!--<Jp3DKit:JPViewport3DX x:Name="MainViewport"    Margin="0" EnableCurrentPosition="True" ShowCoordinateSystem="True" Grid.ColumnSpan="2" Grid.RowSpan="2" ShowFrameRate="True" ShowTriangleCountInfo="True" ShowFieldOfView="True" ShowCameraInfo="True">-->
+            <Jp3DKit:JPViewport3DX x:Name="MainViewport"    Margin="0"  Grid.ColumnSpan="2" Grid.RowSpan="2"  >
 
-            <!--<Wpf:Viewport3DX.DefaultCamera>
+                <!--<Wpf:Viewport3DX.DefaultCamera>
                 <Wpf:PerspectiveCamera x:Name="MainCamera" LookDirection="0,0,-50" Position="30,0,50" UpDirection="0,1,0" FarPlaneDistance="1000" FieldOfView="30" />
             </Wpf:Viewport3DX.DefaultCamera>-->
             <!--<Jp3DKit:JpObjModel3D ModelFileName="all.obj"  Tag="AllMq" />-->

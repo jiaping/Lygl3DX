@@ -27,44 +27,46 @@ namespace Jp3DKit
     public class JpMqModel3D : JpCompositeModel3D
     {
         private LineGeometryModel3D Line;
-        private MeshGeometryModel3D Face;
-        private InteractionHandle3D Modifier;
+        public MeshGeometryModel3D Face;
+       
         
         private Color4 diffuseColor;
-
+        #region modify is move to ModifyMqHandler
+        //private InteractionHandle3D Modifier;
 
         //表示墓区是否处于修改状态
-        public bool IsModify
-        {
-            get { return (bool)GetValue(IsModifyProperty); }
-            set { SetValue(IsModifyProperty, value); }
-        }
+        //public bool IsModify
+        //{
+        //    get { return (bool)GetValue(IsModifyProperty); }
+        //    set { SetValue(IsModifyProperty, value); }
+        //}
 
-        
-        public static readonly DependencyProperty IsModifyProperty =
-            DependencyProperty.Register("IsModify", typeof(bool), typeof(JpMqModel3D), new PropertyMetadata(false,ModifyChanged));
+       
+        //public static readonly DependencyProperty IsModifyProperty =
+        //    DependencyProperty.Register("IsModify", typeof(bool), typeof(JpMqModel3D), new PropertyMetadata(false,ModifyChanged));
 
-        private static void ModifyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((JpMqModel3D)d).OnModifyChanged();
-        }
+        //private static void ModifyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    ((JpMqModel3D)d).OnModifyChanged();
+        //}
 
-        private  void OnModifyChanged()
-        {
-            if (IsModify)
-            {
-                tempPoints = new Vector3[Positions.Count()];
-                Positions.CopyTo(tempPoints, 0);
-                this.Modifier.AddCornerHandles(this.Positions);
-                this.Modifier.Attach(this.renderHost);
-            }
-            else
-            {
-                this.Modifier.Detach();
-            }
-        }
+        //private  void OnModifyChanged()
+        //{
+        //    if (IsModify)
+        //    {
+        //        tempPoints = new Vector3[Positions.Count()];
+        //        Positions.CopyTo(tempPoints, 0);
+        //        //this.Modifier.AddCornerHandles(this.Positions);
+        //        this.Modifier.Attach(this.renderHost);
+        //    }
+        //    else
+        //    {
+        //        this.Modifier.Detach();
+        //    }
+        //}
 
-        private Vector3[] tempPoints;
+        //private Vector3[] tempPoints; 
+        #endregion
         //墓区的实际点集
         public Vector3[] Positions
         {
@@ -78,12 +80,12 @@ namespace Jp3DKit
 
         private static void PositionsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((JpMqModel3D)d).OnPositionsChanged();
+            ((JpMqModel3D)d).OnPositionsChanged( e);
 
         }
 
 
-        public void OnPositionsChanged()
+        public void OnPositionsChanged(DependencyPropertyChangedEventArgs e)
         {
             //修改线框
             LineBuilder lb = new LineBuilder();
@@ -203,9 +205,11 @@ namespace Jp3DKit
         public JpMqModel3D(JPViewport3DX vp,string geometryText,string mqTag)
             :base()
         {
-            this.Line = new LineGeometryModel3D {  };
-            this.Face = new MeshGeometryModel3D { };
+            //this.Line = new LineGeometryModel3D {  };
+            //this.Face = new MeshGeometryModel3D { };
             diffuseColor = PhongMaterials.ToColor(1, 0, 0, 0.1f);
+
+            IsHitTestVisible = false;
 
             Line = new LineGeometryModel3D() { Thickness = 0.5, Color = new SharpDX.Color(0f, 0f, 1f, 0.05f), Opacity = 0.05f };
 
@@ -222,7 +226,7 @@ namespace Jp3DKit
                 SpecularShininess = 12.8f,
             }.Clone();
             
-            Modifier = new InteractionHandle3D(this);
+            //Modifier = new InteractionHandle3D(this);
 
             //设置图形点集，触发line,face的geometry的变动
 
@@ -232,11 +236,6 @@ namespace Jp3DKit
 
             //显示边界框
             //DrawBoundBox();
-        }
-
-        private void ControlEnterKeyPressHandler(object sender, ExecutedRoutedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         //private void ControlEnterKeyPressHandler(object sender, ExecutedRoutedEventArgs e)
@@ -291,8 +290,8 @@ namespace Jp3DKit
                     c.Render(context);
                 }
             }
-            if (IsModify)
-                Modifier.Render(context);
+            //if (IsModify)
+            //    Modifier.Render(context);
         }
         /// <summary>
         /// The on children changed.
@@ -321,30 +320,30 @@ namespace Jp3DKit
             //    }
             //}
             //使修改器能被击中
-            if (IsModify)
-            {
-                foreach (var item in Modifier.Children)
-                {
-                    var hc = item as IHitable;
-                    if (hc != null)
-                    {
-                        if (hc.HitTest(ray, ref hits))
-                        {
-                            hit = true;
-                        }
-                    }
-                }
-            }
+            //if (IsModify)
+            //{
+            //    foreach (var item in Modifier.Children)
+            //    {
+            //        var hc = item as IHitable;
+            //        if (hc != null)
+            //        {
+            //            if (hc.HitTest(ray, ref hits))
+            //            {
+            //                hit = true;
+            //            }
+            //        }
+            //    }
+            //}
             return hit;
         }
 
-        public void RevertPoints()
-        {
-            if (tempPoints == null) return;
-            Positions = new Vector3[tempPoints.Count()];
-            tempPoints.CopyTo(Positions, 0);
-            this.OnPositionsChanged();
-        }
+        //public void RevertPoints()
+        //{
+        //    if (tempPoints == null) return;
+        //    Positions = new Vector3[tempPoints.Count()];
+        //    tempPoints.CopyTo(Positions, 0);
+        //    this.OnPositionsChanged();
+        //}
     }
 
 }

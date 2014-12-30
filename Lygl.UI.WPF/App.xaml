@@ -6,17 +6,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    x:Class="Lygl.UI.App" 
-             >
+    x:Class="Lygl.UI.App" >
     <!--StartupUri="MainWindow.xaml"-->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResDict.xaml" />
-            	<ResourceDictionary>
-            		<local:AppBootstrapper x:Key="bootstrapper" />
-            	</ResourceDictionary>
-                
+                <ResourceDictionary>
+                    <local:AppBootstrapper x:Key="bootstrapper" />
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

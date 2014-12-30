@@ -9,12 +9,12 @@ using HelixToolkit.Wpf.SharpDX;
 
 namespace Jp3DKit.MouseDrawHandler
 {
-    public class GetClickPositionHandler: ManipulateHandler
+    public class DrawMxHandler: ManipulateHandler
     {
             public Point Position;
 
-            public GetClickPositionHandler(JPViewport3DX viewport, string manipulateName)
-                : base(viewport, manipulateName)
+            public DrawMxHandler(JPViewport3DX viewport, string manipulateName, ManipulateCompleteHandleFun handleFun)
+                : base(viewport, manipulateName, handleFun)
             {
             }
 
@@ -25,7 +25,7 @@ namespace Jp3DKit.MouseDrawHandler
             public override void Start()
             {
                 base.Start();
-
+                this.Viewport.OperateMode = OperateMode.DrawMx;
                 this.Viewport.MouseUp += this.OnMouseUp;
                 //handler.Viewport.MouseDoubleClick += handler.OnMouseDoubleClick;
                 this.Viewport.Focus();
@@ -38,6 +38,7 @@ namespace Jp3DKit.MouseDrawHandler
                 this.Viewport.ReleaseMouseCapture();
 
                 base.Complete();
+                this.Viewport.OperateMode = OperateMode.None;
             }
 
             public void OnMouseUp(object sender, MouseButtonEventArgs e)

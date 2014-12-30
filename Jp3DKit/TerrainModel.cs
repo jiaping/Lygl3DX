@@ -23,7 +23,7 @@ namespace Jp3DKit
     /// The .btz format is a gzip compressed version of the .bt format.
     ///  </para>
     /// </remarks>
-    public class TerrainModel
+    public class TerrainModel1
     {
         /// <summary>
         /// Gets or sets the bottom.

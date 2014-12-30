@@ -1,17 +1,19 @@
-﻿<UserControl x:Class="Lygl.UI.Edit.Views.BusinessGmView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
-             mc:Ignorable="d" 
-             d:DesignHeight="322" d:DesignWidth="559"  xmlns:my="clr-namespace:Lygl.DalLib.Business;assembly=Lygl.DalLib">
+             xmlns:my="clr-namespace:Lygl.DalLib.Business;assembly=Lygl.DalLib" xmlns:Controls="clr-namespace:Lygl.UI.Controls" x:Class="Lygl.UI.Edit.Views.BusinessGmView"
+   xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"    
+    mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="559">
     <DockPanel >
         <ContentControl Content="{StaticResource TitleAndToolbar}" DockPanel.Dock="Top" />
         <Grid  DockPanel.Dock="Top" >
 
 
-            <Grid  IsEnabled="{Binding Path=IsEdit}" Margin="6,6,0,0" Grid.ColumnSpan="2">
+            <Grid  IsEnabled="{Binding IsEdit}" Margin="6,6,0,0" Grid.ColumnSpan="2">
                 <Grid DataContext="{Binding Model}" d:DataContext="{Binding}" Margin="0,0,0,16">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" MinWidth="98" />
@@ -32,20 +34,21 @@
                     <Label Content="墓穴:" Margin="3" d:LayoutOverrides="Height" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                     <TextBox Grid.Column="1" Margin="3" IsEnabled="false" Text="{Binding DataContext.MxName, Mode=OneTime, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type UserControl}}}" />
                     <Label Content="操作员:" Grid.Row="3" Margin="3,0,3,6" d:LayoutOverrides="Width, Height" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="3" Margin="3,0,3,6" IsEnabled="False" Text="{Binding Path=OperatorCode, Mode=OneWay}" />
-                    <TextBox Grid.Column="1" Grid.Row="4" Margin="3,17,3,0" IsEnabled="False" Text="{Binding Path=OperateTime, Mode=OneWay}" />
+                    <TextBox Grid.Column="1" Grid.Row="3" Margin="3,0,3,6" IsEnabled="False" Text="{Binding OperatorCode, Mode=OneWay}" />
+                    <TextBox Grid.Column="1" Grid.Row="4" Margin="3,17,3,0" IsEnabled="False" Text="{Binding OperateTime, Mode=OneWay}" />
                     <Label Grid.Row="2" Content="是否付款:" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Margin="6,6,0,0" Width="95" />
                     <CheckBox Content="" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" IsChecked="{Binding PayFlag, Mode=OneWay}" Grid.Row="2" Margin="3,6,3,0" Width="130" />
                     <Label Content="墓价:" Margin="3" d:LayoutOverrides="Height" Grid.Column="2" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" />
-                    <TextBox Grid.Column="3"  Text="{Binding Price, Mode=TwoWay, StringFormat=\{0:F2\}, NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="3"  />
+                    <TextBox Grid.Column="3" Controls:TextBoxMaskBehavior.Mask="Money" Text="{Binding Price, Mode=TwoWay, NotifyOnValidationError=true, StringFormat=\{0:F2\}, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"   HorizontalAlignment="Stretch" Margin="3"  />
                     <Label Grid.Row="4" Content="操作时间:" Margin="3,17,3,0" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="95" />
                     <Label Content="付款人:" Grid.Row="2" Margin="3" d:LayoutOverrides="Height" Grid.Column="2" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" />
-                    <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Path=Drawee, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="3,3,85,3" Width="101" IsEnabled="False" />
-                    <TextBox Grid.Column="3" Margin="3" Text="{Binding Path=GmDate, Mode=TwoWay,NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" VerticalAlignment="Stretch" />
+                    <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Drawee, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="3,3,85,3" Width="101" IsEnabled="False" />
+                    <TextBox Grid.Column="3" Margin="3" Text="{Binding GmDate, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" Grid.Row="1" VerticalAlignment="Stretch" />
                     <Label Content="购买时间:" HorizontalContentAlignment="Right" Margin="3" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="2" Grid.Row="1" />
                     <Button Content="选择联系人" Height="23" HorizontalAlignment="Right" Margin="0,3,6,0" cal:Message.Attach="[Click]=[SelectContact]" VerticalAlignment="Top" Width="75" Grid.Column="3" Grid.Row="2" />
-                    <TextBox AcceptsReturn="True" Grid.Column="3" Grid.RowSpan="2" Height="57" Margin="5,0,0,18" MaxLines="2" TabIndex="3" Text="{Binding Path=Syz, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" />
+                    <TextBox AcceptsReturn="True" Grid.Column="3" Grid.RowSpan="2" Margin="5.2,0.2,-0.4,10" MaxLines="2" TabIndex="3" Text="{Binding Syz, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" Grid.Row="3" />
                     <Label Content="使用者:" Grid.ColumnSpan="2" HorizontalContentAlignment="Right" Margin="8,0,186,6" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3" />
+                    
                     <!--<csla:PropertyStatus   Grid.Column="3" Grid.Row="3" Grid.RowSpan="2" Height="50" VerticalAlignment="Top" Margin="0,0,89,0" />-->
                 </Grid>
             </Grid>

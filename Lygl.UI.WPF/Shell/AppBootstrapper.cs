@@ -52,7 +52,7 @@
             batch.AddExportedValue<IEventAggregator>(new EventAggregator());
             //batch.AddExportedValue<ICommandMessageAggregator>(new CommandMessageAggregator());
             //batch.AddExportedValue<IBusinessHandler>(new BusinessHandler());
-			
+            batch.AddExportedValue<Logger>(new Logger());
             
 			batch.AddExportedValue(container);
 		    batch.AddExportedValue(catalog);

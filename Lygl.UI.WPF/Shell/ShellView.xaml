@@ -279,8 +279,8 @@ xmlns:menutype="clr-namespace:Lygl.UI.Shell"
                     
                     <Menu x:Name="MainMenu"   Grid.ColumnSpan="2"   Margin="0" />
                     <!--ItemTemplate="{DynamicResource MenuCategoryItemTemplate}"-->
-                   
-                    <TextBlock Text="陵园管理系统"
+                   <!--Text="陵园管理系统"-->
+                    <TextBlock x:Name="Title"
 			           Margin="0,2,11,2"
 			           FontSize="18"
 			           FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Right" Width="119" />

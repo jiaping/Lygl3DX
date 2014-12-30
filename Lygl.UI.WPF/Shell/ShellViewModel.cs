@@ -85,7 +85,11 @@ namespace Lygl.UI.Shell
         }
         #endregion 
       
-
+        public string Title
+        {
+            get { return "陵园管理系统"; }
+            private set {  }
+        }
         private ObservableCollection<MenuCategoryItem> _mainMenu;
         public ObservableCollection<MenuCategoryItem> MainMenu
         {

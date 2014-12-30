@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using SharpDX;
 using Ray = SharpDX.Ray;
+using DraggableGeometryModel3D = Jp3DKit.MouseDrawHandler.DraggableGeometryModel3D;
 
 namespace Jp3DKit
 {
@@ -18,46 +19,176 @@ namespace Jp3DKit
     {
         private Vector3[] positions;
 
-
-        //public Vector3[] Positions
-        //{
-        //    get { return (Vector3[])GetValue(PositionsProperty); }
-        //    set { SetValue(PositionsProperty, value); }
-        //}
-
-        //// Using a DependencyProperty as the backing store for positions.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty PositionsProperty =
-        //    DependencyProperty.Register("Positions", typeof(Vector3[]), typeof(InteractionHandle3D), new PropertyMetadata(null,PositionsChanged));
-        //private static void PositionsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    ((InteractionHandle3D)d).AddCornerHandles();
-        //}
-
-        public void AddCornerHandles(Vector3[] positionns)
+        public void AddControlsHandles(JpMqModel3D mq)
         {
+            this.Owner = mq;
+            Vector3[] tempPoints = new Vector3[mq.Positions.Count()];
+            mq.Positions.CopyTo(tempPoints, 0);
             this.Children.Clear();
-            this.positions = positionns;
+
+            this.positions = tempPoints;
             cornerHandles = new DraggableGeometryModel3D[this.positions.Length];
+           
             for (int i = 0; i < this.positions.Length; i++)
             {
-                var translate = Matrix3DExtensions.Translate3D(positions[i].ToVector3D());
-                this.cornerHandles[i] = new DraggableGeometryModel3D()
-                {
-                    DragZ = true,
-                    Visibility = Visibility.Visible,
-                    Material = this.Material,
-                    Geometry = NodeGeometry,
-                    Transform = new MatrixTransform3D(translate),
-                };
-                this.cornerHandles[i].MouseMove3D += OnNodeMouse3DMove;
-                this.cornerHandles[i].MouseUp3D += OnNodeMouse3DUp;
-                this.cornerHandles[i].MouseDown3D += OnNodeMouse3DDown;
+                CreateCornerHandle(i,this.positions[i]);       
+            }
+            CreateCenterHandle(this.positions);
+        }
 
-                this.Children.Add(cornerHandles[i]);              
+        private void CreateCornerHandle(int index,Vector3 vv )
+        {
+            var translate = Matrix3DExtensions.Translate3D(vv.ToVector3D());
+            this.cornerHandles[index] = new DraggableGeometryModel3D()
+            {
+                DragZ = true,
+                Visibility = Visibility.Visible,
+                Material = this.Material,
+                Geometry = NodeGeometry,
+                Transform = new MatrixTransform3D(translate),
+            };
+            this.cornerHandles[index].MouseMove3D += OnNodeMouse3DMove;
+            this.cornerHandles[index].MouseUp3D += OnNodeMouse3DUp;
+            this.cornerHandles[index].MouseDown3D += OnNodeMouse3DDown;
+
+            this.Children.Add(cornerHandles[index]);
+        }
+
+        private void CreateCenterHandle(Vector3[] points)
+        {
+            var bb = GetBoundsCenter(points);
+            System.Console.WriteLine(bb);
+            var b4 = new MeshBuilder();
+            b4.AddBox(new Vector3(0, 0, 0), 0.175, 0.175, 0.175);
+            var BoxGeometry = b4.ToMeshGeometry3D();
+            centerHandle=new DraggableGeometryModel3D()
+            {
+                    //DragZ = false,
+                    //DragX = (i % 2 == 1),
+                    //DragY = (i % 2 == 0),
+                    Material = this.Material,
+                    Geometry = BoxGeometry,
+                    Transform = new MatrixTransform3D( Matrix3DExtensions.Translate3D(bb)),
+                };
+            this.centerHandle.MouseMove3D += centerHandle_MouseMove3D;
+            this.centerHandle.MouseUp3D += centerHandle_MouseUp3D;
+            this.centerHandle.MouseDown3D += centerHandle_MouseDown3D;
+            this.Children.Add(this.centerHandle);
+         }
+
+        void centerHandle_MouseDown3D(object sender, RoutedEventArgs e)
+        {
+            //var args = e as Mouse3DEventArgs;
+            //if (args == null) return;
+            //if (args.Viewport == null) return;
+
+            //this.isCaptured = true;
+            var args = e as Mouse3DEventArgs;
+            if (args == null) return;
+            if (args.Viewport == null) return;
+
+            this.isCaptured = true;
+            this.viewport = args.Viewport;
+            this.camera = args.Viewport.Camera;
+            this.lastHitPos = args.HitTestResult.PointHit;
+        }
+
+        void centerHandle_MouseMove3D(object sender, RoutedEventArgs e)
+        {
+            if (this.isCaptured)
+            {
+                Application.Current.MainWindow.Cursor = Cursors.SizeAll;
+                var args = e as Mouse3DEventArgs;
+
+                // move dragmodel                         
+                var normal = this.camera.LookDirection;
+
+                // hit position                        
+                var newHit = this.viewport.UnProjectOnPlane(args.Position, lastHitPos, normal);
+                if (newHit.HasValue)
+                {
+                    var offset = (newHit.Value - lastHitPos);
+                    var trafo = this.Transform.Value;
+
+                    if (this.DragX)
+                        trafo.OffsetX += offset.X;
+
+                    if (this.DragY)
+                        trafo.OffsetY += offset.Y;
+
+                    if (!this.DragZ)
+                        trafo.OffsetZ += offset.Z;
+
+                    //this.dragTransform.Matrix = trafo;
+                    //this.centerHandle.SetTransformTranslateMatrix(trafo);
+                    this.lastHitPos = newHit.Value;
+                    UpdateAllTransforms(offset);
+                }
+                
             }
         }
+
+        private void UpdateAllTransforms(System.Windows.Media.Media3D.Vector3D offset)
+        {
+            //foreach (var item in this.cornerHandles)
+            //{
+            //    var bb = item.Transform.Value;
+            //    bb.OffsetX += offset.X;
+            //     bb.OffsetY += offset.Y;
+            //     bb.OffsetZ += offset.Z;
+            //     item.SetTransformTranslateMatrix(bb);
+            //}
+            Vector3[] pp = new Vector3[this.cornerHandles.Length];
+            for (int i = 0; i < this.cornerHandles.Length; i++)
+            {
+                DraggableGeometryModel3D corner = this.cornerHandles[i];
+                var bb = corner.Transform.Value;
+                bb.OffsetX += offset.X;
+                bb.OffsetY += offset.Y;
+                bb.OffsetZ += offset.Z;
+                corner.SetTransformTranslateMatrix(bb );
+                pp[i] += bb.ToMatrix().TranslationVector;
+            }
+            //var cornerTrafos = this.cornerHandles.Select(x => (x.Transform as MatrixTransform3D)).ToArray();
+            //var cornerMatrix = cornerTrafos.Select(x => (x).Value).ToArray();
+            //this.positions = cornerMatrix.Select(x => x.ToMatrix().TranslationVector).ToArray();
+
+            //this.pp.CopyTo(this.Owner.Positions, 0);
+            this.positions = pp;
+            this.Owner.Positions = this.positions;
+        }
+
+        void centerHandle_MouseUp3D(object sender, RoutedEventArgs e)
+        {
+            if (this.isCaptured)
+            {
+                Application.Current.MainWindow.Cursor = Cursors.Arrow;
+                this.Owner.Positions = this.positions;
+                //UpdateTransforms(sender);
+            }
+            //if (this.isCaptured)
+            //{
+            //    Application.Current.MainWindow.Cursor = Cursors.Arrow;
+            //    this.isCaptured = false;
+            //    this.camera = null;
+            //    this.viewport = null;
+            //    this.Owner.Positions = this.positions;
+            //}
+        }
+
+        private Vector3 GetBoundsCenter(Vector3[] points)
+        {
+            var bb = SharpDX.BoundingBox.FromPoints(points);
+            Vector3 center = new Vector3();
+            center.X = (bb.Minimum.X + bb.Maximum.X) / 2;
+            center.Y =(bb.Minimum.Y + bb.Maximum.Y) / 2;
+            center.Z = (bb.Minimum.Z + bb.Maximum.Z) / 2;
+            return center;
+        }
+
         private JpMqModel3D Owner;
         private DraggableGeometryModel3D[] cornerHandles ;
+        private DraggableGeometryModel3D centerHandle;
         //private DraggableGeometryModel3D[] midpointHandles = new DraggableGeometryModel3D[4];
         //private MeshGeometryModel3D[] edgeHandles = new MeshGeometryModel3D[4];
         private bool isCaptured;
@@ -94,11 +225,11 @@ namespace Jp3DKit
         /// <summary>
         /// 
         /// </summary>
-        public InteractionHandle3D(JpMqModel3D owner)
+        public InteractionHandle3D()
         {
-            this.Owner = owner;
+            //this.Owner = mq;
             this.Material = PhongMaterials.Orange;
-            this.dragTransform = new MatrixTransform3D(this.Transform.Value);
+            this.dragTransform = new MatrixTransform3D();
         }
 
        
@@ -128,63 +259,7 @@ namespace Jp3DKit
         {
             if (this.isCaptured)
             {
-                UpdateTransforms(sender);
-            }
-        }
-
-        private void OnEdgeMouse3DDown(object sender, RoutedEventArgs e)
-        {
-            var args = e as Mouse3DEventArgs;
-            if (args == null) return;
-            if (args.Viewport == null) return;
-
-            this.isCaptured = true;
-            this.viewport = args.Viewport;
-            this.camera = args.Viewport.Camera;
-            this.lastHitPos = args.HitTestResult.PointHit;
-        }
-
-        private void OnEdgeMouse3DUp(object sender, RoutedEventArgs e)
-        {
-            if (this.isCaptured)
-            {
-                Application.Current.MainWindow.Cursor = Cursors.Arrow;
-                this.isCaptured = false;
-                this.camera = null;
-                this.viewport = null;
-            }
-        }
-
-        private void OnEdgeMouse3DMove(object sender, RoutedEventArgs e)
-        {
-            if (this.isCaptured)
-            {
-                Application.Current.MainWindow.Cursor = Cursors.SizeAll;
-                var args = e as Mouse3DEventArgs;
-
-                // move dragmodel                         
-                var normal = this.camera.LookDirection;
-
-                // hit position                        
-                var newHit = this.viewport.UnProjectOnPlane(args.Position, lastHitPos, normal);
-                if (newHit.HasValue)
-                {
-                    var offset = (newHit.Value - lastHitPos);
-                    var trafo = this.Transform.Value;
-
-                    if (this.DragX)
-                        trafo.OffsetX += offset.X;
-
-                    if (this.DragY)
-                        trafo.OffsetY += offset.Y;
-
-                    if (!this.DragZ)
-                        trafo.OffsetZ += offset.Z;
-
-                    this.dragTransform.Matrix = trafo;
-                    this.Transform = this.dragTransform;
-                    this.lastHitPos = newHit.Value;
-                }
+                 UpdateTransforms(sender);
             }
         }
 
@@ -193,6 +268,7 @@ namespace Jp3DKit
             var cornerTrafos = this.cornerHandles.Select(x => (x.Transform as MatrixTransform3D)).ToArray();
             var cornerMatrix = cornerTrafos.Select(x => (x).Value).ToArray();
             this.positions = cornerMatrix.Select(x => x.ToMatrix().TranslationVector).ToArray();
+           
 
             //BoundingBox bb;
             //if (sender == cornerHandles[0] || sender == cornerHandles[2])
@@ -259,7 +335,7 @@ namespace Jp3DKit
 
         }
 
-
+       
         public static readonly DependencyProperty DragXProperty =
             DependencyProperty.Register("DragX", typeof(bool), typeof(InteractionHandle3D), new UIPropertyMetadata(true));
 
