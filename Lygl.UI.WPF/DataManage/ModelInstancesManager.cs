@@ -31,13 +31,9 @@ namespace Lygl.UI.Shell
         /// 所有操作都是围绕它展开的/n
         /// 组名-组中模型对象列表
         /// 当前的分组情况为：每一墓区根据墓穴显示模型的不同又分成几个小组
-        /// 额外增加了一个　选择区，以显示被选中的对象，以及修改操作对象，增加了额外的操作功能
         /// </summary>
-        public static Dictionary<string, List<Entity2ModelInfo>> AreaMxModelClassifyDict;
-        /// <summary>
-        /// 存储墓区模型数据，主要是geometry
-        /// </summary>
-        //public static Dictionary<string, string> AreaModelDict;
+        public static Dictionary<string, List<MxModelInfo>> AreaMxModelClassifyDict;
+    
 
         /// <summary>
         /// 下面几个对象用于显示显示及修改位置　时使用
@@ -53,12 +49,12 @@ namespace Lygl.UI.Shell
         public static void LoadEntityModelInfo(AreaROL areas)
         {
             if (AreaMxModelClassifyDict == null)
-                AreaMxModelClassifyDict = new Dictionary<string, List<Entity2ModelInfo>>();
-            AreaMxModelClassifyDict.Clear();
+                AreaMxModelClassifyDict = new Dictionary<string, List<MxModelInfo>>();
+            
 
             foreach (var area in areas)
             {
-                AddAreaItems2MxModelInstancesDict(area.AreaID);
+                //AddAreaItems2MxModelInstancesDict(area.AreaID);
 
                 #region load mx in each area
                 MxROL mxs = IoC.Get<IGlobalData>().AreaMxsDictAdd(area.AreaID);
@@ -67,10 +63,10 @@ namespace Lygl.UI.Shell
                     foreach (MxRO mx in mxs)
                     {
                         string areaModelID = GetMxAreaStatusClassifylTag(mx);
-                        List<Entity2ModelInfo> list;
+                        List<MxModelInfo> list;
                         AreaMxModelClassifyDict.TryGetValue(areaModelID, out list);
                         //List<Entity2ModelInfo> list = GetAreaMxModelClassifyDictItem(mx);
-                        Entity2ModelInfo emi = GetEntityModelInfo(mx);
+                        MxModelInfo emi = GetMxModelInfo(mx);
                         //var dd = emi.ModelPos.ToMatrix3D().ToString();
                         list.Add(emi);
                     }                    
@@ -78,28 +74,48 @@ namespace Lygl.UI.Shell
                 #endregion
             }
         }
-
         /// <summary>
-        /// 将墓区的分类列表添加到字典中
+        /// 装载实体数据到字典中
+        /// 字典中每一条代表墓区中所有同一显示模型的墓穴模型信息列表
         /// </summary>
-        /// <param name="area"></param>
-        public static void AddAreaItems2MxModelInstancesDict(Guid areaID)
+        /// <param name="areas">墓区信息</param>
+        public static void LoadMxModelInfo(AreaROL areas)
         {
-#if AREACLASSIFY
-            Entity2ModelInfo areaInfo = new Entity2ModelInfo(EntityType.MQ, areaID);
-            //根据模型的不同geometry分类显示
-            AreaMxModelClassifyDict.Add("DS", new List<Entity2ModelInfo>());   //
-            AreaMxModelClassifyDict.Add("YS", new List<Entity2ModelInfo>());   //
-            AreaMxModelClassifyDict.Add("LB", new List<Entity2ModelInfo>());   //
-#else
-            Entity2ModelInfo areaInfo = new Entity2ModelInfo(EntityType.MQ, areaID);
-            //根据模型的不同geometry分类显示
-            AreaMxModelClassifyDict.Add(areaInfo.ModelID + ":DS", new List<Entity2ModelInfo>());   //
-            AreaMxModelClassifyDict.Add(areaInfo.ModelID + ":YS", new List<Entity2ModelInfo>());   //
-            AreaMxModelClassifyDict.Add(areaInfo.ModelID + ":LB", new List<Entity2ModelInfo>());   //
-#endif
+            if (AreaMxModelClassifyDict == null)
+                AreaMxModelClassifyDict = new Dictionary<string, List<MxModelInfo>>();
 
+
+            foreach (var area in areas)
+            {
+                //AddAreaItems2MxModelInstancesDict(area.AreaID);
+
+                #region load mx in each area
+                MxROL mxs = IoC.Get<IGlobalData>().AreaMxsDictAdd(area.AreaID);
+                List<MxModelInfo> list = new List<MxModelInfo>();
+                if (mxs.Count > 0)
+                {
+                    foreach (MxRO mx in mxs)
+                    {
+                        //string areaModelID = GetMxAreaStatusClassifylTag(mx);
+                        
+                        //AreaMxModelClassifyDict.TryGetValue(areaModelID, out list);
+                        //List<Entity2ModelInfo> list = GetAreaMxModelClassifyDictItem(mx);
+                        MxModelInfo emi = GetMxModelInfo(mx);
+                        //var dd = emi.ModelPos.ToMatrix3D().ToString();
+                        list.Add(emi);
+                    }
+                }
+
+                //分类
+                var bb = list.GroupBy(o => o.ModelFileName);
+               foreach (var item in bb)
+               {
+                   AreaMxModelClassifyDict.Add(area.AreaID.ToString() + ":" + item.Key, new List<MxModelInfo>(item.AsEnumerable()));   //
+               }
+                #endregion
+            }
         }
+       
 
         /// <summary>
         /// 将实体信息加载到视图窗口中
@@ -212,6 +228,7 @@ namespace Lygl.UI.Shell
         {
             ClearViewportAreaMxItems(vp);
             ModelInstancesManager.LoadEntityModelInfo(IoC.Get<IGlobalData>().Areas);
+            
             DispAreaModels(vp, IoC.Get<IGlobalData>().Areas,true);  //显示墓区模型
 
             vp.Items.Add(new MxSceneModel(vp, AreaMxModelClassifyDict));
@@ -233,7 +250,7 @@ namespace Lygl.UI.Shell
         /// <param name="item"></param>
         /// <param name="forceAttach">是否需要附加模型，用于加载完成后新增模型</param>
        [Obsolete]
-        private static void DispMxModelInstanceDictItem(JPViewport3DX vp, KeyValuePair<string, List<Entity2ModelInfo>> item, bool forceAttach = false)
+        private static void DispMxModelInstanceDictItem(JPViewport3DX vp, KeyValuePair<string, List<MxModelInfo>> item, bool forceAttach = false)
         {
             string modelfilename;
             switch (item.Key.Substring(item.Key.Length - 2, 2))
@@ -377,10 +394,7 @@ namespace Lygl.UI.Shell
             }
         }
 
-        public static void UpdateAreaMxModel(JPViewport3DX vp,string mxAreaTag)
-        {
-
-        }
+       
         private static List<Vector2> GetPathFigurePoints(PathFigure item)
         {
             List<Vector2> points = new List<Vector2>();
@@ -403,24 +417,26 @@ namespace Lygl.UI.Shell
         /// </summary>
         /// <param name="mx"></param>
         /// <returns></returns>
-        public static Entity2ModelInfo LookupMxEMI(string mxAreaStatusClassifyTag, string mxID)
+        public static MxModelInfo LookupMxEMI(string areaMxModelClassifyName, string mxID)
         {
-            List<Entity2ModelInfo> list;
-            AreaMxModelClassifyDict.TryGetValue(mxAreaStatusClassifyTag, out list);
-            var emi = list.Find(x => x.EntityID.ToString() == mxID);
+            List<MxModelInfo> list;
+            AreaMxModelClassifyDict.TryGetValue(areaMxModelClassifyName, out list);
+            var emi = list.Find(x => x.MxID.ToString() == mxID);
             return emi;
         }
 
-        /// <summary>
+        #region Obsolete
+        /*
+          /// <summary>
         /// 根据ModelTag信息确定显示区域字典项
         /// </summary>
         /// <param name="modelTag">"MQ:GUID:Status:MX:Guid</param>
         /// <returns></returns>
         [Obsolete]
-        private static List<Entity2ModelInfo> GetDictItem(string modelTag)
+        private static List<MxModelInfo> GetDictItem(string modelTag)
         {
             var ss = modelTag.Split(new char[] { ':' });
-            List<Entity2ModelInfo> list;
+            List<MxModelInfo> list;
             AreaMxModelClassifyDict.TryGetValue(ss[0] + ":" + ss[1] + ":" + ss[2], out list);
             return list;
         }
@@ -434,7 +450,6 @@ namespace Lygl.UI.Shell
         //    ModelInstancesDict.TryGetValue("SelectArea", out list);
         //    return list;
         //}
-       
         /// <summary>
         /// 将选择的墓穴从区域列表中移动到选择区域中
         /// </summary>
@@ -472,7 +487,7 @@ namespace Lygl.UI.Shell
             //    }
             //}
 
-         }
+        }
         /// <summary>
         /// 将选择区中模型移出，同时添加到正常的区域中
         /// </summary>
@@ -484,7 +499,7 @@ namespace Lygl.UI.Shell
             MxEdit mxEdit = MxEdit.GetMxEdit(new Guid(SelectedModel.Tag.ToString().Substring(46, 36)));
             mxEdit.Pos = SelectedModel.Transform.Value.ToString();
             mxEdit.Save(true);
-            Entity2ModelInfo emi = GetEntityModelInfo(SelectedModel.Tag.ToString());
+            MxModelInfo emi = GetEntityModelInfo(SelectedModel.Tag.ToString());
             emi.ModelPos = new Matrix(mxEdit.Pos.Split(new char[] { ',' }).Select(x => float.Parse(x)).ToArray());
             SelectedModel.Visibility = Visibility.Hidden;
             AddMxToMxModel(emi, vp);
@@ -497,23 +512,31 @@ namespace Lygl.UI.Shell
             MxEdit mxEdit = MxEdit.GetMxEdit(new Guid(SelectedModel.Tag.ToString().Substring(46, 36)));
             mxEdit.Pos = SelectedModel.Transform.Value.ToString();
             mxEdit.Save(true);
-            Entity2ModelInfo emi = GetEntityModelInfo(SelectedModel.Tag.ToString());
+            MxModelInfo emi = GetEntityModelInfo(SelectedModel.Tag.ToString());
             emi.ModelPos = new Matrix(mxEdit.Pos.Split(new char[] { ',' }).Select(x => float.Parse(x)).ToArray());
             SelectedModel.Visibility = Visibility.Hidden;
             AddMxToMxModel(emi, vp);
-        }
+        }   */
+        #endregion
         /// <summary>
         /// 添加模型到3D视图中
         /// </summary>
         /// <param name="item"></param>
-        public static void AddMxToMxModel(Entity2ModelInfo emi, JPViewport3DX vp)
+        [Obsolete]
+        public static void AddMxToMxModel(MxModelInfo mmi, JPViewport3DX vp)
         {
-            var mx = IoC.Get<IGlobalData>().GetMxRO(emi.EntityID);
-            string mxAreaClassifyTag = ModelInstancesManager.GetMxAreaStatusClassifylTag(mx);
-            List<Entity2ModelInfo> list;
-            ModelInstancesManager.AreaMxModelClassifyDict.TryGetValue(mxAreaClassifyTag, out list);
-            list.Add(emi);
-            vp.MxSceneModel.ResetMxModelInstances(mxAreaClassifyTag, list);
+            var mx = IoC.Get<IGlobalData>().GetMxRO(new Guid(mmi.MxID));
+            string classifyName = GetAreaMxsClassifyName(mx);
+            List<MxModelInfo> list;
+            ModelInstancesManager.AreaMxModelClassifyDict.TryGetValue(classifyName, out list);
+            if (list == null)
+            {
+                list = new List<MxModelInfo>();
+                ModelInstancesManager.AreaMxModelClassifyDict.Add(classifyName, list);
+            }
+            list.Add(mmi); 
+
+            vp.MxSceneModel.ResetMxModelInstances(classifyName, list);
             //var mx = IoC.Get<IGlobalData>().GetMxRO(emi.EntityID);
             //var list = GetAreaMxModelClassifyDictItem(mx);
             //var mxitem = GetEntityModelInfo(mx);
@@ -545,15 +568,27 @@ namespace Lygl.UI.Shell
         /// 当墓穴模型中，墓穴被删除时，同时更新显示
         /// </summary>
         /// <param name="item"></param>
-        public static Entity2ModelInfo RemoveMxFormMxModel(MxRO mx,JPViewport3DX vp)
+        public static MxModelInfo RemoveMxFormMxModel(MxRO mx,JPViewport3DX vp)
         {
-            string mxAreaClassifyTag = ModelInstancesManager.GetMxAreaStatusClassifylTag(mx);
-            List<Entity2ModelInfo> list;
-            ModelInstancesManager.AreaMxModelClassifyDict.TryGetValue(mxAreaClassifyTag, out list);
-            var emi = ModelInstancesManager.LookupMxEMI(mxAreaClassifyTag, mx.MxID.ToString());
-            list.Remove(emi);          
-            vp.MxSceneModel.ResetMxModelInstances(mxAreaClassifyTag, list);
+            string classifyName = GetAreaMxsClassifyName(mx);
+           // string mxAreaClassifyTag = ModelInstancesManager.GetMxAreaStatusClassifylTag(mx);
+            List<MxModelInfo> list;
+            ModelInstancesManager.AreaMxModelClassifyDict.TryGetValue(classifyName, out list);
+            var emi = ModelInstancesManager.LookupMxEMI(classifyName, mx.MxID.ToString());
+            list.Remove(emi);
+            vp.MxSceneModel.ResetMxModelInstances(classifyName, list);
             return emi;
+        }
+        /// <summary>
+        /// 获取墓区中墓穴显示分类名
+        /// 格式为：areaid(墓区ID)+":"+墓穴所显示3D模型名,作为分类名
+        /// </summary>
+        /// <param name="mx"></param>
+        /// <returns></returns>
+        public static string GetAreaMxsClassifyName(MxRO mx)
+        {
+            string classifyName = string.Format("{0}:{1}", mx.AreaID, ModelInstancesManager.GetMxModelFileName(mx));
+            return classifyName;
         }
         /// <summary>
         /// 根据墓穴信息生成相应的显示模型对象的墓区标记属性字符串
@@ -561,9 +596,10 @@ namespace Lygl.UI.Shell
         /// </summary>
         /// <param name="mx"></param>
         /// <returns></returns>
+        [Obsolete]
         public static string GetMxAreaStatusClassifylTag(MxRO mx)
         {
-            string areaModelID = "MQ:" + mx.AreaID.ToString();
+            string areaModelID = mx.AreaID.ToString();
             switch (mx.MxStatusID)
             {
                 case 0:
@@ -582,16 +618,36 @@ namespace Lygl.UI.Shell
         /// <summary>
         /// 由墓穴信息生成实体模型信息
         /// 主要是将位置POS转换成矩阵
+        /// TODO:可考虑移到MxModelInfo中
         /// </summary>
         /// <param name="mx"></param>
         /// <returns></returns>
-        private static Entity2ModelInfo GetEntityModelInfo(MxRO mx)
+        public static MxModelInfo GetMxModelInfo(MxRO mx)
         {
             Matrix m;
             //这里区分位置信息是，老式的２维坐标还是，新版的变换矩阵
             m = UpdateMxPos2Dto3D(mx);
-            Entity2ModelInfo emi = new Entity2ModelInfo(EntityType.MX, mx.MxID, m);
+            MxModelInfo emi = new MxModelInfo(mx.MxID.ToString(), m,GetMxModelFileName(mx));
             return emi;
+        }
+
+        /// <summary>
+        /// 获取墓穴显示的模型文件名
+        /// 根据墓穴状态，获取显示的3D模型文件名
+        /// 墓穴在墓区中也是根据这个文件名来分类显示的
+        /// </summary>
+        /// <param name="mx"></param>
+        /// <returns></returns>
+        public static string GetMxModelFileName(MxRO mx)
+        {
+            string fileName = "mx.obj";
+            //string mxTypeStyleStatus =string.Format("{0,1:d}{1,1:d}{2,2:00}", mx.MxTypeID, mx.MxStyleID,mx.MxStatusID);
+            //if (mx.MxTypeID==0 && mx.MxStatusID==1 &&mx.MxStatusID==)
+           if (mx.MxStatusID==0)  fileName= "mx0.obj";
+           if (mx.MxTypeID == 1 && mx.MxStatusID == 0) fileName = "mx20.obj";
+           if (mx.MxTypeID == 1 && mx.MxStatusID >= 40) fileName = "mx22.obj";
+           // if (mx.MxStatusID==1)
+           return fileName;
         }
         /// <summary>
         /// 更新墓穴位置，从2维到3维
@@ -636,14 +692,14 @@ namespace Lygl.UI.Shell
         /// <param name="modelID">模型中ＩＤ</param>
         /// <returns></returns>
       [Obsolete]
-        private static Entity2ModelInfo GetEntityModelInfo(string modelID)
+        private static MxModelInfo GetEntityModelInfo(string modelID)
         {
-            Entity2ModelInfo emi = null;
+            MxModelInfo emi = null;
             var ss = modelID.Split(new char[] { ':' });
             if (ss[3] == "MX")    //TODO: if not =="Mx" 
             {
                 MxRO mx = IoC.Get<IGlobalData>().GetMxRO(new Guid(ss[1]), new Guid(ss[4]));
-                emi = GetEntityModelInfo(mx);
+                emi = GetMxModelInfo(mx);
             }
             return emi;
         }

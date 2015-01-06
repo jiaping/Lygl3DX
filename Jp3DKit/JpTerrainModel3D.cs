@@ -40,7 +40,7 @@ namespace Jp3DKit
         private SharpDX.Direct3D11.DepthStencilState depthStencilState;
 
         protected MeshGeometry3D geometry;
-        protected Entity2ModelInfo[] instanceArray;
+        protected MxModelInfo[] instanceArray;
 
 
         protected PhongMaterial phongMaterial;

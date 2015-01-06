@@ -40,7 +40,7 @@ namespace Jp3DKit.ObjModel
 
 
         //protected Geometry3D geometry;
-        protected Entity2ModelInfo[] instanceArray;
+        protected MxModelInfo[] instanceArray;
 
 
         protected PhongMaterial phongMaterial;

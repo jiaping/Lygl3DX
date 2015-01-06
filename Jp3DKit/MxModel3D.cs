@@ -57,9 +57,9 @@ namespace Jp3DKit
 
         public static readonly DependencyProperty BoundsProperty = BoundsPropertyKey.DependencyProperty;
 
-        public IEnumerable<Entity2ModelInfo> Instances
+        public IEnumerable<MxModelInfo> Instances
         {
-            get { return (IEnumerable<Entity2ModelInfo>)this.GetValue(InstancesProperty); }
+            get { return (IEnumerable<MxModelInfo>)this.GetValue(InstancesProperty); }
             set { this.SetValue(InstancesProperty, value); }
         }
 
@@ -67,14 +67,14 @@ namespace Jp3DKit
         /// 
         /// </summary>
         public static readonly DependencyProperty InstancesProperty =
-            DependencyProperty.Register("Instances", typeof(IEnumerable<Entity2ModelInfo>), typeof(MxModel3D), new UIPropertyMetadata(null, InstancesChanged));
+            DependencyProperty.Register("Instances", typeof(IEnumerable<MxModelInfo>), typeof(MxModel3D), new UIPropertyMetadata(null, InstancesChanged));
 
         private static void InstancesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var model = (MxModel3D)d;
             if (e.NewValue != null)
             {
-                model.instanceArray = ((IEnumerable<Entity2ModelInfo>)e.NewValue).ToArray();
+                model.instanceArray = ((IEnumerable<MxModelInfo>)e.NewValue).ToArray();
                 model.UpdateBounds();
             }
             else
@@ -174,7 +174,7 @@ namespace Jp3DKit
         private SharpDX.Direct3D11.DepthStencilState depthStencilState;
 
         //protected MeshGeometry3D geometry;
-        protected Entity2ModelInfo[] instanceArray;
+        protected MxModelInfo[] instanceArray;
 
 
         protected PhongMaterial phongMaterial;
@@ -446,6 +446,7 @@ namespace Jp3DKit
                     
                     if (this.isChanged)
                     {
+                        this.instanceBuffer = Buffer.Create(this.Device, this.instanceArray.Select(x => x.ModelPos).ToArray(), new BufferDescription(Matrix.SizeInBytes * this.instanceArray.Length, ResourceUsage.Dynamic, BindFlags.VertexBuffer, CpuAccessFlags.Write, ResourceOptionFlags.None, 0));
                         DataStream stream;
                         Device.ImmediateContext.MapSubresource(this.instanceBuffer, MapMode.WriteDiscard, global::SharpDX.Direct3D11.MapFlags.None, out stream);
                         stream.Position = 0;

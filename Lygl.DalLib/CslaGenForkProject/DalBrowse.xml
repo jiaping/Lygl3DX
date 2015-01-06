@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<CslaGeneratorUnit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<CslaGeneratorUnit xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Params>
     <DefaultNamespace>Lygl.DalLib</DefaultNamespace>
     <DefaultFolder />
@@ -45,6 +45,7 @@
     <ChangedDateColumn>ChangeDate</ChangedDateColumn>
     <ChangedUserColumn>ChangeUserID</ChangedUserColumn>
     <LogDateAndTime>true</LogDateAndTime>
+    <LogInUtc>false</LogInUtc>
     <GetUserMethod>Security.UserInformation.UserID</GetUserMethod>
   </Params>
   <GenerationParams>
@@ -80,7 +81,7 @@
     <DalObjectNamespace>DataAccess.Sql</DalObjectNamespace>
     <GenerateSprocs>true</GenerateSprocs>
     <OneSpFilePerObject>true</OneSpFilePerObject>
-    <GenerateInlineQueries>false</GenerateInlineQueries>
+    <UseInlineQueries>Never</UseInlineQueries>
     <GenerateQueriesWithSchema>true</GenerateQueriesWithSchema>
     <GenerateDatabaseClass>false</GenerateDatabaseClass>
     <DalName />
@@ -100,12 +101,14 @@
     <CslaObjectInfo>
       <ComponentName />
       <Generate>true</Generate>
+      <GenerateConstructor>true</GenerateConstructor>
       <GenerateFactoryMethods>true</GenerateFactoryMethods>
       <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
       <GenerateDataPortalInsert>false</GenerateDataPortalInsert>
       <GenerateDataPortalUpdate>false</GenerateDataPortalUpdate>
       <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
       <GenerateSprocs>true</GenerateSprocs>
+      <GenerateInlineQueries />
       <DataSetLoadingScheme>false</DataSetLoadingScheme>
       <UseCustomLoading>false</UseCustomLoading>
       <CheckRulesOnFetch>true</CheckRulesOnFetch>
@@ -185,6 +188,7 @@
       <ParentProperties />
       <ParentInsertOnly>false</ParentInsertOnly>
       <LazyLoad>false</LazyLoad>
+      <IsPolymorphic>false</IsPolymorphic>
       <ItemType>PathRO</ItemType>
       <ContainsItem>true</ContainsItem>
       <UniqueItems>false</UniqueItems>
@@ -266,12 +270,14 @@
     <CslaObjectInfo>
       <ComponentName />
       <Generate>true</Generate>
+      <GenerateConstructor>true</GenerateConstructor>
       <GenerateFactoryMethods>true</GenerateFactoryMethods>
       <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
       <GenerateDataPortalInsert>false</GenerateDataPortalInsert>
       <GenerateDataPortalUpdate>false</GenerateDataPortalUpdate>
       <GenerateDataPortalDelete>false</GenerateDataPortalDelete>
       <GenerateSprocs>true</GenerateSprocs>
+      <GenerateInlineQueries />
       <DataSetLoadingScheme>false</DataSetLoadingScheme>
       <UseCustomLoading>false</UseCustomLoading>
       <CheckRulesOnFetch>true</CheckRulesOnFetch>
@@ -499,6 +505,7 @@
       <ParentProperties />
       <ParentInsertOnly>true</ParentInsertOnly>
       <LazyLoad>false</LazyLoad>
+      <IsPolymorphic>false</IsPolymorphic>
       <ItemType />
       <ContainsItem>true</ContainsItem>
       <UniqueItems>false</UniqueItems>
@@ -580,12 +587,14 @@
     <CslaObjectInfo>
       <ComponentName />
       <Generate>true</Generate>
+      <GenerateConstructor>true</GenerateConstructor>
       <GenerateFactoryMethods>true</GenerateFactoryMethods>
       <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
       <GenerateDataPortalInsert>false</GenerateDataPortalInsert>
       <GenerateDataPortalUpdate>false</GenerateDataPortalUpdate>
       <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
       <GenerateSprocs>true</GenerateSprocs>
+      <GenerateInlineQueries />
       <DataSetLoadingScheme>false</DataSetLoadingScheme>
       <UseCustomLoading>false</UseCustomLoading>
       <CheckRulesOnFetch>true</CheckRulesOnFetch>
@@ -688,6 +697,7 @@
                 <IsIdentity>false</IsIdentity>
               </DbBindColumn>
               <ParameterValue />
+              <InlineQueryParameter>Plain</InlineQueryParameter>
             </Property>
           </Properties>
           <CreateOptions>
@@ -748,6 +758,7 @@
                 <IsIdentity>false</IsIdentity>
               </DbBindColumn>
               <ParameterValue />
+              <InlineQueryParameter>Plain</InlineQueryParameter>
             </Property>
           </Properties>
           <CreateOptions>
@@ -808,6 +819,7 @@
                 <IsIdentity>false</IsIdentity>
               </DbBindColumn>
               <ParameterValue />
+              <InlineQueryParameter>Plain</InlineQueryParameter>
             </Property>
           </Properties>
           <CreateOptions>
@@ -845,6 +857,7 @@
       <ParentProperties />
       <ParentInsertOnly>false</ParentInsertOnly>
       <LazyLoad>false</LazyLoad>
+      <IsPolymorphic>false</IsPolymorphic>
       <ItemType>MxRO</ItemType>
       <ContainsItem>true</ContainsItem>
       <UniqueItems>false</UniqueItems>
@@ -926,12 +939,14 @@
     <CslaObjectInfo>
       <ComponentName />
       <Generate>true</Generate>
+      <GenerateConstructor>true</GenerateConstructor>
       <GenerateFactoryMethods>true</GenerateFactoryMethods>
       <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
       <GenerateDataPortalInsert>false</GenerateDataPortalInsert>
       <GenerateDataPortalUpdate>false</GenerateDataPortalUpdate>
       <GenerateDataPortalDelete>false</GenerateDataPortalDelete>
       <GenerateSprocs>true</GenerateSprocs>
+      <GenerateInlineQueries />
       <DataSetLoadingScheme>false</DataSetLoadingScheme>
       <UseCustomLoading>false</UseCustomLoading>
       <CheckRulesOnFetch>true</CheckRulesOnFetch>
@@ -1955,6 +1970,7 @@
       <ParentProperties />
       <ParentInsertOnly>true</ParentInsertOnly>
       <LazyLoad>false</LazyLoad>
+      <IsPolymorphic>false</IsPolymorphic>
       <ItemType />
       <ContainsItem>true</ContainsItem>
       <UniqueItems>false</UniqueItems>
@@ -2036,12 +2052,14 @@
     <CslaObjectInfo>
       <ComponentName />
       <Generate>true</Generate>
+      <GenerateConstructor>true</GenerateConstructor>
       <GenerateFactoryMethods>true</GenerateFactoryMethods>
       <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
       <GenerateDataPortalInsert>false</GenerateDataPortalInsert>
       <GenerateDataPortalUpdate>false</GenerateDataPortalUpdate>
       <GenerateDataPortalDelete>true</GenerateDataPortalDelete>
       <GenerateSprocs>true</GenerateSprocs>
+      <GenerateInlineQueries />
       <DataSetLoadingScheme>false</DataSetLoadingScheme>
       <UseCustomLoading>false</UseCustomLoading>
       <CheckRulesOnFetch>true</CheckRulesOnFetch>
@@ -2144,6 +2162,7 @@
                 <IsIdentity>false</IsIdentity>
               </DbBindColumn>
               <ParameterValue />
+              <InlineQueryParameter>Plain</InlineQueryParameter>
             </Property>
           </Properties>
           <CreateOptions>
@@ -2181,6 +2200,7 @@
       <ParentProperties />
       <ParentInsertOnly>false</ParentInsertOnly>
       <LazyLoad>false</LazyLoad>
+      <IsPolymorphic>false</IsPolymorphic>
       <ItemType>AreaRO</ItemType>
       <ContainsItem>true</ContainsItem>
       <UniqueItems>false</UniqueItems>
@@ -2324,12 +2344,14 @@
     <CslaObjectInfo>
       <ComponentName />
       <Generate>true</Generate>
+      <GenerateConstructor>true</GenerateConstructor>
       <GenerateFactoryMethods>true</GenerateFactoryMethods>
       <GenerateDataAccessRegion>true</GenerateDataAccessRegion>
       <GenerateDataPortalInsert>false</GenerateDataPortalInsert>
       <GenerateDataPortalUpdate>false</GenerateDataPortalUpdate>
       <GenerateDataPortalDelete>false</GenerateDataPortalDelete>
       <GenerateSprocs>true</GenerateSprocs>
+      <GenerateInlineQueries />
       <DataSetLoadingScheme>false</DataSetLoadingScheme>
       <UseCustomLoading>false</UseCustomLoading>
       <CheckRulesOnFetch>true</CheckRulesOnFetch>
@@ -2618,6 +2640,7 @@
       <ParentProperties />
       <ParentInsertOnly>true</ParentInsertOnly>
       <LazyLoad>false</LazyLoad>
+      <IsPolymorphic>false</IsPolymorphic>
       <ItemType />
       <ContainsItem>true</ContainsItem>
       <UniqueItems>false</UniqueItems>

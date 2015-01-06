@@ -17,6 +17,7 @@ using Lygl.DalLib.Browse;
 using Lygl.UI.Framework;
 using Lygl.DalLib.UserManager;
 using Lygl.UI.Shell;
+using Jp3DKit;
 
 namespace Lygl.UI.Edit.ViewModels
 {
@@ -120,11 +121,18 @@ namespace Lygl.UI.Edit.ViewModels
         }
         public void Handle(SaveMxDataMessage message)
         {
+            MxRO oldmx=IoC.Get<IGlobalData>().GetMxRO(this.Model.MxID);
+            MxModelInfo oldMMI=ModelInstancesManager.GetMxModelInfo(oldmx);
             if (base.CMSave())
             {
                 //更新全局缓存,自动更新Graphy
                 IoC.Get<IGlobalData>().UpdateMx(Model);
                 if (_isNew) this.TryClose(true);
+                MxRO mx=IoC.Get<IGlobalData>().GetMxRO(this.Model.MxID);
+                MxModelInfo currentMMI = ModelInstancesManager.GetMxModelInfo(mx);
+                //显示模型改变时需要更新显示
+                if (oldMMI.ModelFileName!=currentMMI.ModelFileName)
+                    IoC.Get<IGlobalData>().ViewPort3DX.MxSceneModel.UpdateMxModel(mx.AreaID.ToString(), oldMMI, currentMMI);
             } 
         }
         public void Handle(CancelMxDataMessage message)

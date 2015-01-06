@@ -216,7 +216,8 @@ namespace Lygl.UI.ViewModels
             //this._viewport.Items.Add(pointLightSphere);
             #endregion
             ModelInstancesManager.LoadTerrainSceneModel(_viewport);  //
-            ModelInstancesManager.LoadEntityModelInfo(IoC.Get<IGlobalData>().Areas);
+            //ModelInstancesManager.LoadEntityModelInfo(IoC.Get<IGlobalData>().Areas);
+            ModelInstancesManager.LoadMxModelInfo(IoC.Get<IGlobalData>().Areas);
             ModelInstancesManager.LoadModels(_viewport); 
             
                   
@@ -275,7 +276,7 @@ namespace Lygl.UI.ViewModels
                     ModifyMxPosHandler mm = handler as ModifyMxPosHandler;
                     if (handler == null) break;
                     var bb = mm.MxEMI;
-                    SaveModifiedMxPositions(bb.EntityID.ToString(), bb.ModelPos.ToMatrix3D().ToString());
+                    SaveModifiedMxPositions(bb.MxID.ToString(), bb.ModelPos.ToMatrix3D().ToString());
                     ModelInstancesManager.AddMxToMxModel(bb,this._viewport);
                     break;
                     
@@ -307,7 +308,7 @@ namespace Lygl.UI.ViewModels
             var bb = mm.MxEMI;
             if (!mm.IsCanceled)
             {
-                SaveModifiedMxPositions(bb.EntityID.ToString(), bb.ModelPos.ToMatrix3D().ToString());
+                SaveModifiedMxPositions(bb.MxID.ToString(), bb.ModelPos.ToMatrix3D().ToString());
             }
                 ModelInstancesManager.AddMxToMxModel(bb, this._viewport);
         } 
@@ -324,6 +325,11 @@ namespace Lygl.UI.ViewModels
             area.GeometryText = geometryText;
             area.Save();
         }
+       /// <summary>
+       /// 保存墓穴位置的更改
+       /// </summary>
+       /// <param name="mxID"></param>
+       /// <param name="mxPos"></param>
         private void SaveModifiedMxPositions(string mxID, string mxPos)
         {
             MxEdit mx=MxEdit.GetMxEdit(new Guid(mxID));
@@ -372,13 +378,13 @@ namespace Lygl.UI.ViewModels
                         {
                             if (item.IsValid)
                             {
-                                if (item.Tag != null)  //墓穴对象返回的tag
+                                if (item.Tag != null)  //墓穴对象返回的tag  "6eb58029-254f-4952-9d0a-c7acd1eddeef:DS:9ea6d4b1-8767-4cc2-8dbf-cce84cb152da:Matrix:1,0,0,0,0,1,0,0,0,0,1,0,-10.1831073760986,-3.48200225830078,42.3675689697266,1"
                                 {
                                     modelID = (string)item.Tag;
                                     var ss = modelID.Split(new char[] { ':' });
-                                    if (ss[3] == "MX")    //TODO: if not =="Mx"  
+                                    if(ss.Length==5) //  (ss[3] == "MX")    //TODO: if not =="Mx"  
                                     {
-                                        MxRO mx = IoC.Get<IGlobalData>().GetMxRO(new Guid(ss[1]), new Guid(ss[4]));
+                                        MxRO mx = IoC.Get<IGlobalData>().GetMxRO(new Guid(ss[0]), new Guid(ss[2]));
                                         IoC.Get<IGlobalData>().CurrentMx = mx;
                                         //if (mx.MxStatusID==0)
                                             //IoC.Get<IEventAggregator>().Publish(new Lygl.UI.Framework.DispBusinessYdMessage());
@@ -666,7 +672,9 @@ namespace Lygl.UI.ViewModels
             }
         }
 #endif
-        [Obsolete()]
+
+        #region Obsolete
+        /* [Obsolete()]
         private void StartModifyModel(string modelTag)
         {
             var ss = modelTag.Split(new char[] { ':' });
@@ -676,7 +684,17 @@ namespace Lygl.UI.ViewModels
                 IoC.Get<IGlobalData>().CurrentMx = mx;
                 ModelInstancesManager.StartModifyModel(modelTag, _viewport);
             }
+        }  
+         /// <summary>
+        /// 处理模型位置修改结束动作
+        /// </summary>
+        private void EndModifyModel()
+        {
+            
+            ModelInstancesManager.CompleteModelPosModify(_viewport);
         }
+        */
+        #endregion
 
 
         private void CreateNewMq(string mqGeometryPositions)
@@ -702,7 +720,7 @@ namespace Lygl.UI.ViewModels
                 IoC.Get<IGlobalData>().AreaMxsDictAdd(newArea.AreaID);   //更新全局列表缓存
                 IoC.Get<IGlobalData>().Areas.Add(newArea.AreaID);
                 ModelInstancesManager.DispAreaModel(_viewport, IoC.Get<IGlobalData>().Areas.FindAreaROByAreaID(newArea.AreaID), true);
-                ModelInstancesManager.AddAreaItems2MxModelInstancesDict(newArea.AreaID);  //添加墓穴模型实例字典中墓区的分类列表                                
+                //ModelInstancesManager.AddAreaItems2MxModelInstancesDict(newArea.AreaID);  //添加墓穴模型实例字典中墓区的分类列表                                
             }
         }
 
@@ -719,6 +737,7 @@ namespace Lygl.UI.ViewModels
                 {
                     if (item.Tag != null)  //墓穴对象返回的tag
                     {
+                        System.Windows.MessageBox.Show("请在墓区范围内空白处点击，确定新建墓穴！");
                         return;
                     }
                     else
@@ -779,18 +798,11 @@ namespace Lygl.UI.ViewModels
                 IoC.Get<IGlobalData>().AreaMxsDictAdd(currentArea.AreaID);   //更新全局列表缓存
                 return;
             }
-            Entity2ModelInfo emi = new Entity2ModelInfo(EntityType.MX, newMx.MxID);
+            MxModelInfo emi = new MxModelInfo( newMx.MxID.ToString());
             emi.ModelPos = new Matrix(newMx.Pos.Split(new char[] { ',' }).Select(x => float.Parse(x)).ToArray());
             ModelInstancesManager.AddMxToMxModel(emi, _viewport);    
         }
-        /// <summary>
-        /// 处理模型位置修改结束动作
-        /// </summary>
-        private void EndModifyModel()
-        {
-            
-            ModelInstancesManager.CompleteModelPosModify(_viewport);
-        }
+       
         #endregion
 
         #region 命令按钮相关

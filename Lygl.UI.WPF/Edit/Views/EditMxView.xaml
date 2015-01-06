@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+     xmlns:b="clr-namespace:Lygl.UI.Framework.Controls"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
     xmlns:vr="clr-namespace:Lygl.UI.Framework.ValidateRules"
     xmlns:vc="clr-namespace:Lygl.UI.Framework.Converters"
@@ -50,7 +51,7 @@
                     <Label Content="墓穴名:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Grid.ColumnSpan="1" />
                     <TextBox x:Name="nameTextBox" Text="{Binding MxName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}" IsEnabled="True" Grid.Column="1" TabIndex="0" Margin="1" />
                     <Label Content="墓价:" Grid.Row="2" d:LayoutOverrides="Width, Height" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Grid.Column="1" Margin="84,0,0,0" />
-                    <TextBox Grid.Row="2" x:Name="priceTextBox" Text="{Binding Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged, Path=Price, StringFormat=\{0:N\}}" IsEnabled="True" Grid.Column="3" TabIndex="1" Margin="1" />
+                    <TextBox  b:Masking.Mask="^\d{0,4}(\.)?$|^\d{1,4}(\.\d{1,2})?$"  Grid.Row="2" x:Name="priceTextBox" Text="{Binding Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged, Path=Price, StringFormat=\{0:N\}}" IsEnabled="True" Grid.Column="3" TabIndex="1" Margin="1" />
                     <Label Content="风格:" Grid.Column="2" Grid.Row="0" d:LayoutOverrides="Height" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Grid.ColumnSpan="1" />
                     <!--<dxg:LookUpEdit ItemsSource="{Binding Path=DataContext.MxTypeList,RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}" EditValue="{Binding MxType, Mode=TwoWay}"   DisplayMember="Value" ValueMember="Value" Grid.Column="3" Grid.Row="15" HorizontalAlignment="Left" Margin="3,9,0,0" VerticalAlignment="Top" Width="150" AutoPopulateColumns="False">
                     <dxg:LookUpEdit.PopupContentTemplate>

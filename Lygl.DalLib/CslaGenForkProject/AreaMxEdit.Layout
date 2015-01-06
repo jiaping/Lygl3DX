@@ -4,26 +4,29 @@
   <ProjectListFilterType>&lt;All&gt;</ProjectListFilterType>
   <ProjectListSortMode>None</ProjectListSortMode>
   <ProjectListSelectedObjects>
-    <string>PathEdit</string>
+    <string>MxEdit</string>
   </ProjectListSelectedObjects>
   <ObjectCollapsedCategories />
   <ObjectPropertySort>Categorized</ObjectPropertySort>
   <ObjectSelectedGridItem>Support Update Properties</ObjectSelectedGridItem>
-  <SchemaExpandedTrees>
-    <string>Tables</string>
-    <string>Stored Procedures</string>
-  </SchemaExpandedTrees>
-  <SchemaSelectedTree>Stored Procedures</SchemaSelectedTree>
+  <SchemaExpandedTrees />
+  <SchemaSelectedTree />
   <SchemaExpandedNodes />
-  <SchemaSelectedNode>dbo.AddArea</SchemaSelectedNode>
+  <SchemaSelectedNode />
   <SchemaSelectedSprocSubNode />
-  <ActiveDocument>ProjectProperties</ActiveDocument>
+  <ActiveDocument>DbSchemaPanel</ActiveDocument>
+  <RelationsBuilderTabHidden>false</RelationsBuilderTabHidden>
   <RelationsBuilderTab>AllObjectsTab</RelationsBuilderTab>
   <RelationsBuilderSelectedObject />
   <RelationsBuilderCollapsedCategories />
   <RelationsBuilderPropertySort>Categorized</RelationsBuilderPropertySort>
   <RelationsBuilderSelectedGridItem />
-  <ProjectPropertiesMainTab>StoredProcsTab</ProjectPropertiesMainTab>
-  <ProjectPropertiesSubTab />
+  <ProjectPropertiesMainTabHidden>false</ProjectPropertiesMainTabHidden>
+  <ProjectPropertiesMainTab>GenerationTab</ProjectPropertiesMainTab>
+  <ProjectPropertiesSubTab>GenerationMiscTab</ProjectPropertiesSubTab>
+  <GlobalSettingsMainTabHidden>false</GlobalSettingsMainTabHidden>
+  <GlobalSettingsMainTab>GenerationTab</GlobalSettingsMainTab>
+  <GlobalSettingsSubTab />
+  <StartPageMainTabHidden>false</StartPageMainTabHidden>
   <LayoutFileVersion>1.0</LayoutFileVersion>
 </CslaGeneratorUnitLayout>

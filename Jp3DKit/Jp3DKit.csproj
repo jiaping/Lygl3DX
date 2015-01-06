@@ -101,7 +101,7 @@
     <Compile Include="DecorateModel\SelectedDecorateModel3D.cs" />
     <Compile Include="DrawShapeRecord.cs" />
     <Compile Include="Frustum.cs" />
-    <Compile Include="IModelInfo.cs" />
+    <Compile Include="MxModelInfo.cs" />
     <Compile Include="InteractionHandle3D.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="JpCompositeModel3D.cs" />

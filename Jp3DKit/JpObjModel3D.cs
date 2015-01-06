@@ -46,9 +46,9 @@ namespace Jp3DKit
         public static readonly DependencyProperty ModelPathProperty =
             DependencyProperty.Register("ModelPath", typeof(string), typeof(JpObjModel3D), new PropertyMetadata(null));
 
-        public IEnumerable<Entity2ModelInfo> Instances
+        public IEnumerable<MxModelInfo> Instances
         {
-            get { return (IEnumerable<Entity2ModelInfo>)this.GetValue(InstancesProperty); }
+            get { return (IEnumerable<MxModelInfo>)this.GetValue(InstancesProperty); }
             set { this.SetValue(InstancesProperty, value); }
         }
 
@@ -56,14 +56,14 @@ namespace Jp3DKit
         /// 
         /// </summary>
         public static readonly DependencyProperty InstancesProperty =
-            DependencyProperty.Register("Instances", typeof(IEnumerable<Entity2ModelInfo>), typeof(JpObjModel3D), new UIPropertyMetadata(null, InstancesChanged));
+            DependencyProperty.Register("Instances", typeof(IEnumerable<MxModelInfo>), typeof(JpObjModel3D), new UIPropertyMetadata(null, InstancesChanged));
 
         private static void InstancesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var model = (JpObjModel3D)d;
             if (e.NewValue != null)
             {
-                model.instanceArray = ((IEnumerable<Entity2ModelInfo>)e.NewValue).ToArray();
+                model.instanceArray = ((IEnumerable<MxModelInfo>)e.NewValue).ToArray();
             }
             else
             {
@@ -151,7 +151,7 @@ namespace Jp3DKit
         private SharpDX.Direct3D11.DepthStencilState depthStencilState;
 
         protected MeshGeometry3D geometry;
-        protected Entity2ModelInfo[] instanceArray;
+        protected MxModelInfo[] instanceArray;
 
 
         protected PhongMaterial phongMaterial;
@@ -765,7 +765,7 @@ namespace Jp3DKit
                     {
                         hit = true;
                         var lastHit = hits[hits.Count - 1];
-                        lastHit.Tag =this.Tag.ToString()+":"+ modeinfo.ModelID;  //返回实体对象的ID
+                        lastHit.Tag =this.Tag.ToString()+":"+ modeinfo.MxID;  //返回实体对象的ID
                         //#if DEBUG
                         //                        System.Diagnostics.Debug.WriteLine("hitTest ModelID:" + modeinfo.ModelID);
                         //#endif

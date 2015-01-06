@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<CslaGeneratorUnitLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<CslaGeneratorUnitLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProjectListFilterText />
   <ProjectListFilterType>&lt;All&gt;</ProjectListFilterType>
   <ProjectListSortMode>None</ProjectListSortMode>
@@ -16,13 +16,19 @@
   <SchemaExpandedNodes />
   <SchemaSelectedNode>dbo.Area</SchemaSelectedNode>
   <SchemaSelectedSprocSubNode />
-  <ActiveDocument>ObjectRelationsBuilder</ActiveDocument>
-  <RelationsBuilderTab>OneToManyTab</RelationsBuilderTab>
+  <ActiveDocument>DbSchemaPanel</ActiveDocument>
+  <RelationsBuilderTabHidden>false</RelationsBuilderTabHidden>
+  <RelationsBuilderTab>AllObjectsTab</RelationsBuilderTab>
   <RelationsBuilderSelectedObject />
   <RelationsBuilderCollapsedCategories />
   <RelationsBuilderPropertySort>Categorized</RelationsBuilderPropertySort>
   <RelationsBuilderSelectedGridItem />
+  <ProjectPropertiesMainTabHidden>false</ProjectPropertiesMainTabHidden>
   <ProjectPropertiesMainTab>GenerationTab</ProjectPropertiesMainTab>
   <ProjectPropertiesSubTab>GenerationTargetTab</ProjectPropertiesSubTab>
+  <GlobalSettingsMainTabHidden>false</GlobalSettingsMainTabHidden>
+  <GlobalSettingsMainTab>GenerationTab</GlobalSettingsMainTab>
+  <GlobalSettingsSubTab />
+  <StartPageMainTabHidden>false</StartPageMainTabHidden>
   <LayoutFileVersion>1.0</LayoutFileVersion>
 </CslaGeneratorUnitLayout>

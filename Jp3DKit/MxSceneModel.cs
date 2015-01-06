@@ -82,7 +82,8 @@ namespace Jp3DKit
                                         //n.Normalize();
                                         //// transform hit-info to world space now:
                                         //result.NormalAtHit = n.ToVector3D();// Vector3.TransformNormal(n, m).ToVector3D();
-                                        result.Tag = item.Value.Tag.ToString() + ":" + modeinfo.ModelID + ":Matrix:" + modeinfo.ModelPos.ToMatrix3D().ToString();
+                                        result.Tag = modeinfo.MxID + ":Matrix:" + modeinfo.ModelPos.ToMatrix3D().ToString();
+                                       // result.Tag = item.Value.Tag.ToString() + ":" + modeinfo.MxID + ":Matrix:" + modeinfo.ModelPos.ToMatrix3D().ToString();
                                     }
                                     hit = true;
                                 }
@@ -129,7 +130,7 @@ namespace Jp3DKit
         //    //DrawBoundBox();
         //}
 
-        public MxSceneModel(JPViewport3DX vp, Dictionary<string, List<Entity2ModelInfo>> dict)
+        public MxSceneModel(JPViewport3DX vp, Dictionary<string, List<MxModelInfo>> dict)
         {
             mxModelsDict = new Dictionary<string,MxModel3D>();
             //todo:: IntCollection.Parse();需要研究它的原理
@@ -149,39 +150,31 @@ namespace Jp3DKit
                 DispMxModelInstanceDictItem( item);
             }   
         }
-        private  void DispMxModelInstanceDictItem( KeyValuePair<string, List<Entity2ModelInfo>> item, bool forceAttach = false)
+        private void DispMxModelInstanceDictItem(KeyValuePair<string, List<MxModelInfo>> item)
         {
-            string modelfilename;
-            switch (item.Key.Substring(item.Key.Length - 2, 2))
-            {
-                case "DS": modelfilename = "mx0.obj"; break;
-                case "YS": modelfilename = "mx1.obj"; break;
-                default:
-                    modelfilename = "mx.obj";
-                    break;
-            }           
-                #region 墓穴对象使用实例模式
-                var mxModel = new MxModel3D(modelfilename);
-                //mxModel.ModelFileName = modelFileName;
-                mxModel.Instances = item.Value;
-                mxModel.Tag = item.Key;
-                this.Tag = "JpMxModel3D";
-                this.mxModelsDict.Add(item.Key, mxModel);
-                if (mxModel.Instances.Count() > 0)
-                    this.Children.Add(mxModel);
-                #endregion
-                #region 墓穴对象不使用实例模式
-                //JpObjReader reader = new JpObjReader();
-                //var bb = reader.Read(AppDomain.CurrentDomain.BaseDirectory + @"3DModel\mx.obj");
-                //foreach (var mxmatrix in item.Value)
-                //{
-                //    var models = new ObjModel3D(bb);
-                //    //var models = new MxModel3D(modelfilename);
-                //    models.PushMatrix(mxmatrix.ModelPos);
-                //    models.Tag = item.Key;
-                //    this.Children.Add(models);
-                //}
-                #endregion           
+            string modelfilename = item.Key.Split(new char[] { ':' })[1];  //{[f5ddad78-8185-4ecd-8a79-117aea643796:mx.obj
+
+            #region 墓穴对象使用实例模式
+            var mxModel = new MxModel3D(modelfilename);
+            //mxModel.ModelFileName = modelFileName;
+            mxModel.Instances = item.Value;
+            mxModel.Tag = item.Key;
+            this.mxModelsDict.Add(item.Key, mxModel);
+            if (mxModel.Instances.Count() > 0)
+                this.Children.Add(mxModel);
+            #endregion
+            #region 墓穴对象不使用实例模式
+            //JpObjReader reader = new JpObjReader();
+            //var bb = reader.Read(AppDomain.CurrentDomain.BaseDirectory + @"3DModel\mx.obj");
+            //foreach (var mxmatrix in item.Value)
+            //{
+            //    var models = new ObjModel3D(bb);
+            //    //var models = new MxModel3D(modelfilename);
+            //    models.PushMatrix(mxmatrix.ModelPos);
+            //    models.Tag = item.Key;
+            //    this.Children.Add(models);
+            //}
+            #endregion
         }
         /// <summary>
         /// 重设MxModel3D的墓穴实例
@@ -189,14 +182,23 @@ namespace Jp3DKit
         /// </summary>
         /// <param name="areaTag"></param>
         /// <param name="list"></param>
-        public void ResetMxModelInstances(string mxAreaClassifyTag, List<Entity2ModelInfo> list)
+        public void ResetMxModelInstances(string mxAreaClassifyTag, List<MxModelInfo> list)
         {            
             MxModel3D mxModel;
             mxModelsDict.TryGetValue(mxAreaClassifyTag, out mxModel);
-            mxModel.Instances=null;
-            mxModel.Instances = list;            
+            if (mxModel == null)
+            {
+                mxModel = new MxModel3D(mxAreaClassifyTag.Split(new char[] { ':' })[1]);
+                mxModelsDict.Add(mxAreaClassifyTag, mxModel);
+                mxModel.Instances = list;
+                this.Children.Add(mxModel);
+            }
+            else
+            {
+                mxModel.Instances = null;
+                mxModel.Instances = list;
+            }
         }
-
        
         /// <summary>
         /// 处理鼠标点击，改变当前墓穴，显示当前墓穴图标
@@ -212,7 +214,7 @@ namespace Jp3DKit
             string mxtag = ee.HitTestResult.Tag.ToString();
             //var bb = mxtag.Substring(mxtag.IndexOf("Matrix") + 6).Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(x => float.Parse(x)).ToArray();
             var cc = mxtag.Split(new char[] { ':' });
-            var bb = cc[6].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(x => float.Parse(x)).ToArray();
+            var bb = cc[4].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(x => float.Parse(x)).ToArray();
             Matrix matrix = new Matrix(bb);
             //MouseUp3DEventArgs ee = (MouseUp3DEventArgs)e;
             //    string mxtag = ee.HitTestResult.Tag.ToString();
@@ -222,8 +224,8 @@ namespace Jp3DKit
                 this.selectedCurcle.PositionPoint = newSelectPoint.ToVector3D();
                 //this.hoveredCurcle.Transform = CreateAnimatedTransform1(this.selectPoint.ToVector3D(), new Vector3D(0, 1, 0), 3);
                 this.selectedCurcle.IsActive = true;
-                this.CurrentMxID = cc[4];
-                this.CurrentMqID = cc[1];
+                this.CurrentMxID = cc[2];
+                this.CurrentMqID = cc[0];
                 this.RaiseEvent(new CurrentMxChangedEventArgs(JPViewport3DX.CurrentMxChangedEvent, this.CurrentMqID, this.CurrentMxID));
         }
      /// <summary>
@@ -245,7 +247,7 @@ namespace Jp3DKit
                 this.selectPoint = newSelectPoint;
                 this.hoveredCurcle.PositionPoint = this.selectPoint.ToVector3D();
                 //this.hoveredCurcle.Transform = CreateAnimatedTransform1(this.selectPoint.ToVector3D(), new Vector3D(0, 1, 0), 3);
-                this.hoveredCurcle.IsActive = true;
+                this.hoveredCurcle.IsActive = true; 
                 //this.Children.Add(selectCurcle);
             }
             else
@@ -269,29 +271,6 @@ namespace Jp3DKit
 
         public override bool HitTest(Ray rayWS, ref List<HitTestResult> hits)
         {
-            //bool hit = false;
-            //foreach (var c in this.Children)
-            //{
-            //    var hc = c as IHitable;
-            //    if (hc != null)
-            //    {
-            //        if (hc.HitTest(ray, ref hits))
-            //        {
-            //            hit = true;
-            //        }
-            //    }
-            //}
-            //这里处理鼠标命中mxModel时将hits对象列表中最后一个替换为当前对象也即JpMxModel3D
-           //这样当前对象即可处理onMouse3dDown这样的事件
-            //if (hit)
-            //{
-            //    var lastHit = hits[hits.Count - 1];
-            //    lastHit.ModelHit = this;
-            //    hits[hits.Count - 1] = lastHit;
-            //}
-            //return hit;
-
-
             if (this.Visibility == Visibility.Collapsed)
             {
                 return false;
@@ -331,7 +310,7 @@ namespace Jp3DKit
                                         //n.Normalize();
                                         //// transform hit-info to world space now:
                                         //result.NormalAtHit = n.ToVector3D();// Vector3.TransformNormal(n, m).ToVector3D();
-                                        result.Tag = item.Value.Tag.ToString() + ":" + modeinfo.ModelID + ":Matrix:" + modeinfo.ModelPos.ToMatrix3D().ToString();
+                                        result.Tag = item.Value.Tag.ToString() + ":" + modeinfo.MxID + ":Matrix:" + modeinfo.ModelPos.ToMatrix3D().ToString();
                                     }
                                     hit = true;
                                 }
@@ -350,7 +329,43 @@ namespace Jp3DKit
             }
             return false;
         }
-
+        /// <summary>
+        /// 更新mx的显示模型
+        /// 只有当显示模型发生改变时，也即显示的分类发生改变时才有必要调用
+        /// </summary>
+        /// <param name="areaID"></param>
+        /// <param name="oldMMI"></param>
+        /// <param name="currentMMI"></param>
+        public void UpdateMxModel(string areaID,MxModelInfo oldMMI,MxModelInfo currentMMI)
+        {
+            MxModel3D mxModel;
+            //先移除原来的
+            string classifyName=MxModelInfo.GetAreaMxsClassifyName(areaID,oldMMI);
+            mxModelsDict.TryGetValue(classifyName, out mxModel);
+            if (mxModel == null) throw new Exception("没找到分类名为："+classifyName+"的墓穴");
+                List<MxModelInfo> list = (List<MxModelInfo>)mxModel.Instances;
+                list.Remove(list.Find(o => o.MxID == oldMMI.MxID));
+                mxModel.Instances = null;
+                mxModel.Instances = list;
+            //将新的添加到相应的显示模块中           
+                string newClassifyName = MxModelInfo.GetAreaMxsClassifyName(areaID, currentMMI);
+                mxModelsDict.TryGetValue(newClassifyName, out mxModel);
+                if (mxModel == null)
+                {
+                    mxModel = new MxModel3D(currentMMI.ModelFileName);
+                    mxModel.Tag = newClassifyName;
+                    mxModelsDict.Add(newClassifyName, mxModel);
+                    mxModel.Instances = new List<MxModelInfo>(new [] {currentMMI});
+                    this.Children.Add(mxModel);
+                }
+                else
+                {
+                    List<MxModelInfo> list1 = (List<MxModelInfo>)mxModel.Instances;
+                    list1.Add(currentMMI);
+                    mxModel.Instances = null;
+                    mxModel.Instances = list1;
+                }
+        }
         
         ///利用d3d方式实现动画 obsolute
         //Int64 lastTime;
