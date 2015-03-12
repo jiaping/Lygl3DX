@@ -90,6 +90,8 @@ namespace Jp3DKit
             //this.CommandBindings.Add(new CommandBinding(ViewportCommands.SetTarget, this.SetTargetHandler));
             SetGestures();
             this.OperateMode = OperateMode.None;
+            //var camera = this.Camera as PerspectiveCamera;
+            //camera.FieldOfView = 46;
         }
 
         private void SetTargetHandler(object sender, ExecutedRoutedEventArgs e)
